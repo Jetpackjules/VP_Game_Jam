@@ -8,15 +8,17 @@ func _ready():
 	spawn_enemy()  # Spawn the first enemy immediately
 
 func spawn_enemy():
-	
 	var enemy = EnemyScene.instance()  # Create an instance of the enemy
-	enemy.global_position = get_random_spawn_position()  # Set its position off-screen
 	get_parent().add_child(enemy)  # Add it to the scene tree
-	player.enemies.append(enemy)
+	enemy.global_position = get_random_spawn_position()  # Set its position off-screen
+	call_deferred("deferred_append_enemy", enemy)
 
 	var spawn_time = rand_range(spawn_time_range.x, spawn_time_range.y)
 	yield(get_tree().create_timer(spawn_time), "timeout")  # Wait for a random amount of time
 	spawn_enemy()  # Then spawn another enemy
+
+func deferred_append_enemy(enemy):
+	player.enemies.append(enemy)
 
 func get_random_spawn_position():
 	var viewport_size = get_viewport_rect().size
