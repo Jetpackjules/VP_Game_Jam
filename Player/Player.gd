@@ -10,11 +10,24 @@ var water_shader = load("res://Water_Shader.tres")
 # State variables
 var velocity: Vector2 = Vector2()
 var line : Line2D
-var enemies : Array
+var enemies : Array = []
+var closest_enemy = null
+
 
 func _ready():
 	line = get_node("Line2D")
-	enemies = get_tree().get_nodes_in_group("enemies")
+#	enemies = get_tree().get_nodes_in_group("enemies")
+
+func _input(event):
+	if event is InputEventKey:
+		if event.pressed and event.scancode == KEY_SPACE:
+			if closest_enemy != null:
+				enemies.erase(closest_enemy)
+				closest_enemy.queue_free()  # Remove the enemy from the scene
+				closest_enemy = null
+
+
+
 
 func _process(delta):
 	# Get input direction
@@ -24,6 +37,7 @@ func _process(delta):
 		direction.y -= 1
 	if Input.is_action_pressed("ui_down"):
 		direction.y += 1
+		
 
 	if direction.length() > 0:
 		# Accelerate
@@ -46,7 +60,6 @@ func _process(delta):
 	var player_screen_pos = get_global_position() / screen_size
 	water_shader.set_shader_param("player_pos", player_screen_pos)
 
-	var closest_enemy = null
 	var min_distance = INF
 
 	for enemy in enemies:
