@@ -1,15 +1,17 @@
-[gd_resource type="ShaderMaterial" load_steps=6 format=2]
+[gd_resource type="ShaderMaterial" load_steps=2 format=2]
 
 [ext_resource path="res://2d_simple_water.gdshader" type="Shader" id=1]
-[ext_resource path="res://assets/noise_texture.tres" type="Texture" id=2]
-[ext_resource path="res://assets/wave.png" type="Texture" id=3]
-[ext_resource path="res://assets/wave2.png" type="Texture" id=4]
-[ext_resource path="res://assets/Ground.png" type="Texture" id=5]
 
 [resource]
 shader = ExtResource( 1 )
-shader_param/player_pos = null
-shader_param/bg = ExtResource( 5 )
-shader_param/wave1 = ExtResource( 3 )
-shader_param/wave2 = ExtResource( 4 )
-shader_param/noise = ExtResource( 2 )
+shader_param/OCTAVE = 12
+shader_param/timescale = 5.0
+shader_param/CLOUD1_COL = Color( 0.41, 0.64, 0.78, 0.4 )
+shader_param/CLOUD2_COL = Color( 0.99, 0.79, 0.46, 0.2 )
+shader_param/CLOUD3_COL = Color( 0.81, 0.31, 0.59, 1 )
+shader_param/CLOUD4_COL = Color( 0.27, 0.15, 0.33, 1 )
+shader_param/SPACE = Color( 0.09, 0.06, 0.28, 0.3 )
+shader_param/zoomScale = 10.0
+shader_param/size = 10.0
+shader_param/starscale = 20.0
+shader_param/prob = 0.98

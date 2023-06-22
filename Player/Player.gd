@@ -1,12 +1,13 @@
 extends KinematicBody2D
 
 # Configurable variables
-var acceleration: float = 200.0  # Increased
-var max_speed: float = 300.0     # Increased
+var acceleration: float = 400.0  # Increased
+var max_speed: float = 500.0     # Increased
 var deceleration: float = 100.0  # Increased
 var rotation_speed: float = 3.0  # Increased
 
 var water_shader = load("res://Water_Shader.tres")
+onready var camera = get_node("../Camera2D")
 # State variables
 var velocity: Vector2 = Vector2()
 var line : Line2D
@@ -30,21 +31,19 @@ func _input(event):
 
 
 func _process(delta):
-	# Get input direction
-	var direction: Vector2 = Vector2()
+	# Get input for thrust
+	var thrust: float = 0.0
 
 	if Input.is_action_pressed("ui_up"):
-		direction.y -= 1
-	if Input.is_action_pressed("ui_down"):
-		direction.y += 1
-		
+		thrust = 1.0
 
-	if direction.length() > 0:
+	if thrust > 0:
 		# Accelerate
-		velocity += direction.normalized() * acceleration * delta
+		var accel_direction = Vector2(0, -1).rotated(rotation)
+		velocity += accel_direction * acceleration * delta
 		velocity = velocity.clamped(max_speed)
 	else:
-		# Decelerate
+		# We don't have deceleration in Asteroids, but if you'd like it:
 		velocity = velocity.move_toward(Vector2(), deceleration * delta)
 
 	# Handle rotation
@@ -54,9 +53,20 @@ func _process(delta):
 		rotation += rotation_speed * delta
 
 	# Move the boat
-	move_and_slide(velocity.rotated(rotation))
+	move_and_slide(velocity)
 
-	var screen_size = get_viewport_rect().size
+	# Screen wrapping logic
+	var screen_size = get_viewport_rect().size*camera.zoom.x
+	if position.x < -screen_size.x/2:
+		position.x = screen_size.x/2
+	elif position.x > screen_size.x/2:
+		position.x = -screen_size.x/2
+	if position.y < -screen_size.y/2:
+		position.y = screen_size.y/2
+	elif position.y > screen_size.y/2:
+		position.y = -screen_size.y/2
+	
+	
 	var player_screen_pos = get_global_position() / screen_size
 	water_shader.set_shader_param("player_pos", player_screen_pos)
 
