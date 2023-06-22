@@ -12,14 +12,22 @@ extents = Vector2( 32, 32 )
 
 [node name="Background" type="ColorRect" parent="."]
 material = ExtResource( 3 )
-anchor_right = 1.0
-anchor_bottom = 1.0
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
 margin_left = -1280.0
 margin_top = -750.0
 margin_right = 1280.0
 margin_bottom = 750.0
+rect_pivot_offset = Vector2( 1280, 750 )
+__meta__ = {
+"_edit_use_anchors_": true
+}
 
 [node name="Player" type="KinematicBody2D" parent="."]
+collision_layer = 5
+collision_mask = 5
 script = ExtResource( 2 )
 
 [node name="Icon" type="Sprite" parent="Player"]
@@ -29,6 +37,8 @@ texture = ExtResource( 1 )
 shape = SubResource( 3 )
 
 [node name="Line2D" type="Line2D" parent="Player"]
+
+[node name="Emitters" type="Node2D" parent="Player"]
 
 [node name="Enemy_Spawner" type="Node2D" parent="."]
 script = ExtResource( 5 )

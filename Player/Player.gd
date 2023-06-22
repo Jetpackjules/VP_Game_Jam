@@ -5,32 +5,57 @@ var acceleration: float = 400.0  # Increased
 var max_speed: float = 500.0     # Increased
 var deceleration: float = 100.0  # Increased
 var rotation_speed: float = 3.0  # Increased
+var fire_speed: float = 1.0      # Fires every second
+var fire_amount: int = 1         # Fires 1 projectile at a time
 
 var water_shader = load("res://Water_Shader.tres")
+onready var emitters = get_node("Emitters")
 onready var camera = get_node("../Camera2D")
 # State variables
 var velocity: Vector2 = Vector2()
 var line : Line2D
 var enemies : Array = []
 var closest_enemy = null
+var fire_timer : Timer
 
-
+onready var clone_holder = get_node("Clone_Holder")
 func _ready():
+	emitters.add_child(load("res://Projectiles/Basic/Emitter.tscn").instance())
+	# cloning sprite:
+#	var screen_size = get_viewport_rect().size*camera.zoom.x
+#	var screen_size = Vector2(500, 500)
+#	# Create 4 clones of the player sprite
+#	for i in range(4):
+#		var clone = duplicate()
+#		clone.position += Vector2(screen_size.x if i % 2 == 0 else 0, screen_size.y if i < 2 else 0)
+#		clone_holder.add_child(clone)
+
 	line = get_node("Line2D")
+	fire_timer = Timer.new()
+	fire_timer.wait_time = fire_speed
+	fire_timer.one_shot = false
+	fire_timer.connect("timeout", self, "_on_fire_timer_timeout")
+	add_child(fire_timer)
+	fire_timer.start()
+
+
 #	enemies = get_tree().get_nodes_in_group("enemies")
 
 func _input(event):
-	if event is InputEventKey:
-		if event.pressed and event.scancode == KEY_SPACE:
-			if closest_enemy != null:
-				enemies.erase(closest_enemy)
-				closest_enemy.queue_free()  # Remove the enemy from the scene
-				closest_enemy = null
-
+	if Input.is_action_just_pressed("ui_select"):
+		if closest_enemy != null:
+			enemies.erase(closest_enemy)
+			closest_enemy.queue_free()  # Remove the enemy from the scene
+			closest_enemy = null
+	elif Input.is_action_just_pressed("increase_bullets"):
+		for emitter in emitters.get_children():
+			emitter.amount_emitted += 1
 
 
 
 func _process(delta):
+	for emitter in emitters.get_children():
+		emitter.rotation = rotation
 	# Get input for thrust
 	var thrust: float = 0.0
 
