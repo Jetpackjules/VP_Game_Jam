@@ -11,6 +11,11 @@ func _physics_process(delta):
 	move_and_slide(velocity)
 	if velocity.length() > 0:
 		rotation = velocity.angle() + deg2rad(90)
+	else:
+		queue_free()
+#	print(global_position.length())
+	if global_position.length() > 2000:
+		queue_free()
 	
 
 #func set_speed(new_speed):
