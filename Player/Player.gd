@@ -92,7 +92,9 @@ func _process(delta):
 		var direction_to_enemy = global_position.direction_to(closest_enemy.global_position).rotated(-rotation)
 		line.points = [Vector2.ZERO, direction_to_enemy * min_distance]
 		update()
-
+	else:
+		line.points = [Vector2.ZERO, Vector2.ZERO]
+		update()
 
 func _draw():
 #	print(line.points[1])
