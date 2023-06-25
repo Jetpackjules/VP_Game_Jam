@@ -1,6 +1,6 @@
 extends Node2D
 
-var EnemyScene = preload("res://Enemies/Basic.tscn")  # Load the enemy scene (change path as needed)
+var EnemyScene = preload("res://Enemies/Basher.tscn")  # Load the enemy scene (change path as needed)
 var spawn_time_range = Vector2(1.0, 3.0)  # Minimum and maximum spawn times
 onready var player = get_node("../Player")
 
