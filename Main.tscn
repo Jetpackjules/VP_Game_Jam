@@ -5,7 +5,7 @@
 [ext_resource path="res://Water_Shader.tres" type="Material" id=3]
 [ext_resource path="res://CardHolder.gd" type="Script" id=4]
 [ext_resource path="res://Enemy_Spawner.gd" type="Script" id=5]
-[ext_resource path="res://Cards/Card.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Card_Container.gd" type="Script" id=7]
 
 [sub_resource type="RectangleShape2D" id=3]
 extents = Vector2( 32, 32 )
@@ -54,7 +54,7 @@ script = ExtResource( 4 )
 current = true
 zoom = Vector2( 2, 2 )
 
-[node name="HBoxContainer" type="HBoxContainer" parent="."]
+[node name="Card_Container" type="HBoxContainer" parent="."]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -65,27 +65,4 @@ margin_right = 882.673
 margin_bottom = 302.0
 custom_constants/separation = 106
 alignment = 1
-
-[node name="Card" parent="HBoxContainer" instance=ExtResource( 6 )]
-anchor_left = 0.0
-anchor_right = 0.0
-margin_left = 251.0
-margin_top = 0.0
-margin_right = 601.0
-margin_bottom = 529.0
-
-[node name="Card2" parent="HBoxContainer" instance=ExtResource( 6 )]
-anchor_left = 0.0
-anchor_right = 0.0
-margin_left = 707.0
-margin_top = 0.0
-margin_right = 1057.0
-margin_bottom = 529.0
-
-[node name="Card3" parent="HBoxContainer" instance=ExtResource( 6 )]
-anchor_left = 0.0
-anchor_right = 0.0
-margin_left = 1163.0
-margin_top = 0.0
-margin_right = 1513.0
-margin_bottom = 529.0
+script = ExtResource( 7 )

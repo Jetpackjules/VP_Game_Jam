@@ -22,9 +22,6 @@ func _ready():
 	emitters.add_child(load("res://Projectiles/Basic/Emitter.tscn").instance())
 
 
-
-#	enemies = get_tree().get_nodes_in_group("enemies")
-
 func _input(event):
 	if Input.is_action_just_pressed("ui_select"):
 		if closest_enemy != null:
@@ -38,6 +35,8 @@ func _input(event):
 
 
 func _process(delta):
+	if Global.game_paused:
+		return
 	for emitter in emitters.get_children():
 		emitter.rotation = rotation
 	# Get input for thrust

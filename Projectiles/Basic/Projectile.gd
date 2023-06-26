@@ -7,7 +7,9 @@ var velocity := Vector2()
 
 
 
-func _physics_process(delta):
+func _process(delta):
+	if Global.game_paused:
+		return
 	move_and_slide(velocity)
 	if velocity.length() > 0:
 		rotation = velocity.angle() + deg2rad(90)
