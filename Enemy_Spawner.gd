@@ -26,7 +26,6 @@ func _process(delta):
 		spawn_timer.start(rand_range(spawn_time_range.x, spawn_time_range.y))  # Restart the timer with new random timeout
 
 
-
 func get_random_spawn_position():
 	var viewport_size = get_viewport_rect().size
 	var spawn_margin = 100.0  # How far off-screen to spawn the enemies

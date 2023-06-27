@@ -6,11 +6,14 @@ export var projectile_speed: float = 900.0
 export var projectile_size: Vector2 = Vector2(1, 1)
 export var amount_emitted: int = 1
 
-export var fan_angle: float = 270.0
+export var spread: float = 50.0
 export var origin_angle: float = 0.0
 export var firing_interval: float = 1.0
 
+export var proj_dmg := 50.0
+
 var emit_timer = Timer.new()
+
 
 func _ready():
 	# Add the timer as a child of this node and set it up
@@ -38,7 +41,7 @@ func _process(delta):
 
 
 func emit_projectiles():
-	var angle_step = deg2rad(fan_angle) / max(amount_emitted, 1)
+	var angle_step = deg2rad(spread) / max(amount_emitted, 1)
 	var start_angle = rotation + deg2rad(origin_angle-90) - (angle_step * (amount_emitted - 1) / 2)
 
 	for i in range(amount_emitted):
@@ -47,6 +50,8 @@ func emit_projectiles():
 		projectile.set_size(projectile_size)
 		var angle = start_angle + i * angle_step
 		projectile.set_velocity(Vector2(cos(angle), sin(angle)) * projectile_speed)
+		projectile.set_damage(proj_dmg)
+		
 		projectile.rotation = projectile.velocity.angle() + deg2rad(90)
 
 		get_tree().root.add_child(projectile)
