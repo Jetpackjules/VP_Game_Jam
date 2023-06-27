@@ -20,7 +20,6 @@ func reset():
 	enemy_spawner.spawn_interval = 5.0
 
 
-
 onready var enemy_spawner = get_node("../Enemy_Spawner")
 onready var score = get_node("../Score")
 onready var player_health = get_node("../Player_HealthBar")

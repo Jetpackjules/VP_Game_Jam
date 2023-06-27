@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=2]
+[gd_scene load_steps=26 format=2]
 
 [ext_resource path="res://Assets/pixel_icons_89342b47.png" type="Texture" id=1]
 [ext_resource path="res://Player/Player.gd" type="Script" id=2]
@@ -8,7 +8,6 @@
 [ext_resource path="res://Card_Container.gd" type="Script" id=7]
 [ext_resource path="res://Assets/epic_space_environments_27203aeb.png" type="Texture" id=8]
 [ext_resource path="res://Player_HealthBar.gd" type="Script" id=9]
-[ext_resource path="res://Projectiles/Basic/Projectile.tscn" type="PackedScene" id=10]
 [ext_resource path="res://Menu.gd" type="Script" id=11]
 
 [sub_resource type="Gradient" id=13]
@@ -124,18 +123,17 @@ randomness = 0.12
 local_coords = false
 process_material = SubResource( 12 )
 
-[node name="Projectile" parent="Player/Trail" instance=ExtResource( 10 )]
-position = Vector2( 23.5287, 63 )
-
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Player"]
 polygon = PoolVector2Array( -3.92145, -47, 5.88218, -47, 20.5876, -29, 20.5876, -12, 30.3913, -12, 39.2145, -1, 40.1949, 12, 6.86254, 39, 6.86254, 44, -3.92145, 44, -3.92145, 41, -37.2538, 12, -38.2342, -2, -33.3324, -2, -26.4698, -12, -18.6269, -12, -18.6269, -30 )
+
+[node name="Line2D" type="Line2D" parent="Player"]
+position = Vector2( 2.78636e-14, -3.55271e-15 )
+scale = Vector2( 1, 1 )
 
 [node name="Icon" type="Sprite" parent="Player"]
 position = Vector2( 2.38419e-07, -5.96046e-08 )
 scale = Vector2( 0.363807, 0.363807 )
 texture = ExtResource( 1 )
-
-[node name="Line2D" type="Line2D" parent="Player"]
 
 [node name="Emitters" type="Node2D" parent="Player"]
 

@@ -4,7 +4,7 @@ extends KinematicBody2D
 var size: Vector2 = Vector2()
 var damage: int = 50
 var velocity := Vector2()
-
+var knockback_mult := 1.0
 
 
 func _process(delta):
@@ -37,6 +37,6 @@ func set_damage(new_dmg) -> void:
 	damage = new_dmg
 
 func _on_Area2D_body_entered(body):
-	body.hit(damage, 500)
+	body.hit(damage, damage*10*knockback_mult)
 	queue_free()
 	pass # Replace with function body.

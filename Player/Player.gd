@@ -8,6 +8,11 @@ var rotation_speed: float = 3.0  # Increased
 var fire_speed: float = 1.0      # Fires every second
 var fire_amount: int = 1         # Fires 1 projectile at a time
 var health: float = 100.0        # Player's health
+
+var heal_percent: float = 0.0        # Player's health
+
+
+
 onready var thruster_particles = get_node("Trail")
 
 onready var healthbar = get_node("../Player_HealthBar")
@@ -18,7 +23,7 @@ onready var emitters = get_node("Emitters")
 onready var camera = get_node("../Camera2D")
 # State variables
 var velocity: Vector2 = Vector2()
-onready var line : Line2D = get_node("Line2D")
+onready var line = get_node("Line2D")
 var enemies : Array = []
 var closest_enemy = null
 var fire_timer : Timer
@@ -104,22 +109,20 @@ func _process(delta):
 		var angle_to_enemy = rad2deg(direction_to_enemy.angle()) + 90 # Compute angle to enemy in degrees
 		for emitter in emitters.get_children(): # Set the origin_angle of all emitters
 			emitter.origin_angle = angle_to_enemy
-		update()
+#		update()
 	else:
 		line.points = [Vector2.ZERO, Vector2.ZERO]
 		for emitter in emitters.get_children(): # Set the origin_angle of all emitters
 			emitter.origin_angle = 0
-		update()
+#		update()
 
-func _draw():
-#	print(line.points[1])
-
-	if line.points.size() >= 2:
-		draw_line(line.points[0], line.points[1], Color.green, 2.0)
-
+#	Heal
+	health += (heal_percent/100) * health * delta
+	healthbar.value = health
 
 # Function to apply damage and knockback
 func hit(damage: float, knockback_location: Vector2):
+	health = clamp(health, healthbar.min_value, healthbar.max_value)
 	health -= damage
 	if health <= 0:
 		die()
@@ -128,6 +131,8 @@ func hit(damage: float, knockback_location: Vector2):
 		velocity += knockback
 	
 	healthbar.set_health(health)
+	
+	
 
 func die():
 	print("Player died!")  # Replace with actual death logic

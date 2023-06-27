@@ -29,3 +29,5 @@ func start_animations(amount):
 
 	# Start the tween
 	tween.start()
+
+

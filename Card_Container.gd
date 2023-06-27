@@ -44,16 +44,24 @@ func get_cards():
 				card_scenes.append(card_scenes_dir + file_name)
 			file_name = dir.get_next()
 
-	
 
 func show_random_cards():
 	Global.game_paused = true
+	var temp_card_scenes = card_scenes.duplicate()  # create a copy of the card scenes
 	for i in range(3):  # select three random cards
-		var random_card_scene = load(card_scenes[randi() % card_scenes.size()]).instance()
-		self.add_child(random_card_scene)
-		random_card_scene.call_deferred("appear")  # Delay call until after current frame
+		if temp_card_scenes.size() > 0:
+			var index = randi() % temp_card_scenes.size()  # get random index
+			var random_card_scene = load(temp_card_scenes[index]).instance()  # load the scene at random index
+		
+			self.add_child(random_card_scene)
+			random_card_scene.call_deferred("appear")  # Delay call until after current frame
 
+			temp_card_scenes.remove(index)  # remove the scene from the temporary array
+		else:
+			break  # if no more cards, break the loop
 	hidden = false
+
+
 	
 #	for card in get_children():
 #		card.appear()
