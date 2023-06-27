@@ -51,6 +51,7 @@ func hit(damage, knockback):
 
 func die():
 	player.enemies.erase(self)
+	Score.increase_score(10)
 	if player.closest_enemy == self:
 		player.closest_enemy = null
 	queue_free()

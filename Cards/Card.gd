@@ -25,6 +25,7 @@ func _on_Card_gui_input(event):
 	if event is InputEventMouseButton and event.is_pressed() and event.button_index == BUTTON_LEFT:
 		print("Card clicked!")
 		bounce()
+		clicked = true
 		for card in get_parent().get_children():
 			if card != self:
 				card.disappear()
@@ -37,7 +38,6 @@ func bounce():
 	tween.interpolate_property(self, "rect_scale", jiggle_scale, Vector2(1.5,1.5), 0.4, Tween.TRANS_LINEAR, Tween.EASE_IN_OUT, 0.1)
 	tween.interpolate_property(self, "modulate", self.modulate, transparent, 0.5, Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
 	tween.start()
-	clicked = true
 
 func disappear():
 	tween.interpolate_property(self, "rect_scale", self.rect_scale, Vector2(0,0), 0.2, Tween.TRANS_LINEAR, Tween.EASE_IN_OUT, 0.1)

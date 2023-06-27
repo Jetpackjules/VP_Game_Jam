@@ -19,7 +19,7 @@ func _ready():
 	
 #func toggle():
 #	if hidden:
-#		show_cards()
+#		show_cards()ff
 #	else:
 #		hide_cards()
 
@@ -40,7 +40,7 @@ func get_cards():
 		dir.list_dir_begin()
 		var file_name = dir.get_next()
 		while file_name != "":
-			if file_name.ends_with(".tscn"):  # check if it's a scene file
+			if file_name.ends_with(".tscn") and not "Template" in file_name:  # check if it's a scene file
 				card_scenes.append(card_scenes_dir + file_name)
 			file_name = dir.get_next()
 

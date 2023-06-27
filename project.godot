@@ -17,6 +17,12 @@ config/icon="res://icon.png"
 [autoload]
 
 Global="*res://Global.gd"
+Score="*res://Score.gd"
+
+[display]
+
+window/stretch/mode="2d"
+window/stretch/aspect="keep"
 
 [gui]
 

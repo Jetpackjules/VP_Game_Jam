@@ -24,6 +24,7 @@ func _ready():
 
 func _input(event):
 	if Input.is_action_just_pressed("ui_select"):
+#		Score.increase_score(10)
 		if closest_enemy != null:
 			enemies.erase(closest_enemy)
 			closest_enemy.queue_free()  # Remove the enemy from the scene
