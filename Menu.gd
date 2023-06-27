@@ -15,6 +15,12 @@ func reset():
 	score.card_checkpoint = 0
 	player_health.set_health(100)
 
+	enemy_spawner.speed_increase = 0
+	enemy_spawner.health_increase = 0
+	enemy_spawner.spawn_interval = 5.0
+
+
+
 onready var enemy_spawner = get_node("../Enemy_Spawner")
 onready var score = get_node("../Score")
 onready var player_health = get_node("../Player_HealthBar")
