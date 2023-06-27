@@ -6,7 +6,7 @@ var onscreen_position := Vector2(0, 0)
 var hidden := false
 var card_scenes_dir := "res://Cards/"  # Set your path
 var card_scenes = []
-
+onready var player = get_node("../Player")
 
 func _input(event):
 	if Input.is_action_just_pressed("cards_toggle"):
