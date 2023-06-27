@@ -33,15 +33,15 @@ func _ready():
 
 
 func _input(event):
-	if Input.is_action_just_pressed("ui_select"):
-#		Score.increase_score(10)
-		if closest_enemy != null:
-			enemies.erase(closest_enemy)
-			closest_enemy.queue_free()  # Remove the enemy from the scene
-			closest_enemy = null
-	elif Input.is_action_just_pressed("increase_bullets"):
-		for emitter in emitters.get_children():
-			emitter.amount_emitted += 1
+#	if Input.is_action_just_pressed("ui_select"):
+##		Score.increase_score(10)
+#		if closest_enemy != null:
+#			enemies.erase(closest_enemy)
+#			closest_enemy.queue_free()  # Remove the enemy from the scene
+#			closest_enemy = null
+#	elif Input.is_action_just_pressed("increase_bullets"):
+#		for emitter in emitters.get_children():
+#			emitter.amount_emitted += 1
 
 	if Input.is_action_just_pressed("ui_up"):
 		thruster_particles.emitting = true
