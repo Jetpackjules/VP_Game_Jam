@@ -8,9 +8,11 @@ var rotation_speed: float = 3.0  # Increased
 var fire_speed: float = 1.0      # Fires every second
 var fire_amount: int = 1         # Fires 1 projectile at a time
 var health: float = 100.0        # Player's health
-
+onready var thruster_particles = get_node("Trail")
 
 onready var healthbar = get_node("../Player_HealthBar")
+
+onready var menu = get_node("../Menu")
 var water_shader = load("res://Water_Shader.tres")
 onready var emitters = get_node("Emitters")
 onready var camera = get_node("../Camera2D")
@@ -36,6 +38,11 @@ func _input(event):
 		for emitter in emitters.get_children():
 			emitter.amount_emitted += 1
 
+	if Input.is_action_just_pressed("ui_up"):
+		thruster_particles.emitting = true
+	elif Input.is_action_just_released("ui_up"):
+		thruster_particles.emitting = false
+
 
 
 func _process(delta):
@@ -48,7 +55,7 @@ func _process(delta):
 
 	if Input.is_action_pressed("ui_up"):
 		thrust = 1.0
-
+		
 	if thrust > 0:
 		# Accelerate
 		var accel_direction = Vector2(0, -1).rotated(rotation)
@@ -111,8 +118,6 @@ func _draw():
 		draw_line(line.points[0], line.points[1], Color.green, 2.0)
 
 
-
-
 # Function to apply damage and knockback
 func hit(damage: float, knockback_location: Vector2):
 	health -= damage
@@ -126,3 +131,5 @@ func hit(damage: float, knockback_location: Vector2):
 
 func die():
 	print("Player died!")  # Replace with actual death logic
+	menu.reset()
+

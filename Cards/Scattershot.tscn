@@ -3,7 +3,7 @@
 [ext_resource path="res://Cards/Scattershot.gd" type="Script" id=1]
 [ext_resource path="res://fonts/connection_ii/ConnectionII.tres" type="DynamicFont" id=2]
 [ext_resource path="res://fonts/connection_ii/ConnectionII.otf" type="DynamicFontData" id=3]
-[ext_resource path="res://Enemy_icon.png" type="Texture" id=4]
+[ext_resource path="res://Assets/cartoony_items_58f156a7.png" type="Texture" id=4]
 [ext_resource path="res://Cards/Description.gd" type="Script" id=5]
 
 [sub_resource type="StyleBoxFlat" id=1]
@@ -42,9 +42,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 margin_left = -148.0
-margin_top = -170.0
+margin_top = -180.0
 margin_right = 149.0
-margin_bottom = 48.0
+margin_bottom = 87.0
 texture = ExtResource( 4 )
 
 [node name="Title" type="Label" parent="."]
@@ -52,12 +52,12 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -143.0
-margin_top = -228.0
-margin_right = 143.0
-margin_bottom = -179.0
+margin_left = -167.0
+margin_top = -231.0
+margin_right = 150.0
+margin_bottom = -182.0
 custom_fonts/font = SubResource( 2 )
-text = "Scattershot"
+text = "Water Turret"
 align = 1
 autowrap = true
 uppercase = true
@@ -67,10 +67,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -139.0
+margin_left = -144.0
 margin_top = 77.0
-margin_right = 139.0
-margin_bottom = 223.0
+margin_right = 145.0
+margin_bottom = 229.0
 custom_fonts/normal_font = ExtResource( 2 )
 bbcode_enabled = true
 bbcode_text = "Increase spread by 15%-, +1 bullets fired"

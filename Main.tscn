@@ -1,14 +1,43 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=27 format=2]
 
 [ext_resource path="res://Assets/pixel_icons_89342b47.png" type="Texture" id=1]
 [ext_resource path="res://Player/Player.gd" type="Script" id=2]
-[ext_resource path="res://Water_Shader.tres" type="Material" id=3]
 [ext_resource path="res://fonts/connection_ii/ConnectionII.otf" type="DynamicFontData" id=4]
 [ext_resource path="res://Enemy_Spawner.gd" type="Script" id=5]
 [ext_resource path="res://Score.gd" type="Script" id=6]
 [ext_resource path="res://Card_Container.gd" type="Script" id=7]
 [ext_resource path="res://Assets/epic_space_environments_27203aeb.png" type="Texture" id=8]
 [ext_resource path="res://Player_HealthBar.gd" type="Script" id=9]
+[ext_resource path="res://Projectiles/Basic/Projectile.tscn" type="PackedScene" id=10]
+[ext_resource path="res://Menu.gd" type="Script" id=11]
+
+[sub_resource type="Gradient" id=13]
+offsets = PoolRealArray( 0, 0.0492958, 0.406103, 0.793427, 1 )
+colors = PoolColorArray( 1, 0, 0, 1, 0.998578, 0.0211268, 0.0107284, 1, 0.966196, 0.502347, 0.255098, 1, 0.932709, 1, 0.507813, 1, 0.972549, 1, 0.792157, 0 )
+
+[sub_resource type="GradientTexture" id=14]
+gradient = SubResource( 13 )
+
+[sub_resource type="Curve" id=15]
+_data = [ Vector2( 0, 1 ), 0.0, 0.0, 0, 0, Vector2( 1, 0.268182 ), -3.06136, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=16]
+curve = SubResource( 15 )
+
+[sub_resource type="ParticlesMaterial" id=12]
+emission_shape = 1
+emission_sphere_radius = 17.27
+flag_disable_z = true
+direction = Vector3( 0, 1, 0 )
+spread = 16.77
+gravity = Vector3( 0, 0, 0 )
+initial_velocity = 131.35
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+scale = 7.81
+scale_random = 0.33
+scale_curve = SubResource( 16 )
+color_ramp = SubResource( 14 )
 
 [sub_resource type="Gradient" id=6]
 offsets = PoolRealArray( 0.40724 )
@@ -32,6 +61,13 @@ border_width_right = 6
 border_width_bottom = 5
 border_color = Color( 0.772549, 0.772549, 0.772549, 1 )
 
+[sub_resource type="DynamicFont" id=17]
+size = 51
+use_filter = true
+extra_spacing_char = -1
+extra_spacing_space = -9
+font_data = ExtResource( 4 )
+
 [sub_resource type="DynamicFont" id=4]
 size = 150
 outline_size = 8
@@ -41,6 +77,29 @@ extra_spacing_top = 1
 extra_spacing_bottom = 1
 extra_spacing_char = 1
 font_data = ExtResource( 4 )
+
+[sub_resource type="DynamicFont" id=18]
+size = 181
+use_filter = true
+extra_spacing_top = 1
+extra_spacing_bottom = 1
+extra_spacing_char = 1
+font_data = ExtResource( 4 )
+
+[sub_resource type="StyleBoxEmpty" id=20]
+
+[sub_resource type="DynamicFont" id=19]
+size = 214
+outline_size = 7
+outline_color = Color( 0.866667, 0.427451, 0, 1 )
+use_filter = true
+extra_spacing_top = 1
+extra_spacing_bottom = 1
+extra_spacing_char = 1
+extra_spacing_space = -28
+font_data = ExtResource( 4 )
+
+[sub_resource type="StyleBoxEmpty" id=21]
 
 [node name="Main" type="Node2D"]
 scale = Vector2( 1.02003, 1 )
@@ -52,26 +111,21 @@ scale = Vector2( 2.46062, 2.39561 )
 z_index = -1
 texture = ExtResource( 8 )
 
-[node name="Background" type="ColorRect" parent="."]
-visible = false
-material = ExtResource( 3 )
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -1280.0
-margin_top = -750.0
-margin_right = 1280.0
-margin_bottom = 750.0
-rect_pivot_offset = Vector2( 1280, 750 )
-__meta__ = {
-"_edit_use_anchors_": true
-}
-
 [node name="Player" type="KinematicBody2D" parent="."]
 collision_layer = 5
 collision_mask = 5
 script = ExtResource( 2 )
+
+[node name="Trail" type="Particles2D" parent="Player"]
+position = Vector2( 0, 29 )
+emitting = false
+amount = 200
+randomness = 0.12
+local_coords = false
+process_material = SubResource( 12 )
+
+[node name="Projectile" parent="Player/Trail" instance=ExtResource( 10 )]
+position = Vector2( 23.5287, 63 )
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Player"]
 polygon = PoolVector2Array( -3.92145, -47, 5.88218, -47, 20.5876, -29, 20.5876, -12, 30.3913, -12, 39.2145, -1, 40.1949, 12, 6.86254, 39, 6.86254, 44, -3.92145, 44, -3.92145, 41, -37.2538, 12, -38.2342, -2, -33.3324, -2, -26.4698, -12, -18.6269, -12, -18.6269, -30 )
@@ -126,6 +180,15 @@ margin_right = 1100.0
 margin_bottom = 80.0
 custom_styles/panel = SubResource( 11 )
 
+[node name="Label" type="Label" parent="Player_HealthBar"]
+margin_right = 1100.0
+margin_bottom = 80.0
+custom_fonts/font = SubResource( 17 )
+text = "Hull Integrity"
+align = 1
+valign = 1
+uppercase = true
+
 [node name="Score" type="Label" parent="."]
 anchor_left = 0.5
 anchor_right = 0.5
@@ -138,6 +201,47 @@ text = "0"
 align = 1
 script = ExtResource( 6 )
 
+[node name="Menu" type="Control" parent="."]
+script = ExtResource( 11 )
+
+[node name="ColorRect" type="ColorRect" parent="Menu"]
+margin_left = -1179.0
+margin_top = -692.0
+margin_right = 1179.0
+margin_bottom = 691.0
+mouse_filter = 2
+color = Color( 0.0941176, 0.0941176, 0.0941176, 0.921569 )
+
+[node name="Button" type="Button" parent="Menu"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -428.388
+margin_top = 11.0
+margin_right = 471.612
+margin_bottom = 233.0
+custom_colors/font_color_hover = Color( 0.670588, 0.670588, 0.670588, 1 )
+custom_fonts/font = SubResource( 18 )
+custom_styles/focus = SubResource( 20 )
+text = "Start"
+flat = true
+
+[node name="Label" type="Label" parent="Menu"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -792.134
+margin_top = -222.0
+margin_right = 869.866
+margin_bottom = -5.0
+custom_fonts/font = SubResource( 19 )
+custom_styles/normal = SubResource( 21 )
+text = "Elemental Ships"
+
 [node name="Camera2D" type="Camera2D" parent="."]
 current = true
 zoom = Vector2( 2.3, 2.3 )
+
+[connection signal="pressed" from="Menu/Button" to="Menu" method="_on_Button_pressed"]

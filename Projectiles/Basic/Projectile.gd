@@ -25,7 +25,7 @@ func _process(delta):
 
 func set_size(new_size):
 	size = new_size
-	get_node("AnimatedSprite").scale = size
+	scale = size
 
 func get_damage():
 	return damage
