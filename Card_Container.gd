@@ -47,6 +47,7 @@ func get_cards():
 	
 
 func show_random_cards():
+	Global.game_paused = true
 	for i in range(3):  # select three random cards
 		var random_card_scene = load(card_scenes[randi() % card_scenes.size()]).instance()
 		self.add_child(random_card_scene)

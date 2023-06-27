@@ -2,10 +2,10 @@ extends Label
 
 # Current score
 var score = 0
-
+onready var card_container = get_node("../Card_Container")
 # Tween for animations
 var tween = Tween.new()
-
+var card_checkpoint = 100 
 # Original position
 var original_pos = Vector2.ZERO
 
@@ -34,6 +34,11 @@ func increase_score(amount):
 	# Start the animations
 	start_animations(amount)
 
+	if score >= card_checkpoint:
+		card_container.show_random_cards()
+		card_checkpoint += 100
+
+
 func start_animations(amount):
 	# Calculate the shake intensity based on the score increase
 	var shake_intensity = amount * .7
@@ -50,3 +55,4 @@ func start_animations(amount):
 
 	# Start the tween
 	tween.start()
+

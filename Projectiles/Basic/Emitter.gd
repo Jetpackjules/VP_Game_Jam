@@ -2,7 +2,7 @@ extends Node2D
 
 
 export var projectile_scene = preload("res://Projectiles/Basic/Projectile.tscn")
-export var projectile_speed: float = 900.0
+export var projectile_speed: float = 1500.0
 export var projectile_size: Vector2 = Vector2(1, 1)
 export var amount_emitted: int = 1
 

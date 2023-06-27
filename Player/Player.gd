@@ -7,7 +7,10 @@ var deceleration: float = 100.0  # Increased
 var rotation_speed: float = 3.0  # Increased
 var fire_speed: float = 1.0      # Fires every second
 var fire_amount: int = 1         # Fires 1 projectile at a time
+var health: float = 100.0        # Player's health
 
+
+onready var healthbar = get_node("../Player_HealthBar")
 var water_shader = load("res://Water_Shader.tres")
 onready var emitters = get_node("Emitters")
 onready var camera = get_node("../Camera2D")
@@ -91,9 +94,14 @@ func _process(delta):
 	if closest_enemy != null:
 		var direction_to_enemy = global_position.direction_to(closest_enemy.global_position).rotated(-rotation)
 		line.points = [Vector2.ZERO, direction_to_enemy * min_distance]
+		var angle_to_enemy = rad2deg(direction_to_enemy.angle()) + 90 # Compute angle to enemy in degrees
+		for emitter in emitters.get_children(): # Set the origin_angle of all emitters
+			emitter.origin_angle = angle_to_enemy
 		update()
 	else:
 		line.points = [Vector2.ZERO, Vector2.ZERO]
+		for emitter in emitters.get_children(): # Set the origin_angle of all emitters
+			emitter.origin_angle = 0
 		update()
 
 func _draw():
@@ -101,3 +109,20 @@ func _draw():
 
 	if line.points.size() >= 2:
 		draw_line(line.points[0], line.points[1], Color.green, 2.0)
+
+
+
+
+# Function to apply damage and knockback
+func hit(damage: float, knockback_location: Vector2):
+	health -= damage
+	if health <= 0:
+		die()
+	else:
+		var knockback = (global_position - knockback_location).normalized() * 200  # Modify 100 to adjust knockback strength
+		velocity += knockback
+	
+	healthbar.set_health(health)
+
+func die():
+	print("Player died!")  # Replace with actual death logic
