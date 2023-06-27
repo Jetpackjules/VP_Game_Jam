@@ -36,7 +36,6 @@ func _process(delta):
 		
 		
 		
-		
 func hit(damage, knockback):
 	hit_anim.play("Hit")
 	health -= damage
@@ -51,7 +50,7 @@ func hit(damage, knockback):
 
 func die():
 	player.enemies.erase(self)
-	Score.increase_score(10)
+	get_parent().get_parent().get_node("Score").increase_score(10)
 	if player.closest_enemy == self:
 		player.closest_enemy = null
 	queue_free()
