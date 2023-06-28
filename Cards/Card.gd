@@ -12,6 +12,7 @@ func _ready():
 #	self.rect_scale = Vector2(0,0)  # Start invisible
 	# Set the mouse filter to stop (detects) events
 	mouse_filter = MOUSE_FILTER_STOP
+	set_light_mask(1)
 
 func _on_Card_mouse_entered():
 	tween.interpolate_property(self, "rect_scale", self.rect_scale, hover_scale, 0.1, Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)

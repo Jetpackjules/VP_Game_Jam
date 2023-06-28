@@ -21,7 +21,7 @@ func _ready():
 	emit_timer.set_wait_time(1.0)  # emit every 1.0 seconds, adjust as needed
 	emit_timer.set_one_shot(false)  # repeat the timer
 	emit_timer.connect("timeout", self, "_on_emit_timer_timeout")
-	emit_timer.start()
+#	emit_timer.start()
 
 func _on_emit_timer_timeout():
 	emit_projectiles()
@@ -30,11 +30,11 @@ func set_interval(input_interval):
 	firing_interval = input_interval
 	emit_timer.wait_time = firing_interval
 
-func _process(delta):
-	if Global.game_paused and emit_timer.is_stopped() == false:
-		emit_timer.stop()
-	elif not Global.game_paused and emit_timer.is_stopped() == true:
-		emit_timer.start()
+#func _process(delta):
+#	if Global.game_paused and emit_timer.is_stopped() == false:
+#		emit_timer.stop()
+#	elif not Global.game_paused and emit_timer.is_stopped() == true:
+#		emit_timer.start()
 
 #	if Input.is_action_just_pressed("ui_fire"):
 #		emit_projectiles()
@@ -42,7 +42,7 @@ func _process(delta):
 
 func emit_projectiles():
 	var angle_step = deg2rad(spread) / max(amount_emitted, 1)
-	var start_angle = rotation + deg2rad(origin_angle-90) - (angle_step * (amount_emitted - 1) / 2)
+	var start_angle = rotation + deg2rad(origin_angle) - (angle_step * (amount_emitted - 1) / 2)
 
 	for i in range(amount_emitted):
 		var projectile = projectile_scene.instance()
@@ -52,6 +52,6 @@ func emit_projectiles():
 		projectile.set_velocity(Vector2(cos(angle), sin(angle)) * projectile_speed)
 		projectile.set_damage(proj_dmg)
 		
-		projectile.rotation = projectile.velocity.angle() + deg2rad(90)
+		projectile.rotation = projectile.velocity.angle()
 
 		get_tree().root.add_child(projectile)

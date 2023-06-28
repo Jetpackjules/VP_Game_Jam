@@ -1,14 +1,44 @@
-[gd_scene load_steps=27 format=2]
+[gd_scene load_steps=30 format=2]
 
-[ext_resource path="res://Assets/pixel_icons_89342b47.png" type="Texture" id=1]
+[ext_resource path="res://Enemy_icon.png" type="Texture" id=1]
 [ext_resource path="res://Player/Player.gd" type="Script" id=2]
+[ext_resource path="res://Constant_Light.tres" type="Texture" id=3]
 [ext_resource path="res://fonts/connection_ii/ConnectionII.otf" type="DynamicFontData" id=4]
 [ext_resource path="res://Enemy_Spawner.gd" type="Script" id=5]
 [ext_resource path="res://Score.gd" type="Script" id=6]
 [ext_resource path="res://Card_Container.gd" type="Script" id=7]
-[ext_resource path="res://Assets/epic_space_environments_27203aeb.png" type="Texture" id=8]
 [ext_resource path="res://Player_HealthBar.gd" type="Script" id=9]
 [ext_resource path="res://Menu.gd" type="Script" id=11]
+
+[sub_resource type="OccluderPolygon2D" id=23]
+polygon = PoolVector2Array( 64, 64, 0, 64, 0, 0, 64, 0 )
+
+[sub_resource type="ConvexPolygonShape2D" id=24]
+points = PoolVector2Array( 64, 64, 0, 64, 0, 0, 64, 0 )
+
+[sub_resource type="TileSet" id=25]
+0/name = "Enemy_icon.png 0"
+0/texture = ExtResource( 1 )
+0/tex_offset = Vector2( 0, 0 )
+0/modulate = Color( 1, 1, 1, 1 )
+0/region = Rect2( 0, 0, 64, 64 )
+0/tile_mode = 0
+0/occluder_offset = Vector2( 0, 0 )
+0/occluder = SubResource( 23 )
+0/navigation_offset = Vector2( 0, 0 )
+0/shape_offset = Vector2( 0, 0 )
+0/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+0/shape = SubResource( 24 )
+0/shape_one_way = false
+0/shape_one_way_margin = 1.0
+0/shapes = [ {
+"autotile_coord": Vector2( 0, 0 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 24 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+} ]
+0/z_index = 0
 
 [sub_resource type="Gradient" id=13]
 offsets = PoolRealArray( 0, 0.0492958, 0.406103, 0.793427, 1 )
@@ -47,18 +77,18 @@ gradient = SubResource( 6 )
 
 [sub_resource type="Gradient" id=8]
 offsets = PoolRealArray( 0 )
-colors = PoolColorArray( 1, 0.305882, 0.301961, 0.619608 )
+colors = PoolColorArray( 1, 0.305882, 0.301961, 1 )
 
 [sub_resource type="GradientTexture" id=10]
 gradient = SubResource( 8 )
 
 [sub_resource type="StyleBoxFlat" id=11]
-bg_color = Color( 0.6, 0.6, 0.6, 0 )
+bg_color = Color( 0.94902, 0.94902, 0.94902, 1 )
 border_width_left = 6
 border_width_top = 5
 border_width_right = 6
 border_width_bottom = 5
-border_color = Color( 0.772549, 0.772549, 0.772549, 1 )
+border_color = Color( 0, 0, 0, 1 )
 
 [sub_resource type="DynamicFont" id=17]
 size = 51
@@ -110,55 +140,107 @@ extra_spacing_space = -12
 font_data = ExtResource( 4 )
 
 [node name="Main" type="Node2D"]
+position = Vector2( -5.65686, 2.82837 )
 scale = Vector2( 1.02003, 1 )
 
-[node name="EpicSpaceEnvironments27203Aeb" type="Sprite" parent="."]
-show_behind_parent = true
-position = Vector2( -20.5876, 243 )
-scale = Vector2( 2.46062, 2.39561 )
+[node name="TileMap" type="TileMap" parent="."]
+tile_set = SubResource( 25 )
+collision_layer = 3
+collision_mask = 3
+occluder_light_mask = 3
+format = 1
+tile_data = PoolIntArray( -655366, 0, 0, -655365, 0, 0, -655364, 0, 0, -655363, 0, 0, -655362, 0, 0, -655361, 0, 0, -720896, 0, 0, -720895, 0, 0, -720894, 0, 0, -720893, 0, 0, -720892, 0, 0, -720891, 0, 0, -720890, 0, 0, -720889, 0, 0, -720888, 0, 0, -720887, 0, 0, -720886, 0, 0, -720885, 0, 0, -720884, 0, 0, -720883, 0, 0, -720882, 0, 0, -720881, 0, 0, -720880, 0, 0, -720879, 0, 0, -589830, 0, 0, -655343, 0, 0, -524303, 0, 0, -524302, 0, 0, -524301, 0, 0, -524300, 0, 0, -524299, 0, 0, -524298, 0, 0, -524297, 0, 0, -524294, 0, 0, -589807, 0, 0, -458767, 0, 0, -524271, 0, 0, -393231, 0, 0, -393228, 0, 0, -458751, 0, 0, -458735, 0, 0, -327695, 0, 0, -327692, 0, 0, -327686, 0, 0, -393199, 0, 0, -262159, 0, 0, -262156, 0, 0, -262151, 0, 0, -262150, 0, 0, -327674, 0, 0, -327669, 0, 0, -327666, 0, 0, -327663, 0, 0, -196623, 0, 0, -196620, 0, 0, -196615, 0, 0, -196614, 0, 0, -262133, 0, 0, -262130, 0, 0, -262127, 0, 0, -131087, 0, 0, -131084, 0, 0, -131083, 0, 0, -131082, 0, 0, -131081, 0, 0, -131080, 0, 0, -131079, 0, 0, -196597, 0, 0, -196591, 0, 0, -65551, 0, 0, -65548, 0, 0, -65537, 0, 0, -131063, 0, 0, -131061, 0, 0, -131055, 0, 0, -15, 0, 0, -12, 0, 0, -9, 0, 0, -65525, 0, 0, -65519, 0, 0, 65520, 0, 0, 65521, 0, 0, 65524, 0, 0, 65526, 0, 0, 65527, 0, 0, 6, 0, 0, 11, 0, 0, 14, 0, 0, 17, 0, 0, 131057, 0, 0, 131060, 0, 0, 131062, 0, 0, 65541, 0, 0, 65547, 0, 0, 65550, 0, 0, 65553, 0, 0, 196593, 0, 0, 196596, 0, 0, 196598, 0, 0, 196599, 0, 0, 196600, 0, 0, 196601, 0, 0, 196602, 0, 0, 196603, 0, 0, 196604, 0, 0, 131076, 0, 0, 131083, 0, 0, 131086, 0, 0, 131089, 0, 0, 262129, 0, 0, 262132, 0, 0, 262133, 0, 0, 262134, 0, 0, 262137, 0, 0, 196612, 0, 0, 196625, 0, 0, 327665, 0, 0, 327668, 0, 0, 327669, 0, 0, 327673, 0, 0, 262148, 0, 0, 262161, 0, 0, 393200, 0, 0, 393201, 0, 0, 393204, 0, 0, 393209, 0, 0, 327684, 0, 0, 327685, 0, 0, 327686, 0, 0, 327697, 0, 0, 458736, 0, 0, 458737, 0, 0, 458740, 0, 0, 458745, 0, 0, 458750, 0, 0, 458751, 0, 0, 393216, 0, 0, 393227, 0, 0, 393230, 0, 0, 393233, 0, 0, 524272, 0, 0, 524273, 0, 0, 524280, 0, 0, 458763, 0, 0, 458766, 0, 0, 458769, 0, 0, 524292, 0, 0, 524293, 0, 0, 524299, 0, 0, 524305, 0, 0, 655347, 0, 0, 655348, 0, 0, 655350, 0, 0, 589835, 0, 0, 589841, 0, 0, 720884, 0, 0, 720885, 0, 0, 655371, 0, 0, 655372, 0, 0, 655373, 0, 0, 655374, 0, 0, 655375, 0, 0, 655376, 0, 0, 655377, 0, 0 )
+
+[node name="Backgrounds" type="Node2D" parent="."]
 z_index = -1
-texture = ExtResource( 8 )
+
+[node name="ColorRect" type="ColorRect" parent="Backgrounds"]
+show_behind_parent = true
+margin_left = -1188.0
+margin_top = -716.0
+margin_right = 1178.0
+margin_bottom = 717.0
+color = Color( 0.82, 0.4756, 0.4756, 1 )
 
 [node name="Player" type="KinematicBody2D" parent="."]
+modulate = Color( 1.5, 1.5, 1.5, 1 )
+position = Vector2( 240.226, 455.367 )
 collision_layer = 5
 collision_mask = 5
 script = ExtResource( 2 )
 
 [node name="Trail" type="Particles2D" parent="Player"]
-position = Vector2( 0, 29 )
+position = Vector2( 0, -0.000152588 )
+rotation = 1.5708
 emitting = false
 amount = 200
 randomness = 0.12
 local_coords = false
 process_material = SubResource( 12 )
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Player"]
-polygon = PoolVector2Array( -3.92145, -47, 5.88218, -47, 20.5876, -29, 20.5876, -12, 30.3913, -12, 39.2145, -1, 40.1949, 12, 6.86254, 39, 6.86254, 44, -3.92145, 44, -3.92145, 41, -37.2538, 12, -38.2342, -2, -33.3324, -2, -26.4698, -12, -18.6269, -12, -18.6269, -30 )
+[node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="Player"]
+visible = false
+position = Vector2( 31.4671, -2.63511 )
+rotation = 1.5708
+scale = Vector2( 0.167316, 0.167316 )
+polygon = PoolVector2Array( 176.465, 243, 15.6858, 188, -146.074, 243, 15.6858, -234 )
+
+[node name="Polygon2D" type="Polygon2D" parent="Player"]
+light_mask = 3
+position = Vector2( 0.00187782, 0.0026416 )
+rotation = 1.5708
+scale = Vector2( 0.167316, 0.167316 )
+offset = Vector2( -14.7054, -189 )
+invert_border = 0.1
+polygon = PoolVector2Array( 175.485, 244, 14.7054, 189, -147.055, 244, 14.7054, -233 )
 
 [node name="Line2D" type="Line2D" parent="Player"]
 visible = false
 position = Vector2( 2.78636e-14, -3.55271e-15 )
-scale = Vector2( 1, 1 )
-
-[node name="Icon" type="Sprite" parent="Player"]
-position = Vector2( 2.38419e-07, -5.96046e-08 )
-scale = Vector2( 0.363807, 0.363807 )
-texture = ExtResource( 1 )
+rotation = 1.5708
 
 [node name="Emitters" type="Node2D" parent="Player"]
+rotation = 1.5708
+
+[node name="Light" type="Node2D" parent="Player"]
+
+[node name="Enemy_Hider" type="Light2D" parent="Player/Light"]
+scale = Vector2( 1.96962, 1.36538 )
+texture = ExtResource( 3 )
+texture_scale = 50.0
+mode = 3
+range_item_cull_mask = 2
+shadow_enabled = true
+shadow_color = Color( 0.87451, 0.87451, 0.87451, 0 )
+shadow_item_cull_mask = 3
+
+[node name="Env_Light" type="Light2D" parent="Player/Light"]
+position = Vector2( 0, -1 )
+scale = Vector2( 72.9282, 49.2838 )
+texture = ExtResource( 3 )
+texture_scale = 1.41
+mode = 3
+shadow_enabled = true
+shadow_color = Color( 0.96, 0.96, 1.16, 0.22 )
+shadow_buffer_size = 4000
 
 [node name="Enemy_Spawner" type="Node2D" parent="."]
 script = ExtResource( 5 )
 
+[node name="Camera2D" type="Camera2D" parent="."]
+current = true
+zoom = Vector2( 2.3, 2.3 )
+
 [node name="Card_Container" type="HBoxContainer" parent="."]
+light_mask = 0
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -882.327
-margin_top = -250.0
-margin_right = 882.673
-margin_bottom = 250.0
+margin_left = -886.248
+margin_top = -254.0
+margin_right = 878.752
+margin_bottom = 246.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_constants/separation = 100
@@ -166,14 +248,15 @@ alignment = 1
 script = ExtResource( 7 )
 
 [node name="Player_HealthBar" type="TextureProgress" parent="."]
+light_mask = 0
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -544.0
-margin_top = 577.0
-margin_right = 556.0
-margin_bottom = 657.0
+margin_left = -537.0
+margin_top = 585.0
+margin_right = 551.0
+margin_bottom = 655.0
 rect_pivot_offset = Vector2( 544.102, 39 )
 value = 100.0
 texture_under = SubResource( 9 )
@@ -183,21 +266,28 @@ nine_patch_stretch = true
 script = ExtResource( 9 )
 
 [node name="HealthBar_Container" type="Panel" parent="Player_HealthBar"]
-margin_left = 0.00012207
-margin_right = 1100.0
-margin_bottom = 80.0
+show_behind_parent = true
+light_mask = 0
+margin_left = -6.45782
+margin_top = -4.82837
+margin_right = 1093.54
+margin_bottom = 75.1716
 custom_styles/panel = SubResource( 11 )
 
 [node name="Label" type="Label" parent="Player_HealthBar"]
-margin_right = 1100.0
-margin_bottom = 80.0
+light_mask = 0
+margin_left = -6.45776
+margin_top = -4.75549
+margin_right = 1093.54
+margin_bottom = 75.2445
 custom_fonts/font = SubResource( 17 )
-text = "Hull Integrity"
+text = "Health"
 align = 1
 valign = 1
 uppercase = true
 
 [node name="Score" type="Label" parent="."]
+light_mask = 0
 anchor_left = 0.5
 anchor_right = 0.5
 margin_left = -822.5
@@ -210,9 +300,11 @@ align = 1
 script = ExtResource( 6 )
 
 [node name="Menu" type="Control" parent="."]
+light_mask = 0
 script = ExtResource( 11 )
 
 [node name="ColorRect" type="ColorRect" parent="Menu"]
+light_mask = 0
 margin_left = -1179.0
 margin_top = -692.0
 margin_right = 1179.0
@@ -221,6 +313,7 @@ mouse_filter = 2
 color = Color( 0.0941176, 0.0941176, 0.0941176, 0.921569 )
 
 [node name="Button" type="Button" parent="Menu"]
+light_mask = 0
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -236,19 +329,24 @@ text = "Start"
 flat = true
 
 [node name="Label" type="Label" parent="Menu"]
+light_mask = 0
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 margin_left = -817.0
-margin_top = -219.0
+margin_top = -442.828
 margin_right = 817.0
-margin_bottom = -2.0
+margin_bottom = -5.82837
 custom_fonts/font = SubResource( 19 )
 custom_styles/normal = SubResource( 21 )
-text = "Elemental Ships"
+text = "Shooty Shooty 
+Bang Bang"
+align = 1
+valign = 1
 
 [node name="Label2" type="Label" parent="Menu"]
+light_mask = 0
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -260,9 +358,5 @@ margin_bottom = 289.0
 custom_fonts/font = SubResource( 22 )
 custom_styles/normal = SubResource( 21 )
 text = "Use Arrow Keys to Move!"
-
-[node name="Camera2D" type="Camera2D" parent="."]
-current = true
-zoom = Vector2( 2.3, 2.3 )
 
 [connection signal="pressed" from="Menu/Button" to="Menu" method="_on_Button_pressed"]

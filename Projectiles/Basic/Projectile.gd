@@ -37,6 +37,7 @@ func set_damage(new_dmg) -> void:
 	damage = new_dmg
 
 func _on_Area2D_body_entered(body):
-	body.hit(damage, damage*10*knockback_mult)
-	queue_free()
-	pass # Replace with function body.
+	if body.is_in_group("enemies"):
+		body.hit(damage, damage*10*knockback_mult)
+		queue_free()
+		pass # Replace with function body.

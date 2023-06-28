@@ -77,9 +77,9 @@ func dissapear():
 	# Disable collision layer for layers 1 and 2
 	set_collision_layer_bit(0, false)
 	set_collision_layer_bit(1, false)
-	var transparent = Color(sprite.modulate.r, sprite.modulate.g, sprite.modulate.b, 0)
-	tween.interpolate_property(sprite, "scale", sprite.scale, sprite.scale*1.8, 0.4, Tween.TRANS_LINEAR, Tween.EASE_IN_OUT, 0.1)
-	tween.interpolate_property(sprite, "modulate", Color(sprite.modulate.r, sprite.modulate.g, sprite.modulate.b, 0.4), transparent, 0.5, Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
+#	var transparent = Color(sprite.modulate.r, sprite.modulate.g, sprite.modulate.b, 0)
+#	tween.interpolate_property(sprite, "scale", sprite.scale, sprite.scale*1.8, 0.4, Tween.TRANS_LINEAR, Tween.EASE_IN_OUT, 0.1)
+#	tween.interpolate_property(sprite, "modulate", Color(sprite.modulate.r, sprite.modulate.g, sprite.modulate.b, 0.4), transparent, 0.5, Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
 	tween.start()
 
 

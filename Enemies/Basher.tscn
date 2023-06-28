@@ -1,26 +1,23 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=12 format=2]
 
-[ext_resource path="res://Assets/pixel_icons_7208f1ea.png" type="Texture" id=1]
+[ext_resource path="res://Enemies/Untitled.png" type="Texture" id=1]
 [ext_resource path="res://Enemies/Enemy.gd" type="Script" id=2]
+[ext_resource path="res://Enemies/Dark_Hidden.tres" type="Material" id=3]
 
 [sub_resource type="Animation" id=10]
 resource_name = "Hit"
 length = 0.5
-tracks/0/type = "value"
-tracks/0/path = NodePath("Icon:self_modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0.05, 0.38, 0.44 ),
-"transitions": PoolRealArray( 0.0103086, 0.0103086, 0.225313 ),
-"update": 0,
-"values": [ Color( 1, 0, 0, 0.764706 ), Color( 1, 0, 0, 0.768627 ), Color( 1, 1, 1, 1 ) ]
-}
 
 [sub_resource type="Animation" id=11]
 length = 0.001
+
+[sub_resource type="Gradient" id=14]
+interpolation_mode = 1
+offsets = PoolRealArray( 0 )
+colors = PoolColorArray( 1, 0.847059, 0.321569, 1 )
+
+[sub_resource type="GradientTexture" id=15]
+gradient = SubResource( 14 )
 
 [sub_resource type="Gradient" id=12]
 offsets = PoolRealArray( 0.40724 )
@@ -37,6 +34,7 @@ colors = PoolColorArray( 1, 0.305882, 0.301961, 0.619608 )
 gradient = SubResource( 13 )
 
 [node name="Basic" type="RigidBody2D" groups=["enemies"]]
+light_mask = 2
 collision_layer = 3
 collision_mask = 3
 contacts_reported = 4
@@ -47,28 +45,46 @@ script = ExtResource( 2 )
 [node name="Tween" type="Tween" parent="."]
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+visible = false
 rotation = 1.5708
-polygon = PoolVector2Array( -7, -46, 7, -46, 15, -36, 15, -36, 20, -36, 20, -28, 26, -25, 26, -21, 32, -21, 32, 2, 24, 2, 18, 13, 16, 20, 8, 29, 8, 36, -6, 36, -6, 29, -16, 20, -16, 13, -23, 2, -31, 2, -31, -21, -26, -21, -20, -28, -20, -36, -16, -36 )
-
-[node name="Icon" type="Sprite" parent="."]
-rotation = 1.5708
-scale = Vector2( 0.325684, 0.319824 )
-texture = ExtResource( 1 )
+polygon = PoolVector2Array( -34.9999, 20.0001, -35.0001, -19.9999, -0.0001448, -40, 34.9999, -20.0001, 35.0001, 19.9999, 0.0001448, 40 )
 
 [node name="Hit_Anim" type="AnimationPlayer" parent="."]
 anims/Hit = SubResource( 10 )
 anims/RESET = SubResource( 11 )
 
+[node name="Polygon2D" type="Polygon2D" parent="."]
+visible = false
+light_mask = 3
+color = Color( 1, 0, 0, 1 )
+polygon = PoolVector2Array( -40, 0, -20, -35, 20, -35, 40, 0, 20, 35, -20, 35 )
+
+[node name="Polygon2D2" type="Polygon2D" parent="."]
+light_mask = 2
+material = ExtResource( 3 )
+color = Color( 1, 0.847059, 0.321569, 1 )
+texture = SubResource( 15 )
+polygon = PoolVector2Array( -18, -32, 18, -32, 37, 0, 18, 32, -18, 32, -37, 0 )
+
+[node name="Untitled" type="Sprite" parent="."]
+visible = false
+light_mask = 3
+position = Vector2( 3.8147e-06, 3.8147e-06 )
+scale = Vector2( 0.125781, 0.125781 )
+texture = ExtResource( 1 )
+
 [node name="HealthBar_container" type="Node2D" parent="."]
 
 [node name="HealthBar" type="TextureProgress" parent="HealthBar_container"]
 visible = false
+light_mask = 2
+material = ExtResource( 3 )
 anchor_left = 0.5
 anchor_right = 0.5
 margin_left = -82.0
-margin_top = 38.0
+margin_top = 44.0
 margin_right = 82.0
-margin_bottom = 67.0
+margin_bottom = 73.0
 rect_pivot_offset = Vector2( 82, -38 )
 value = 60.0
 texture_under = SubResource( 7 )
