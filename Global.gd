@@ -1,4 +1,4 @@
 # Global.gd
 extends Node
 
-var game_paused = true
+var game_paused = false

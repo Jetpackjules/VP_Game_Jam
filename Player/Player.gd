@@ -10,7 +10,6 @@ var heal_percent: float = 0.0    # Player's health
 onready var thruster_particles = get_node("Trail")
 onready var healthbar = get_node("../Player_HealthBar")
 onready var menu = get_node("../Menu")
-var water_shader = load("res://Water_Shader.tres")
 onready var emitters = get_node("Emitters")
 onready var camera = get_node("../Camera2D")
 
@@ -54,45 +53,13 @@ func _process(delta):
 
 	# Move the player
 	move_and_slide(velocity)
-
-	# Screen wrapping logic
-	var screen_size = get_viewport_rect().size*camera.zoom.x
-	if position.x < -screen_size.x/2:
-		position.x = screen_size.x/2
-	elif position.x > screen_size.x/2:
-		position.x = -screen_size.x/2
-	if position.y < -screen_size.y/2:
-		position.y = screen_size.y/2
-	elif position.y > screen_size.y/2:
-		position.y = -screen_size.y/2
-
-	var player_screen_pos = get_global_position() / screen_size
-	water_shader.set_shader_param("player_pos", player_screen_pos)
-
-	var min_distance = INF
-
-
-
-#	for enemy in enemies:
-#		var distance = global_position.distance_to(enemy.global_position)
-#		if distance < min_distance:
-#			min_distance = distance
-#			closest_enemy = enemy
-#
-#	if closest_enemy != null:
-#		var direction_to_enemy = global_position.direction_to(closest_enemy.global_position).rotated(-rotation)
-#		line.points = [Vector2.ZERO, direction_to_enemy * min_distance]
-#		var angle_to_enemy = rad2deg(direction_to_enemy.angle()) + 90 # Compute angle to enemy in degrees
-#		for emitter in emitters.get_children(): # Set the origin_angle of all emitters
-#			emitter.origin_angle = angle_to_enemy
-#	else:
-#		line.points = [Vector2.ZERO, Vector2.ZERO]
 	for emitter in emitters.get_children(): # Set the origin_angle of all emitters
 		emitter.origin_angle = rotation_degrees
 
 	# Heal
 	health += (heal_percent/100) * health * delta
 	healthbar.value = health
+
 
 # Function to apply damage and knockback
 func hit(damage: float, knockback_location: Vector2):
@@ -101,11 +68,11 @@ func hit(damage: float, knockback_location: Vector2):
 	if health <= 0:
 		die()
 	else:
-		var knockback = (global_position - knockback_location).normalized() * 200  # Modify 100 to adjust knockback strength
+		var knockback = (global_position - knockback_location).normalized() * 200 
 		velocity += knockback
 	
 	healthbar.set_health(health)
 	
 func die():
-	print("Player died!")  # Replace with actual death logic
+	print("Player died!")  
 	menu.reset()
