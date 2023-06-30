@@ -34,9 +34,9 @@ func increase_score(amount):
 	# Start the animations
 	start_animations(amount)
 
-	if score >= card_checkpoint:
-		card_container.show_random_cards()
-		card_checkpoint += 100
+#	if score >= card_checkpoint:
+#		card_container.show_random_cards()
+#		card_checkpoint += 100
 
 
 func start_animations(amount):

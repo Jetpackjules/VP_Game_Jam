@@ -10,7 +10,7 @@ onready var health_bar_container = get_node("HealthBar_container")
 onready var hit_anim = get_node("Hit_Anim")
 onready var tween: Tween = get_node("Tween")
 var dead := false
-onready var sprite = get_node("Icon")
+#onready var sprite = get_node("Icon")
 var max_speed := 200
 
 
@@ -40,49 +40,28 @@ func _physics_process(delta):
 		if linear_velocity.length() > max_speed:
 			linear_velocity = linear_velocity.normalized() * max_speed
 
-func hit(damage, knockback):
+func hit(damage, knockback_force, cause):
 	hit_anim.play("Hit")
 	health -= damage
 	health_bar.visible = true
 	health_bar.value = health
 	if health <= 0:
-		die()
+		die(knockback_force, cause.velocity)
 	else:
-		var knockback_direction = (global_position - player.global_position).normalized()
-		apply_impulse(Vector2.ZERO, knockback_direction * knockback)
+		var knockback_direction = cause.velocity
+#		(global_position - player.global_position).normalized()
+		apply_impulse(Vector2.ZERO, knockback_direction * knockback_force)
 
 
-func die():
+func die(force, direction):
 	dead = true
-	player.enemies.erase(self)
 	get_parent().get_parent().get_node("Score").increase_score(10)
-	if player.closest_enemy == self:
-		player.closest_enemy = null
-	dissapear()
+	Global.splat(global_position, direction)
+	queue_free()
 
 func _on_Basic_body_entered(body):
 	if body == player:
 		player.hit(10, global_position)
-		print(body)
-		die()
+		die(0, (global_position - player.global_position))
 	pass # Replace with function body.
 
-
-func dissapear():
-#	self.mode = MODE_STATIC
-	# Disable collision mask for layers 1 and 2
-	set_collision_mask_bit(0, false)  # Layer indices start at 0, so layer 1 is at index 0
-	set_collision_mask_bit(1, false)  # Layer 2 is at index 1
-
-	# Disable collision layer for layers 1 and 2
-	set_collision_layer_bit(0, false)
-	set_collision_layer_bit(1, false)
-#	var transparent = Color(sprite.modulate.r, sprite.modulate.g, sprite.modulate.b, 0)
-#	tween.interpolate_property(sprite, "scale", sprite.scale, sprite.scale*1.8, 0.4, Tween.TRANS_LINEAR, Tween.EASE_IN_OUT, 0.1)
-#	tween.interpolate_property(sprite, "modulate", Color(sprite.modulate.r, sprite.modulate.g, sprite.modulate.b, 0.4), transparent, 0.5, Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
-	tween.start()
-
-
-func _on_Tween_tween_all_completed():
-	if dead:
-		queue_free()
