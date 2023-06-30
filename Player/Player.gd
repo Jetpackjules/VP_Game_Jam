@@ -26,6 +26,7 @@ func _input(event):
 		weapon.fire()
 
 func _process(delta):
+	 
 	if Global.game_paused:
 		return
 
