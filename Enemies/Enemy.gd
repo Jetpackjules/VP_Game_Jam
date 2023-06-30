@@ -15,12 +15,13 @@ var max_speed := 200
 
 
 func _ready():
-	player = get_node("/root/Main/Player")  # Update with your player node's path
+#	player = get_node("/root/Main/Player")  # Update with your player node's path
 	health_bar.max_value = health
 	health_bar.value = health
 
 
 func _physics_process(delta):
+	queue_free()
 	if Global.game_paused and mode != MODE_STATIC or dead:
 		original_linear_velocity = linear_velocity
 		original_angular_velocity = angular_velocity

@@ -8,11 +8,20 @@
 
 config_version=4
 
+_global_script_classes=[ {
+"base": "Node",
+"class": "Walker",
+"language": "GDScript",
+"path": "res://Level_Gen/Walker.gd"
+} ]
+_global_script_class_icons={
+"Walker": ""
+}
+
 [application]
 
 config/name="Game_Jam_Game"
-run/main_scene="res://Main.tscn"
-config/icon="res://icon.png"
+run/main_scene="res://World.tscn"
 
 [autoload]
 
@@ -20,6 +29,7 @@ Global="*res://Global.gd"
 
 [display]
 
+window/size/resizable=false
 mouse_cursor/custom_image="res://Assets/cursor.png"
 mouse_cursor/custom_image_hotspot=Vector2( 20, 20 )
 mouse_cursor/tooltip_position_offset=Vector2( 20, 20 )
