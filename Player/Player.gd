@@ -1,5 +1,5 @@
 extends KinematicBody2D
-
+#SUIZE IS 2.3 for camera
 # Configurable variables
 var speed: float = 500.0     # Constant speed
 var fire_speed: float = 1.0  # Fires every second

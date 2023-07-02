@@ -1,11 +1,11 @@
 extends Node2D
 
-var EnemyScene = preload("res://Enemies/Basher.tscn")  # Load the enemy scene (change path as needed)
+var EnemyScene = preload("res://Enemies/Hider.tscn")  # Load the enemy scene (change path as needed)
 var spawn_time_range := Vector2(1.0, 3.0)  # Minimum and maximum spawn times
-onready var player = get_node("../Player")
+#onready var player = get_node("../Player")
 var spawn_timer = Timer.new()  # Create the timer
 
-var spawn_interval := 5.0  # Start with a 5-second interval
+var spawn_interval := 2.0  # Start with a 5-second interval
 var spawn_interval_decrease := 0.1  # Decrease the interval by 0.1 each time an enemy spawns
 var min_spawn_interval := 1.0  # Don't let the interval go below 1 second
 
@@ -23,10 +23,10 @@ func _ready():
 func spawn_enemy():
 	var enemy = EnemyScene.instance()  # Create an instance of the enemy
 	enemy.global_position = get_random_spawn_position()  # Set its position off-screen
-	enemy.health += health_increase  # Set the enemy's health
-	enemy.speed += speed_increase
+#	enemy.health += health_increase  # Set the enemy's health
+#	enemy.speed += speed_increase
 	add_child(enemy)  # Add it to the scene tree
-	player.enemies.append(enemy)
+	Global.player.enemies.append(enemy)
 	
 	speed_increase += 0.3
 	health_increase += 2.5

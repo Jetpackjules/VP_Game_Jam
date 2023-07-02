@@ -1,54 +1,64 @@
 extends Node2D
 
-#const Player = preload("res://Player.tscn")
-#const Exit = preload("res://ExitDoor.tscn")
+onready var Tilemap_Wall = $TileMap_Wall
+onready var TileMap_Floor = $TileMap_Floor
 
-var borders = Rect2(-18, -5, 38*4, 21*4)  # Multiply size by 4
+var rng = RandomNumberGenerator.new()
 
-onready var tileMap = $TileMap
+var grid = {}
+
+var Tiles = {
+	"empty": -1,
+	"wall": 0,
+	"floor": 1
+}
+
+func GetRandomDirection():
+	var directions = [Vector2(-1, 0), Vector2(1, 0), Vector2(0, 1), Vector2(0, -1)]
+	return directions[rng.randi()%4]
+
+func _create_random_path():
+	var max_iterations = 300  # Limit the total amount of floor tiles
+	var itr = 0
+	
+	var walker = Vector2.ZERO
+	
+	while itr < max_iterations:
+		# Perform random walk
+		var random_direction = GetRandomDirection()
+		walker += random_direction
+		grid[walker] = Tiles.floor
+		itr += 1
+
+var sum = 0
+func _spawn_tiles():
+	for key in grid.keys():
+		match grid[key]:
+			Tiles.floor:
+				TileMap_Floor.set_cellv(key, 0)
+				sum += 1
+			Tiles.wall:
+				Tilemap_Wall.set_cellv(key, 1)  # Assuming 1 is the index of the wall tile
+				sum += 1
+	print(sum)
+
+func _add_walls():
+	for key in grid.keys():
+		if grid[key] == Tiles.floor:
+			for dx in range(-1, 2):
+				for dy in range(-1, 2):
+					var neighbor = key + Vector2(dx, dy)
+					if not grid.has(neighbor):
+						grid[neighbor] = Tiles.wall
+
+#func _clear_tilemaps():
+#	tilemap.clear()
+#	tilemap.update_bitmask_region()
 
 func _ready():
-	randomize()
-	generate_level()
-
-func generate_level():
-	var walker = Walker.new(Vector2(19*4, 11*4), borders)  # Multiply position by 4
-	var map = walker.walk(200, 1)  # Set complexity to 1
-	
-	# Set all cells in the tilemap to type 1 (wall)
-	for x in range(int(borders.size.x)):
-		for y in range(int(borders.size.y)):
-			if not Vector2(x, y) in map:
-				tileMap.set_cellv(Vector2(x, y), 1)
-	
-	# Set cells in the map to type 0 (floor)
-	for location in map:
-		tileMap.set_cellv(location, -1)
-	
-	# Post-processing to remove 1 by 1 spots
-	for location in map:
-		if location + Vector2(1, 1) in map and location + Vector2(-1, -1) in map and location + Vector2(-1, 1) in map and location + Vector2(1, -1) in map:
-			continue
-		tileMap.set_cellv(location, -1)
-	
-	walker.queue_free()
-	tileMap.update_bitmask_region(borders.position, borders.end)
-	
-	# Set player's position to a random location within the map
-	var random_index = randi() % map.size()
-	Global.player.position = map[random_index]*64  # Multiply position by 4
-	
-#	var player = Player.instance()
-#	add_child(player)
-	
-#	var exit = Exit.instance()
-#	add_child(exit)
-#	exit.position = walker.get_end_room().position*32*4  # Multiply position by 4
-#	exit.connect("leaving_level", self, "reload_level")
-
-func reload_level():
-	get_tree().reload_current_scene()
-
-func _input(event):
-	if event.is_action_pressed("ui_accept"):
-		reload_level()
+	Global.Tilemap_Wall = Tilemap_Wall
+	rng.randomize()
+#	_clear_tilemaps()
+	_create_random_path()
+	_add_walls()
+	_spawn_tiles()

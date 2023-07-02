@@ -4,7 +4,7 @@
 [ext_resource path="res://Weapons/Shotgun.tscn" type="PackedScene" id=3]
 
 [sub_resource type="CircleShape2D" id=1]
-radius = 18.0278
+radius = 16.8958
 
 [node name="Player" type="KinematicBody2D"]
 modulate = Color( 1.5, 1.5, 1.5, 1 )
@@ -22,7 +22,6 @@ invert_border = 0.1
 polygon = PoolVector2Array( 175.485, 244, 14.7054, 189, -147.055, 244, 14.7054, -233 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( 0.133774, 0 )
 shape = SubResource( 1 )
 
 [node name="Weapon" parent="." instance=ExtResource( 3 )]

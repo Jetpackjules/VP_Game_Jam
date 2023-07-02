@@ -5,23 +5,15 @@ export var health = 100.0
 var player = null
 var original_linear_velocity = Vector2.ZERO
 var original_angular_velocity = 0
-onready var health_bar = get_node("HealthBar_container/HealthBar")
-onready var health_bar_container = get_node("HealthBar_container")
 onready var hit_anim = get_node("Hit_Anim")
-onready var tween: Tween = get_node("Tween")
 var dead := false
 #onready var sprite = get_node("Icon")
 var max_speed := 200
 
 
-func _ready():
-#	player = get_node("/root/Main/Player")  # Update with your player node's path
-	health_bar.max_value = health
-	health_bar.value = health
-
 
 func _physics_process(delta):
-	queue_free()
+#	queue_free()
 	if Global.game_paused and mode != MODE_STATIC or dead:
 		original_linear_velocity = linear_velocity
 		original_angular_velocity = angular_velocity
@@ -31,7 +23,8 @@ func _physics_process(delta):
 			linear_velocity = original_linear_velocity
 			angular_velocity = original_angular_velocity
 			mode = MODE_RIGID
-		health_bar_container.global_rotation_degrees = 0.0
+
+
 		var direction = Vector2.ZERO
 		if player != null:
 			direction = (player.global_position - global_position).normalized()
@@ -44,14 +37,13 @@ func _physics_process(delta):
 func hit(damage, knockback_force, cause):
 	hit_anim.play("Hit")
 	health -= damage
-	health_bar.visible = true
-	health_bar.value = health
-	if health <= 0:
-		die(knockback_force, cause.velocity)
-	else:
-		var knockback_direction = cause.velocity
-#		(global_position - player.global_position).normalized()
-		apply_impulse(Vector2.ZERO, knockback_direction * knockback_force)
+#	if health <= 0:
+	die(knockback_force, cause.velocity)
+#	else:
+#		pass
+#		var knockback_direction = cause.velocity
+##		(global_position - player.global_position).normalized()
+#		apply_impulse(Vector2.ZERO, knockback_direction * knockback_force)
 
 
 func die(force, direction):

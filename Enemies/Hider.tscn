@@ -1,0 +1,33 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://Enemies/Hider.gd" type="Script" id=2]
+
+[sub_resource type="Gradient" id=14]
+interpolation_mode = 1
+offsets = PoolRealArray( 0 )
+colors = PoolColorArray( 1, 0.847059, 0.321569, 1 )
+
+[sub_resource type="GradientTexture" id=15]
+gradient = SubResource( 14 )
+
+[node name="Hider" type="KinematicBody2D"]
+light_mask = 2
+collision_layer = 3
+collision_mask = 3
+script = ExtResource( 2 )
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+polygon = PoolVector2Array( -31.9999, 18.0001, -32, 8, -37, 0, -32, -8, -32.0001, -17.9999, -23, -23, -18, -32, -8, -32, -0.00013394, -37, 8.30102, -32.0712, 18, -32, 23.3428, -23.1402, 31.9999, -18.0001, 32, -8, 37, 0, 32, 8, 32.0001, 17.9999, 23.6149, 22.9786, 18, 32, 8.29866, 32.0727, 0.00013394, 37, -8, 32, -18, 32, -23, 23 )
+
+[node name="Polygon2D" type="Polygon2D" parent="."]
+rotation = 1.5708
+color = Color( 0.501961, 0.501961, 0.501961, 1 )
+texture = SubResource( 15 )
+polygon = PoolVector2Array( -18, -32, 18, -32, 37, 0, 18, 32, -18, 32, -37, 0 )
+
+[node name="Polygon2D2" type="Polygon2D" parent="."]
+color = Color( 0, 0, 0, 1 )
+texture = SubResource( 15 )
+polygon = PoolVector2Array( -18, -32, 18, -32, 37, 0, 18, 32, -18, 32, -37, 0 )
+
+[node name="RayCast2D" type="RayCast2D" parent="."]

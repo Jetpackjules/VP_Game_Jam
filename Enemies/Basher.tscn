@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Enemies/Enemy.gd" type="Script" id=2]
 [ext_resource path="res://Enemies/Dark_Hidden.tres" type="Material" id=3]
@@ -10,38 +10,23 @@ length = 0.5
 [sub_resource type="Animation" id=11]
 length = 0.001
 
-[sub_resource type="Gradient" id=14]
+[sub_resource type="Gradient" id=16]
 interpolation_mode = 1
 offsets = PoolRealArray( 0 )
 colors = PoolColorArray( 1, 0.847059, 0.321569, 1 )
 
 [sub_resource type="GradientTexture" id=15]
-gradient = SubResource( 14 )
-
-[sub_resource type="Gradient" id=12]
-offsets = PoolRealArray( 0.40724 )
-colors = PoolColorArray( 0, 0.694118, 1, 0 )
-
-[sub_resource type="GradientTexture2D" id=7]
-gradient = SubResource( 12 )
-
-[sub_resource type="Gradient" id=13]
-offsets = PoolRealArray( 0 )
-colors = PoolColorArray( 1, 0.305882, 0.301961, 0.619608 )
-
-[sub_resource type="GradientTexture" id=9]
-gradient = SubResource( 13 )
+gradient = SubResource( 16 )
 
 [node name="Basic" type="RigidBody2D" groups=["enemies"]]
 light_mask = 2
+material = ExtResource( 3 )
 collision_layer = 3
 collision_mask = 3
 contacts_reported = 4
 contact_monitor = true
 can_sleep = false
 script = ExtResource( 2 )
-
-[node name="Tween" type="Tween" parent="."]
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
 rotation = 1.5708
@@ -53,29 +38,8 @@ anims/RESET = SubResource( 11 )
 
 [node name="Polygon2D2" type="Polygon2D" parent="."]
 light_mask = 2
-material = ExtResource( 3 )
 color = Color( 1, 0.847059, 0.321569, 1 )
 texture = SubResource( 15 )
 polygon = PoolVector2Array( -18, -32, 18, -32, 37, 0, 18, 32, -18, 32, -37, 0 )
 
-[node name="HealthBar_container" type="Node2D" parent="."]
-
-[node name="HealthBar" type="TextureProgress" parent="HealthBar_container"]
-visible = false
-light_mask = 2
-material = ExtResource( 3 )
-anchor_left = 0.5
-anchor_right = 0.5
-margin_left = -82.0
-margin_top = 44.0
-margin_right = 82.0
-margin_bottom = 73.0
-rect_pivot_offset = Vector2( 82, -38 )
-value = 60.0
-texture_under = SubResource( 7 )
-texture_progress = SubResource( 9 )
-fill_mode = 6
-nine_patch_stretch = true
-
 [connection signal="body_entered" from="." to="." method="_on_Basic_body_entered"]
-[connection signal="tween_all_completed" from="Tween" to="." method="_on_Tween_tween_all_completed"]
