@@ -1,5 +1,11 @@
 extends KinematicBody2D
 
+enum State {IDLE, FINDING_HIDING_SPOT, MOVING_TO_HIDING_SPOT, ATTACKING_PLAYER}
+
+var speed = 500
+var state = State.IDLE
+var hiding_spot = Vector2.ZERO
+var attack_distance = 400  # The distance at which the enemy will start attacking the player
 
 onready var raycast = $RayCast2D
 onready var player = Global.player
@@ -9,79 +15,79 @@ onready var polygon2D = $Polygon2D
 onready var navigation = Global.Nav
 onready var agent = $NavigationAgent2D
 
-var speed = 100
-var state = 0
-
-var tile_position = null
-
 # Define colors for different states
-var colors = [Color.red, Color.green, Color.blue]
-
-var circle_radius = 10.0
-var circle_color = Color.red
-var line_color = Color.blue
-
-var positions = []
+var colors = [Color.blue, Color.green, Color.yellow, Color.red]
 
 
-func _draw():
-	if positions.size() >= 1:
-		for i in range(positions.size() - 1):
-			# Draw line between consecutive positions
-			draw_line(positions[i], positions[i + 1], line_color)
-			
-			# Draw circle at each position
-			draw_circle(positions[i], circle_radius, circle_color)
-		
-		# Draw circle at the last position
-		draw_circle(positions[positions.size() - 1], circle_radius, circle_color)
 
 
 
 func _ready():
 	agent.set_navigation(navigation)
+	state = State.FINDING_HIDING_SPOT
+
 
 func _physics_process(delta):
 	raycast.cast_to = Global.player.global_position - global_position
-	# Change color depending on state
-	modulate = colors[state]
+	raycast.force_raycast_update()
 	
-	
-	print(agent.is_navigation_finished())
-	positions = agent.get_nav_path()
-	
-	update()
-	if agent.distance_to_target() > 1:
-		var next_location = agent.get_next_location()
-		var direction = (next_location - global_position).normalized()
-		var velocity = direction * speed
-		agent.set_velocity(velocity)
-		move_and_slide(velocity)  # Assuming you have a speed variable
+	match state:
+		State.IDLE:
+			if raycast.is_colliding() and raycast.get_collider() == player:
+				if position.distance_to(player.position) < attack_distance:
+					state = State.ATTACKING_PLAYER
+				else:
+					state = State.FINDING_HIDING_SPOT
+		State.FINDING_HIDING_SPOT:
+			hiding_spot = find_nearest_available_tile()
+			if hiding_spot != null:
+				agent.set_target_location(hiding_spot)
+				state = State.MOVING_TO_HIDING_SPOT
+			else:
+				state = State.ATTACKING_PLAYER
+		State.MOVING_TO_HIDING_SPOT:
+			if agent.is_navigation_finished():
+				state = State.IDLE
+			else:
+				var next_location = agent.get_next_location()
+				var direction = (next_location - global_position).normalized()
+				var velocity = direction * speed
+				agent.set_velocity(velocity)
+				move_and_slide(velocity)
+		State.ATTACKING_PLAYER:
+			var direction_to_player = (player.position - position).normalized()
+			move_and_slide(direction_to_player * speed)
+			hiding_spot = find_nearest_available_tile()
+			if position.distance_to(player.position) > attack_distance and hiding_spot != null:
+				state = State.IDLE
 
-	# Use raycast to find nearest available tile with no sightline to the player
-	if tile_position == null:
-		tile_position = find_nearest_available_tile()
-		if tile_position != null:
-			tile_map.set_cellv(tile_position, 2)
-			agent.set_target_location(tile_map.map_to_world(tile_position))
+	polygon2D.color = colors[state]
 
 func find_nearest_available_tile():
 	var pred_cast = RayCast2D.new()
 	add_child(pred_cast)
 	pred_cast.enabled = true
 	
-	for distance in range(0, 1000, 32):  # Check every 32 pixels
+	var player_direction = (player.global_position - global_position).normalized()
+	
+	for distance in range(200, 1000, 32):  # Check every 32 pixels
 		for angle in range(0, 360, 10):  # Check every 10 degrees
 			var direction = Vector2(cos(angle), sin(angle))
+			
+			# Skip directions that are towards the player
+			if direction.dot(player_direction) > 0:
+				continue
+			
 			pred_cast.position = direction * distance
 			pred_cast.cast_to = Global.player.global_position - pred_cast.global_position
 			pred_cast.force_raycast_update()
 			if pred_cast.get_collider() != player:
 				var new_pos = pred_cast.global_position
-				var tile_position = tile_map_floor.world_to_map(new_pos)
+				var tile_position = tile_map_floor.world_to_map(new_pos / tile_map_floor.scale)  # Adjust for scale
 				
 				if tile_map_floor.get_cellv(tile_position) == 0:
 					pred_cast.queue_free()
-					return tile_position
+					return new_pos
 	pred_cast.queue_free()
 	return null
+
