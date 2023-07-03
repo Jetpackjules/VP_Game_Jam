@@ -12,6 +12,7 @@ var max_speed := 200
 
 
 
+
 func _physics_process(delta):
 #	queue_free()
 	if Global.game_paused and mode != MODE_STATIC or dead:

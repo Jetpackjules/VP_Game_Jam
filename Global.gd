@@ -5,6 +5,9 @@ var game_paused := false
 var camera: Camera2D
 var player = null
 var Tilemap_Wall = null
+var Tilemap_Floor = null
+var Nav = null
+
 
 func shake(trauma_in, power = 2):
 	camera.trigger_shake(trauma_in, power)

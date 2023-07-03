@@ -1,7 +1,7 @@
 extends Node2D
 
-onready var Tilemap_Wall = $TileMap_Wall
-onready var TileMap_Floor = $TileMap_Floor
+onready var Tilemap_Wall = $Navigation2D/TileMap_Wall
+onready var TileMap_Floor = $Navigation2D/TileMap_Floor
 
 var rng = RandomNumberGenerator.new()
 
@@ -56,7 +56,9 @@ func _add_walls():
 #	tilemap.update_bitmask_region()
 
 func _ready():
+	Global.Nav = $Navigation2D
 	Global.Tilemap_Wall = Tilemap_Wall
+	Global.Tilemap_Floor = TileMap_Floor
 	rng.randomize()
 #	_clear_tilemaps()
 	_create_random_path()

@@ -1,74 +1,87 @@
 extends KinematicBody2D
 
-var speed = 200
-var player_detected = false
-var hiding_spot = Vector2.ZERO
-var is_moving_to_hiding_spot = false
-var is_finding_hiding_spot = false
 
-onready var raycast = $RayCast2D  # Add a RayCast2D node as a child of the enemy
+onready var raycast = $RayCast2D
 onready var player = Global.player
-onready var tilemap = Global.Tilemap_Wall
+onready var tile_map = Global.Tilemap_Wall
+onready var tile_map_floor = Global.Tilemap_Floor
+onready var polygon2D = $Polygon2D
+onready var navigation = Global.Nav
+onready var agent = $NavigationAgent2D
+
+var speed = 100
+var state = 0
+
+var tile_position = null
+
+# Define colors for different states
+var colors = [Color.red, Color.green, Color.blue]
+
+var circle_radius = 10.0
+var circle_color = Color.red
+var line_color = Color.blue
+
+var positions = []
+
+
+func _draw():
+	if positions.size() >= 1:
+		for i in range(positions.size() - 1):
+			# Draw line between consecutive positions
+			draw_line(positions[i], positions[i + 1], line_color)
+			
+			# Draw circle at each position
+			draw_circle(positions[i], circle_radius, circle_color)
+		
+		# Draw circle at the last position
+		draw_circle(positions[positions.size() - 1], circle_radius, circle_color)
+
+
+
+func _ready():
+	agent.set_navigation(navigation)
 
 func _physics_process(delta):
-	raycast.cast_to = player.position - position  # Set the raycast to point towards the player
-	raycast.force_raycast_update()  # Update the raycast
+	raycast.cast_to = Global.player.global_position - global_position
+	# Change color depending on state
+	modulate = colors[state]
+	
+	
+	print(agent.is_navigation_finished())
+	positions = agent.get_nav_path()
+	
+	update()
+	if agent.distance_to_target() > 1:
+		var next_location = agent.get_next_location()
+		var direction = (next_location - global_position).normalized()
+		var velocity = direction * speed
+		agent.set_velocity(velocity)
+		move_and_slide(velocity)  # Assuming you have a speed variable
 
-	if raycast.is_colliding() and raycast.get_collider() == player:
-		player_detected = true
-		if not is_moving_to_hiding_spot and not is_finding_hiding_spot:
-			is_finding_hiding_spot = true
-			find_hiding_spot()
-	else:
-		player_detected = false
-		is_moving_to_hiding_spot = false
+	# Use raycast to find nearest available tile with no sightline to the player
+	if tile_position == null:
+		tile_position = find_nearest_available_tile()
+		if tile_position != null:
+			tile_map.set_cellv(tile_position, 2)
+			agent.set_target_location(tile_map.map_to_world(tile_position))
 
-	if player_detected:
-		var direction_to_player = (player.position - position).normalized()
-		move_and_slide(direction_to_player * speed)
-	else:
-		var direction_to_hiding_spot = (hiding_spot - position).normalized()
-		move_and_slide(direction_to_hiding_spot * speed)
-		if position.distance_to(hiding_spot) < 1:
-			is_moving_to_hiding_spot = false
-
-func find_hiding_spot():
-	var start_pos = tilemap.world_to_map(position)
-	var queue = [start_pos]
-	var visited = {start_pos: true}
-	var directions = [Vector2.UP, Vector2.RIGHT, Vector2.DOWN, Vector2.LEFT]
-	var timer = Timer.new()
-	timer.set_wait_time(0.1)
-	timer.connect("timeout", self, "_on_timer_timeout", [queue, visited, directions])
-	add_child(timer)
-	timer.start()
-
-func _on_timer_timeout(queue, visited, directions):
-	if queue.size() == 0:
-#		get_node("Timer").queue_free()
-		is_finding_hiding_spot = false
-		return
-
-	var current_pos = queue.pop_front()
-	for direction in directions:
-		var next_pos = current_pos + direction
-		if next_pos in visited:
-			continue
-
-		visited[next_pos] = true
-		if tilemap.get_cellv(next_pos) != -1:
-			var raycast_to_player = RayCast2D.new()
-			raycast_to_player.set_cast_to(player.position - tilemap.map_to_world(next_pos))
-			raycast_to_player.set_cast_to(tilemap.map_to_world(next_pos))
-			raycast_to_player.force_raycast_update()
-			if not raycast_to_player.is_colliding() or raycast_to_player.get_collider() != player:
-				hiding_spot = tilemap.map_to_world(next_pos)
-				is_moving_to_hiding_spot = true
-#				get_node("Timer").queue_free()
-				is_finding_hiding_spot = false
-				return
-
-		queue.push_back(next_pos)
-	tilemap.set_cellv(current_pos, 2)
-	yield(get_tree().create_timer(0.5), "timeout")
-	tilemap.set_cellv(current_pos, -1)
+func find_nearest_available_tile():
+	var pred_cast = RayCast2D.new()
+	add_child(pred_cast)
+	pred_cast.enabled = true
+	
+	for distance in range(0, 1000, 32):  # Check every 32 pixels
+		for angle in range(0, 360, 10):  # Check every 10 degrees
+			var direction = Vector2(cos(angle), sin(angle))
+			pred_cast.position = direction * distance
+			pred_cast.cast_to = Global.player.global_position - pred_cast.global_position
+			pred_cast.force_raycast_update()
+			if pred_cast.get_collider() != player:
+				var new_pos = pred_cast.global_position
+				var tile_position = tile_map_floor.world_to_map(new_pos)
+				
+				if tile_map_floor.get_cellv(tile_position) == 0:
+					pred_cast.queue_free()
+					return tile_position
+	pred_cast.queue_free()
+	return null
