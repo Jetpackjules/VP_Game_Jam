@@ -1,34 +1,28 @@
 extends KinematicBody2D
 
-enum State {IDLE, FINDING_HIDING_SPOT, MOVING_TO_HIDING_SPOT, ATTACKING_PLAYER}
+enum State {IDLE, FINDING_HIDING_SPOT, MOVING_TO_HIDING_SPOT, ATTACKING_PLAYER, KNOCKBACK}
 
 var speed = 500
 var state = State.IDLE
 var hiding_spot = Vector2.ZERO
 var attack_distance = 400  # The distance at which the enemy will start attacking the player
+var knockback_timer = 0  # Timer to reduce knockback effect
 
 onready var raycast = $RayCast2D
 onready var player = Global.player
 onready var tile_map = Global.Tilemap_Wall
 onready var tile_map_floor = Global.Tilemap_Floor
-
 onready var navigation = Global.Nav
 onready var agent = $NavigationAgent2D
 
-
-
 var line: Line2D
-
 var move_velocity
-
 var velocity = Vector2.ZERO
 var damping = 0.48  # Adjust this value to change the damping effect
-
 
 func _ready():
 	agent.set_navigation(navigation)
 	state = State.FINDING_HIDING_SPOT
-
 
 func _physics_process(delta):
 	raycast.cast_to = Global.player.global_position - global_position
@@ -62,6 +56,12 @@ func _physics_process(delta):
 			move_and_slide(direction_to_player * speed)
 			hiding_spot = find_nearest_available_tile()
 			if position.distance_to(player.position) > attack_distance and hiding_spot != null:
+				state = State.IDLE
+		State.KNOCKBACK:
+			if knockback_timer > 0:
+				knockback_timer -= delta
+				move_and_slide(velocity) 
+			else:
 				state = State.IDLE
 
 

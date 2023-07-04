@@ -5,6 +5,8 @@ var speed: float = 500.0
 var size: float = 1.0
 var direction: Vector2 = Vector2()
 var damage = 50
+var knockback_force = 10
+
 
 var bullet_owner = null
 
@@ -28,5 +30,5 @@ func _on_Bullet_body_entered(body):
 	if body.has_node("Health"):
 		var health_module = body.get_node("Health")
 		if !health_module.dead:
-			health_module.hit(damage, global_position, self)
+			health_module.hit(damage, knockback_force, self)
 	queue_free()
