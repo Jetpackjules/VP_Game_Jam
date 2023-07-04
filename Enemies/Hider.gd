@@ -11,7 +11,7 @@ onready var raycast = $RayCast2D
 onready var player = Global.player
 onready var tile_map = Global.Tilemap_Wall
 onready var tile_map_floor = Global.Tilemap_Floor
-onready var polygon2D = $Polygon2D
+
 onready var navigation = Global.Nav
 onready var agent = $NavigationAgent2D
 
@@ -26,23 +26,11 @@ var damping = 0.48  # Adjust this value to change the damping effect
 
 
 func _ready():
-#	line = Line2D.new()
-#	get_tree().root.add_child(line)
-	
-#	Navigation2DServer.agent_set_map(obstruction.get_rid(), get_world_2d().navigation_map)
 	agent.set_navigation(navigation)
 	state = State.FINDING_HIDING_SPOT
 
 
 func _physics_process(delta):
-	if hiding_spot != null:
-#		var nav_map = get_world_2d().get_navigation_map()
-#		line.points = agent.get_nav_path()
-
-
-		print(global_position-hiding_spot)
-		
-		
 	raycast.cast_to = Global.player.global_position - global_position
 	raycast.force_raycast_update()
 	
@@ -69,7 +57,6 @@ func _physics_process(delta):
 				var target_velocity = target_direction * speed
 				velocity += (target_velocity - velocity) * damping
 				agent.set_velocity(velocity)
-#				move_and_slide(velocity)
 		State.ATTACKING_PLAYER:
 			var direction_to_player = (player.position - position).normalized()
 			move_and_slide(direction_to_player * speed)
@@ -109,4 +96,4 @@ func find_nearest_available_tile():
 	return null
 
 func _on_NavigationAgent2D_velocity_computed(safe_velocity):
-	velocity = move_and_slide(safe_velocity) # <--- Line never gets run
+	velocity = move_and_slide(safe_velocity) 

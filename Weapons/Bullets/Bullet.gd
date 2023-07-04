@@ -25,7 +25,8 @@ func _process(delta):
 	position += velocity * delta
 
 func _on_Bullet_body_entered(body):
-	if body.has_method("hit"):
-		if !body.dead:
-			body.hit(damage, global_position, self)
+	if body.has_node("Health"):
+		var health_module = body.get_node("Health")
+		if !health_module.dead:
+			health_module.hit(damage, global_position, self)
 	queue_free()
