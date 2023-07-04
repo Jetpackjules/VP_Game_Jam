@@ -7,6 +7,7 @@ var player = null
 var Tilemap_Wall = null
 var Tilemap_Floor = null
 var Nav = null
+var line = null
 
 
 func shake(trauma_in, power = 2):

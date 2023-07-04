@@ -24,7 +24,9 @@ func _ready():
 
 func spawn_enemy():
 	if !spawned:
-		spawned = true
+#		print(randf())
+		if randf() > 0.7:
+			spawned = true
 		var enemy = EnemyScene.instance()  # Create an instance of the enemy
 		enemy.global_position = get_random_spawn_position()  # Set its position off-screen
 	#	enemy.health += health_increase  # Set the enemy's health
@@ -51,19 +53,23 @@ func _process(delta):
 
 
 func get_random_spawn_position():
-	return(Global.player.global_position + Vector2(200, 0))
-	var viewport_size = get_viewport_rect().size
-	var spawn_margin = 100.0  # How far off-screen to spawn the enemies
+	var tilemap = Global.Tilemap_Floor
+	var tilemap_scale = tilemap.scale.x  # Tilemap scale factor
+	var tile_size = tilemap.cell_size * tilemap_scale
+	var map_size = tilemap.get_used_rect().size
 
-	var spawn_position = Vector2(
-		rand_range(-spawn_margin, viewport_size.x + spawn_margin),
-		rand_range(-spawn_margin, viewport_size.y + spawn_margin)
-	)
-
-	# Adjust the position so it's off-screen on one axis
-	if randf() < 0.5:
-		spawn_position.x = -spawn_margin if randf() < 0.5 else viewport_size.x + spawn_margin
-	else:
-		spawn_position.y = -spawn_margin if randf() < 0.5 else viewport_size.y + spawn_margin
-
+	var spawn_position = Vector2.ZERO
+	var tile_type = -1
+	
+	# Find a random tile of type 1
+	while tile_type != 0:
+		var tile_position = Vector2(
+			int(rand_range(0, map_size.x)),
+			int(rand_range(0, map_size.y))
+		)
+		tile_type = tilemap.get_cellv(tile_position)
+		if tile_type == 0:
+			spawn_position = tilemap.map_to_world(tile_position) * tilemap_scale + (tile_size/2)
+			print(spawn_position)
 	return spawn_position
+

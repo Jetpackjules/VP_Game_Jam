@@ -19,15 +19,32 @@ onready var agent = $NavigationAgent2D
 var colors = [Color.blue, Color.green, Color.yellow, Color.red]
 
 
+var line: Line2D
 
+var move_velocity
+
+var velocity = Vector2.ZERO
+var damping = 0.48  # Adjust this value to change the damping effect
 
 
 func _ready():
+#	line = Line2D.new()
+#	get_tree().root.add_child(line)
+	
+#	Navigation2DServer.agent_set_map(obstruction.get_rid(), get_world_2d().navigation_map)
 	agent.set_navigation(navigation)
 	state = State.FINDING_HIDING_SPOT
 
 
 func _physics_process(delta):
+	if hiding_spot != null:
+#		var nav_map = get_world_2d().get_navigation_map()
+#		line.points = agent.get_nav_path()
+
+
+		print(global_position-hiding_spot)
+		
+		
 	raycast.cast_to = Global.player.global_position - global_position
 	raycast.force_raycast_update()
 	
@@ -50,10 +67,11 @@ func _physics_process(delta):
 				state = State.IDLE
 			else:
 				var next_location = agent.get_next_location()
-				var direction = (next_location - global_position).normalized()
-				var velocity = direction * speed
+				var target_direction = (next_location - global_position).normalized()
+				var target_velocity = target_direction * speed
+				velocity += (target_velocity - velocity) * damping
 				agent.set_velocity(velocity)
-				move_and_slide(velocity)
+#				move_and_slide(velocity)
 		State.ATTACKING_PLAYER:
 			var direction_to_player = (player.position - position).normalized()
 			move_and_slide(direction_to_player * speed)
@@ -62,6 +80,9 @@ func _physics_process(delta):
 				state = State.IDLE
 
 	polygon2D.color = colors[state]
+
+# ... rest of the code ...
+
 
 func find_nearest_available_tile():
 	var pred_cast = RayCast2D.new()
@@ -91,3 +112,5 @@ func find_nearest_available_tile():
 	pred_cast.queue_free()
 	return null
 
+func _on_NavigationAgent2D_velocity_computed(safe_velocity):
+	velocity = move_and_slide(safe_velocity) # <--- Line never gets run
