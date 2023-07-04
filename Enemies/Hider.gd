@@ -2,7 +2,7 @@ extends KinematicBody2D
 
 enum State {IDLE, FINDING_HIDING_SPOT, MOVING_TO_HIDING_SPOT, ATTACKING_PLAYER, KNOCKBACK}
 
-var speed = 500
+var speed = 300
 var state = State.IDLE
 var hiding_spot = Vector2.ZERO
 var attack_distance = 400  # The distance at which the enemy will start attacking the player
@@ -15,16 +15,28 @@ onready var tile_map_floor = Global.Tilemap_Floor
 onready var navigation = Global.Nav
 onready var agent = $NavigationAgent2D
 
+
+onready var polygon1 = $Polygon2D
+onready var polygon2 = $Polygon2D2
+
+
+
 var line: Line2D
 var move_velocity
 var velocity = Vector2.ZERO
-var damping = 0.48  # Adjust this value to change the damping effect
+var damping = 0.68  # Adjust this value to change the damping effect
 
 func _ready():
 	agent.set_navigation(navigation)
 	state = State.FINDING_HIDING_SPOT
 
 func _physics_process(delta):
+	# update rotation of polygons
+	var rotation_speed = speed * delta *1 
+	polygon1.rotation += rotation_speed
+#	polygon2.rotation -= rotation_speed
+	
+	
 	raycast.cast_to = Global.player.global_position - global_position
 	raycast.force_raycast_update()
 	
@@ -43,6 +55,7 @@ func _physics_process(delta):
 			else:
 				state = State.ATTACKING_PLAYER
 		State.MOVING_TO_HIDING_SPOT:
+			speed = 500
 			if agent.is_navigation_finished():
 				state = State.IDLE
 			else:
@@ -52,6 +65,7 @@ func _physics_process(delta):
 				velocity += (target_velocity - velocity) * damping
 				agent.set_velocity(velocity)
 		State.ATTACKING_PLAYER:
+			speed = 300
 			var direction_to_player = (player.position - position).normalized()
 			move_and_slide(direction_to_player * speed)
 			hiding_spot = find_nearest_available_tile()
