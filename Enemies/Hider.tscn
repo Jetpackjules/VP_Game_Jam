@@ -1,6 +1,5 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=5 format=2]
 
-[ext_resource path="res://Enemies/Dark_Hidden.tres" type="Material" id=1]
 [ext_resource path="res://Enemies/Hider.gd" type="Script" id=2]
 
 [sub_resource type="Gradient" id=14]
@@ -12,7 +11,7 @@ colors = PoolColorArray( 1, 0.847059, 0.321569, 1 )
 gradient = SubResource( 14 )
 
 [sub_resource type="CircleShape2D" id=16]
-radius = 17.0
+radius = 12.0
 
 [node name="Hider" type="KinematicBody2D"]
 light_mask = 2
@@ -24,13 +23,14 @@ script = ExtResource( 2 )
 light_mask = 2
 rotation = 1.5708
 scale = Vector2( 0.5, 0.5 )
+color = Color( 1, 0, 0, 1 )
 texture = SubResource( 15 )
 polygon = PoolVector2Array( -18, -32, 18, -32, 37, 0, 18, 32, -18, 32, -37, 0 )
 
 [node name="Polygon2D" type="Polygon2D" parent="."]
 light_mask = 2
-material = ExtResource( 1 )
 scale = Vector2( 0.5, 0.5 )
+color = Color( 1, 0, 0, 1 )
 texture = SubResource( 15 )
 polygon = PoolVector2Array( -18, -32, 18, -32, 37, 0, 18, 32, -18, 32, -37, 0 )
 
@@ -41,10 +41,9 @@ shape = SubResource( 16 )
 enabled = true
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
-path_desired_distance = 6.0
+path_desired_distance = 45.0
 target_desired_distance = 6.0
 avoidance_enabled = true
-radius = 18.0
 max_speed = 1000.0
 
 [connection signal="path_changed" from="NavigationAgent2D" to="." method="_on_NavigationAgent2D_path_changed"]

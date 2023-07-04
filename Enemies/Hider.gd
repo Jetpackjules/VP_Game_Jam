@@ -15,8 +15,6 @@ onready var polygon2D = $Polygon2D
 onready var navigation = Global.Nav
 onready var agent = $NavigationAgent2D
 
-# Define colors for different states
-var colors = [Color.blue, Color.green, Color.yellow, Color.red]
 
 
 var line: Line2D
@@ -79,9 +77,7 @@ func _physics_process(delta):
 			if position.distance_to(player.position) > attack_distance and hiding_spot != null:
 				state = State.IDLE
 
-	polygon2D.color = colors[state]
 
-# ... rest of the code ...
 
 
 func find_nearest_available_tile():
