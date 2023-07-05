@@ -11,15 +11,11 @@ var Tiles = {
 	"floor": 1
 }
 
+var furthest_tile = Vector2.ZERO
 
 func _input(event):
 	if event.is_action_pressed("new_level"):
 		new_level()
-
-
-
-
-
 
 func GetRandomDirection():
 	var directions = [Vector2(-1, 0), Vector2(1, 0), Vector2(0, 1), Vector2(0, -1)]
@@ -69,6 +65,28 @@ func new_level():
 	_create_random_path()
 	_add_walls()
 	_spawn_tiles()
+	find_furthest_tile()
+
+func find_furthest_tile():
+	var visited = {}
+	var queue = []
+	var center = Vector2.ZERO
+	queue.append(center)
+	visited[center] = true
+
+	while queue.size() > 0:
+		var current = queue.pop_front()
+		for dx in range(-1, 2):
+			for dy in range(-1, 2):
+				var neighbor = current + Vector2(dx, dy)
+				if grid.has(neighbor) and grid[neighbor] == Tiles.floor and not visited.has(neighbor):
+					queue.append(neighbor)
+					visited[neighbor] = true
+		furthest_tile = current
+
+	while Global.player == null:
+		yield(get_tree().create_timer(0.0000001), "timeout")  # Wait until Global.player is not null
+	Global.player.position = TileMap_Floor.map_to_world(furthest_tile)*1.5 + TileMap_Floor.cell_size / 2  # Teleport player to furthest tile
 
 func _ready():
 	Global.Nav = $Navigation2D

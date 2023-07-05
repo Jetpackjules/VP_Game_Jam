@@ -34,6 +34,7 @@ enabled = true
 path_desired_distance = 45.0
 target_desired_distance = 6.0
 avoidance_enabled = true
+radius = 17.0
 max_speed = 1000.0
 
 [node name="Health" parent="." instance=ExtResource( 1 )]

@@ -21,9 +21,6 @@ onready var polygon2 = $Polygon2D2
 
 var time_since_last_sight = 0.0
 
-
-var line: Line2D
-var move_velocity
 var velocity = Vector2.ZERO
 var damping = 0.68  # Adjust this value to change the damping effect
 
@@ -56,6 +53,9 @@ func _physics_process(delta):
 				state = State.ATTACKING_PLAYER
 		State.MOVING_TO_HIDING_SPOT:
 			agent.set_target_location(hiding_spot)
+			if !agent.is_target_reachable():
+				print("UNREACHABLE")
+#				breakpoint # THIS SHOULD NEVER HAPPEN!
 			speed = 500
 			if agent.is_navigation_finished():
 				state = State.IDLE
@@ -77,16 +77,17 @@ func _physics_process(delta):
 
 			agent.set_velocity(direction_to_player * speed)
 
-			if not raycast.is_colliding():
+			if not raycast.get_collider() == player:
 				time_since_last_sight += delta
 			else:
 				time_since_last_sight = 0.0
 				
 			hiding_spot = find_nearest_available_tile()
-			if position.distance_to(player.position) > attack_distance and hiding_spot != null:
-				state = State.MOVING_TO_HIDING_SPOT
-			elif time_since_last_sight > 2.0:
-				state = State.MOVING_TO_HIDING_SPOT
+			if position.distance_to(player.position) > attack_distance or time_since_last_sight > 1.5:
+				if hiding_spot != null:
+					state = State.MOVING_TO_HIDING_SPOT
+#			elif time_since_last_sight > 1.5 and hiding_spot != null:
+#				state = State.MOVING_TO_HIDING_SPOT
 				
 
 		State.KNOCKBACK:
@@ -122,18 +123,27 @@ func find_nearest_available_tile():
 			if direction.dot(player_direction) > 0:
 				continue
 			
-			pred_cast.position = direction * distance
-			pred_cast.cast_to = Global.player.global_position - pred_cast.global_position
-			pred_cast.force_raycast_update()
-			if pred_cast.get_collider() != player:
-				var new_pos = pred_cast.global_position
-				var tile_position = tile_map_floor.world_to_map(new_pos / tile_map_floor.scale)  # Adjust for scale
+			var test_point = to_global(direction * distance)
+			var tile_position = tile_map_floor.world_to_map(test_point / tile_map_floor.scale)
+			
+			if tile_map_floor.get_cellv(tile_position) == 0:
 				
-				if tile_map_floor.get_cellv(tile_position) == 0:
+				
+				var closest_point = navigation.get_closest_point(test_point)
+
+				pred_cast.global_position = closest_point
+				pred_cast.cast_to = Global.player.global_position - closest_point
+				pred_cast.force_raycast_update()
+				if pred_cast.get_collider() != player:
+#					var new_pos = pred_cast.global_position
+#					var tile_position = tile_map_floor.world_to_map(new_pos / tile_map_floor.scale)  # Adjust for scale
+#
+#					if tile_map_floor.get_cellv(tile_position) == 0:
 					pred_cast.queue_free()
-					return new_pos
+					return closest_point
 	pred_cast.queue_free()
 	return null
 
 func _on_NavigationAgent2D_velocity_computed(safe_velocity):
 	velocity = move_and_slide(safe_velocity) 
+

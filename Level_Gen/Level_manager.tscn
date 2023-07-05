@@ -51,9 +51,9 @@ resource_local_to_scene = true
 2/z_index = 0
 
 [sub_resource type="NavigationPolygon" id=34]
-vertices = PoolVector2Array( 36, 36, 28, 36, 28, 28, 36, 28 )
-polygons = [ PoolIntArray( 0, 1, 2, 3 ) ]
-outlines = [ PoolVector2Array( 36, 36, 28, 36, 28, 28, 36, 28 ) ]
+vertices = PoolVector2Array( 16, 16, 8, 0, 56, 0, 48, 16, 64, 8, 64, 56, 48, 48, 56, 64, 8, 64, 16, 48, 0, 56, 0, 8 )
+polygons = [ PoolIntArray( 0, 1, 2, 3 ), PoolIntArray( 3, 4, 5, 6 ), PoolIntArray( 6, 7, 8, 9 ), PoolIntArray( 9, 10, 11, 0 ), PoolIntArray( 0, 3, 6, 9 ), PoolIntArray( 9, 0, 0 ) ]
+outlines = [ PoolVector2Array( 16, 16, 16, 16, 8, 0, 56, 0, 48, 16, 64, 8, 64, 56, 48, 48, 56, 64, 8, 64, 16, 48, 0, 56, 0, 8 ) ]
 
 [sub_resource type="TileSet" id=33]
 0/name = "Floor_Tile.tres 0"
@@ -76,7 +76,7 @@ outlines = [ PoolVector2Array( 36, 36, 28, 36, 28, 28, 36, 28 ) ]
 script = ExtResource( 4 )
 
 [node name="Navigation2D" type="Navigation2D" parent="."]
-edge_connection_margin = 120.0
+edge_connection_margin = 5.0
 
 [node name="TileMap_Wall" type="TileMap" parent="Navigation2D"]
 scale = Vector2( 1.5, 1.5 )
