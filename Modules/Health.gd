@@ -14,8 +14,9 @@ func hit(damage, knockback_force, cause):
 	else:
 		var knockback_direction = cause.velocity.normalized()
 		
-		get_parent().knockback_timer = .5  # Knockback effect lasts for 0.5 seconds
-		get_parent().velocity += knockback_direction * knockback_force  # Apply knockback by modifying parent's velocity
+		get_parent().knockback_timer = 0.0625  # Knockback effect lasts for 0.5 seconds
+		
+		get_parent().velocity = knockback_direction * knockback_force  # Apply knockback by modifying parent's velocity
 		get_parent().state = get_parent().State.KNOCKBACK
 		
 

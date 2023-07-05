@@ -5,7 +5,7 @@ var speed: float = 500.0
 var size: float = 1.0
 var direction: Vector2 = Vector2()
 var damage = 50
-var knockback_force = 10
+var knockback_force = 1500
 
 
 var bullet_owner = null

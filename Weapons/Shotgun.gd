@@ -11,7 +11,9 @@ func _ready():
 	bullet_speed = 1600.0
 	bullet_size = 1.5
 
-# Override the fire method:
+func _input(event):
+	if event.is_action_pressed("ui_fire") and !Global.game_paused:
+		fire()
 
 func fire():
 	if !can_fire:
@@ -30,7 +32,8 @@ func fire():
 		var angle = spread * (randf() - 0.5)
 
 		# Set the bullet's direction and rotation
-		var bullet_direction = Vector2.RIGHT.rotated(rotation + deg2rad(angle))
+		var player_rotation = get_parent().facing_rotation
+		var bullet_direction = Vector2.RIGHT.rotated(player_rotation + deg2rad(angle))
 		bullet.direction = bullet_direction
 		bullet.rotation = bullet_direction.angle()
 

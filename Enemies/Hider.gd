@@ -50,11 +50,11 @@ func _physics_process(delta):
 		State.FINDING_HIDING_SPOT:
 			hiding_spot = find_nearest_available_tile()
 			if hiding_spot != null:
-				agent.set_target_location(hiding_spot)
 				state = State.MOVING_TO_HIDING_SPOT
 			else:
 				state = State.ATTACKING_PLAYER
 		State.MOVING_TO_HIDING_SPOT:
+			agent.set_target_location(hiding_spot)
 			speed = 500
 			if agent.is_navigation_finished():
 				state = State.IDLE
@@ -67,14 +67,30 @@ func _physics_process(delta):
 		State.ATTACKING_PLAYER:
 			speed = 300
 			var direction_to_player = (player.position - position).normalized()
-			move_and_slide(direction_to_player * speed)
+			
+			agent.set_target_location(player.global_position)
+			var next_location = agent.get_next_location()
+			var target_direction = (next_location - global_position).normalized()
+			var target_velocity = target_direction * speed
+
+			agent.set_velocity(direction_to_player * speed)
+
+
+#			move_and_slide(direction_to_player * speed)
 			hiding_spot = find_nearest_available_tile()
 			if position.distance_to(player.position) > attack_distance and hiding_spot != null:
-				state = State.IDLE
+				state = State.MOVING_TO_HIDING_SPOT
 		State.KNOCKBACK:
-			if knockback_timer > 0:
-				knockback_timer -= delta
-				move_and_slide(velocity) 
+			agent.set_target_location(global_position)
+			if knockback_timer > -0.25:
+				if knockback_timer > 0:
+					knockback_timer -= delta
+					velocity *=  0.5
+					move_and_slide(velocity) 
+				else:
+					knockback_timer -= delta
+					move_and_slide(velocity*(1-abs(knockback_timer)/0.25))
+					pass
 			else:
 				state = State.IDLE
 

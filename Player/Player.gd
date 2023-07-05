@@ -7,32 +7,41 @@ var fire_amount: int = 1     # Fires 1 projectile at a time
 var health: float = 100.0    # Player's health
 var heal_percent: float = 0.0    # Player's health
 
+onready var sprite = $Polygon2D
+
 # State variables
 var velocity: Vector2 = Vector2()
 var enemies : Array = []
 var closest_enemy = null
 var fire_timer : Timer
 
+var facing_rotation = 0.0
+#onready var env_light = $Env_Light
+#onready var enemy_hider = $Enemy_Hider
+
 # Weapon
-onready var weapon = get_node("Weapon")
+#onready var weapon = get_node("Weapon")
 
 
 func _ready():
 	Global.player = self
 
 
-func _input(event):
-	if event.is_action_pressed("ui_fire") and !Global.game_paused:
-		weapon.fire()
+#func _input(event):
+#	if event.is_action_pressed("ui_fire") and !Global.game_paused:
+#		weapon.fire()
 
 func _process(delta):
-	 
+#	enemy_hider.rotation = -rotation
+#	env_light.rotation = -rotation
+	
 	if Global.game_paused:
 		return
 
 	# Player always faces the mouse
-	rotation = get_global_mouse_position().angle_to_point(global_position)
-	weapon.rotation = rotation  # Make the weapon face the same direction as the player
+	facing_rotation = get_global_mouse_position().angle_to_point(global_position)
+	sprite.rotation = facing_rotation
+#	weapon.rotation = rotation  # Make the weapon face the same direction as the player
 
 	# Get input for movement
 	var move_dir: Vector2 = Vector2()

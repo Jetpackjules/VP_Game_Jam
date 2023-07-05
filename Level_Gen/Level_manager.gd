@@ -2,18 +2,14 @@ extends Node2D
 
 onready var Tilemap_Wall = $Navigation2D/TileMap_Wall
 onready var TileMap_Floor = $Navigation2D/TileMap_Floor
-onready var line = $Line2D
 
 var rng = RandomNumberGenerator.new()
-
 var grid = {}
-
 var Tiles = {
 	"empty": -1,
 	"wall": 0,
 	"floor": 1
 }
-
 
 func GetRandomDirection():
 	var directions = [Vector2(-1, 0), Vector2(1, 0), Vector2(0, 1), Vector2(0, -1)]
@@ -53,12 +49,7 @@ func _add_walls():
 					if not grid.has(neighbor):
 						grid[neighbor] = Tiles.wall
 
-#func _clear_tilemaps():
-#	tilemap.clear()
-#	tilemap.update_bitmask_region()
-
 func _ready():
-	Global.line = line
 	Global.Nav = $Navigation2D
 	Global.Tilemap_Wall = Tilemap_Wall
 	Global.Tilemap_Floor = TileMap_Floor
