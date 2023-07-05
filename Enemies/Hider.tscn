@@ -37,7 +37,7 @@ avoidance_enabled = true
 max_speed = 1000.0
 
 [node name="Health" parent="." instance=ExtResource( 1 )]
-health = 2500.0
+health = 25000.0
 splat_scale = 0.46
 
 [connection signal="velocity_computed" from="NavigationAgent2D" to="." method="_on_NavigationAgent2D_velocity_computed"]

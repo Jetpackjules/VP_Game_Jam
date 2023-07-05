@@ -8,9 +8,8 @@ func _on_Button_pressed():
 func reset():
 	Global.game_paused = true
 	visible = true
-	for enemy in player.enemies:
-		enemy.queue_free()
-	player.enemies.clear()
+
+
 	score.increase_score(-score.score)
 	score.card_checkpoint = 0
 	player_health.set_health(100)

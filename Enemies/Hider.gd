@@ -90,6 +90,7 @@ func _physics_process(delta):
 				
 
 		State.KNOCKBACK:
+			speed = 70
 			agent.set_target_location(global_position)
 			if knockback_timer > -0.25:
 				if knockback_timer > 0:

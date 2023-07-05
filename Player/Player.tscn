@@ -1,11 +1,15 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Player/Player.gd" type="Script" id=1]
 [ext_resource path="res://Assets/Constant_Light.tres" type="Texture" id=2]
 [ext_resource path="res://Weapons/Shotgun.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Modules/Proximity_Death.tscn" type="PackedScene" id=4]
 
 [sub_resource type="CircleShape2D" id=1]
 radius = 16.8958
+
+[sub_resource type="CircleShape2D" id=2]
+radius = 20.025
 
 [node name="Player" type="KinematicBody2D"]
 modulate = Color( 1.5, 1.5, 1.5, 1 )
@@ -44,3 +48,10 @@ mode = 2
 shadow_enabled = true
 shadow_color = Color( 0, 0, 0, 0.309804 )
 shadow_buffer_size = 4000
+
+[node name="Proximity_Death" parent="." instance=ExtResource( 4 )]
+collision_damage = 100.0
+collision_knockback = 2500.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Proximity_Death"]
+shape = SubResource( 2 )

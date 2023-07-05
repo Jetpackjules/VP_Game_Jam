@@ -3,18 +3,16 @@ extends Node
 
 var game_paused := false
 var camera: Camera2D
-var player = null
-var Tilemap_Wall = null
-var Tilemap_Floor = null
-var Nav = null
-var line = null
+var player: KinematicBody2D = null
+var Tilemap_Wall: TileMap = null
+var Tilemap_Floor: TileMap = null
+var Nav: Navigation2D = null
 
 
 func shake(trauma_in, power = 2):
 	camera.trigger_shake(trauma_in, power)
 
-var splatter = load("res://Effects/Splatter.tscn")
-#	var random_color = Color(rand_range(0.2, 0.6), rand_range(0.6, 1), rand_range(0, 0.4))  # Random color
+var splatter := load("res://Effects/Splatter.tscn")
 
 func splat(location, direction, scale=1):
 	var splat_instance = splatter.instance()

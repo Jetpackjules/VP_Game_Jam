@@ -30,5 +30,5 @@ func _on_Bullet_body_entered(body):
 	if body.has_node("Health"):
 		var health_module = body.get_node("Health")
 		if !health_module.dead:
-			health_module.hit(damage, knockback_force, self)
+			health_module.hit(damage, knockback_force, velocity)
 	queue_free()
