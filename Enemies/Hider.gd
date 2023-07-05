@@ -19,6 +19,7 @@ onready var agent = $NavigationAgent2D
 onready var polygon1 = $Polygon2D
 onready var polygon2 = $Polygon2D2
 
+var time_since_last_sight = 0.0
 
 
 var line: Line2D
@@ -64,6 +65,7 @@ func _physics_process(delta):
 				var target_velocity = target_direction * speed
 				velocity += (target_velocity - velocity) * damping
 				agent.set_velocity(velocity)
+
 		State.ATTACKING_PLAYER:
 			speed = 300
 			var direction_to_player = (player.position - position).normalized()
@@ -75,11 +77,18 @@ func _physics_process(delta):
 
 			agent.set_velocity(direction_to_player * speed)
 
-
-#			move_and_slide(direction_to_player * speed)
+			if not raycast.is_colliding():
+				time_since_last_sight += delta
+			else:
+				time_since_last_sight = 0.0
+				
 			hiding_spot = find_nearest_available_tile()
 			if position.distance_to(player.position) > attack_distance and hiding_spot != null:
 				state = State.MOVING_TO_HIDING_SPOT
+			elif time_since_last_sight > 2.0:
+				state = State.MOVING_TO_HIDING_SPOT
+				
+
 		State.KNOCKBACK:
 			agent.set_target_location(global_position)
 			if knockback_timer > -0.25:

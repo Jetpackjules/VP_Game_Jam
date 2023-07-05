@@ -11,6 +11,16 @@ var Tiles = {
 	"floor": 1
 }
 
+
+func _input(event):
+	if event.is_action_pressed("new_level"):
+		new_level()
+
+
+
+
+
+
 func GetRandomDirection():
 	var directions = [Vector2(-1, 0), Vector2(1, 0), Vector2(0, 1), Vector2(0, -1)]
 	return directions[rng.randi()%4]
@@ -49,12 +59,20 @@ func _add_walls():
 					if not grid.has(neighbor):
 						grid[neighbor] = Tiles.wall
 
+func _clear_tilemaps():
+	Tilemap_Wall.clear()
+	TileMap_Floor.clear()
+	grid.clear()
+
+func new_level():
+	_clear_tilemaps()
+	_create_random_path()
+	_add_walls()
+	_spawn_tiles()
+
 func _ready():
 	Global.Nav = $Navigation2D
 	Global.Tilemap_Wall = Tilemap_Wall
 	Global.Tilemap_Floor = TileMap_Floor
 	rng.randomize()
-#	_clear_tilemaps()
-	_create_random_path()
-	_add_walls()
-	_spawn_tiles()
+	new_level()
