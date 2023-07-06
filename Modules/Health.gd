@@ -10,20 +10,24 @@ var knockback = false
 var dead = false  # Whether the character is dead or not
 onready var timer: Timer = $Timer
 onready var parent = get_parent()
+onready var movement = parent.get_node("Navigation")
+
+
 
 func hit(damage, knockback_force, cause_velocity):
 	flash_white()
-	knockback = true
+	
 	health -= damage
 	if health <= 0:
 		die(knockback_force, cause_velocity)
 	else:
+		knockback = true
 		var knockback_direction = cause_velocity.normalized()
 		
 		knockback_timer = 0.0625  # Knockback effect lasts for 0.5 seconds
 		
-		parent.velocity = knockback_direction * knockback_force  # Apply knockback by modifying parent's velocity
-		parent.state = parent.State.KNOCKBACK
+		movement.velocity = knockback_direction * knockback_force  # Apply knockback by modifying parent's velocity
+#		parent.state = parent.State.KNOCKBACK
 		
 
 func die(force, direction):
@@ -42,16 +46,17 @@ func _on_Timer_timeout():
 
 func _process(delta):
 	if knockback:
-		parent.speed = 70
-#		agent.set_target_location(global_position)
+#		movement.speed = 70
+
+		movement.set_target_location(global_position)
 		if knockback_timer > -0.25:
 			if knockback_timer > 0:
 				knockback_timer -= delta
-				parent.velocity *=  0.5
-				parent.move_and_slide(parent.velocity) 
+				movement.velocity *=  0.5
+				parent.move_and_slide(movement.velocity) 
 			else:
 				knockback_timer -= delta
-				parent.move_and_slide(parent.velocity*(1-abs(knockback_timer)/0.25))
+				parent.move_and_slide(movement.velocity*(1-abs(knockback_timer)/0.25))
 		else:
-			parent.state = parent.State.ATTACKING_PLAYER
+#			parent.state = parent.State.ATTACKING_PLAYER
 			knockback = false

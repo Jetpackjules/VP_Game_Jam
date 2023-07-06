@@ -1,6 +1,6 @@
 extends Node2D
 
-var EnemyScene = preload("res://Enemies/Hider.tscn")  # Load the enemy scene (change path as needed)
+export var EnemyScene = preload("res://Enemies/Hider.tscn")  # Load the enemy scene (change path as needed)
 var spawn_time_range := Vector2(1.0, 3.0)  # Minimum and maximum spawn times
 #onready var player = get_node("../Player")
 var spawn_timer = Timer.new()  # Create the timer
@@ -26,6 +26,7 @@ func spawn_enemy():
 	if !spawned:
 #		print(randf())
 		if randf() > 0.7:
+			print("cancelled")
 			spawned = true
 		var enemy = EnemyScene.instance()  # Create an instance of the enemy
 		enemy.global_position = get_random_spawn_position()  # Set its position off-screen
