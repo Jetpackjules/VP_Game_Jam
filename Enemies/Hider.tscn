@@ -12,17 +12,17 @@ collision_layer = 0
 collision_mask = 3
 script = ExtResource( 2 )
 
-[node name="Polygon2D" type="Polygon2D" parent="."]
-light_mask = 2
-scale = Vector2( 0.5, 0.5 )
-color = Color( 0.415686, 0.678431, 0.439216, 1 )
-polygon = PoolVector2Array( -26, -42, 0, -30, 0, -30, 26, -42, 28, -16, 28, -16, 48, 0, 28, 16, 28, 16, 26, 42, 0, 30, 0, 30, -26, 42, -28, 16, -28, 16, -48, 0, -28, -16, -28, -16 )
-
 [node name="Polygon2D2" type="Polygon2D" parent="."]
 light_mask = 2
 scale = Vector2( 0.5, 0.5 )
 color = Color( 0.454902, 1, 0.576471, 1 )
 polygon = PoolVector2Array( -18, -32, 18, -32, 37, 0, 18, 32, -18, 32, -37, 0 )
+
+[node name="Polygon2D" type="Polygon2D" parent="Polygon2D2"]
+show_behind_parent = true
+light_mask = 2
+color = Color( 0.415686, 0.678431, 0.439216, 1 )
+polygon = PoolVector2Array( -26, -42, 0, -30, 0, -30, 26, -42, 28, -16, 28, -16, 48, 0, 28, 16, 28, 16, 26, 42, 0, 30, 0, 30, -26, 42, -28, 16, -28, 16, -48, 0, -28, -16, -28, -16 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource( 16 )
@@ -38,7 +38,7 @@ radius = 17.0
 max_speed = 1000.0
 
 [node name="Health" parent="." instance=ExtResource( 1 )]
-health = 25000.0
+health = 50.0
 splat_scale = 0.46
 
 [connection signal="velocity_computed" from="NavigationAgent2D" to="." method="_on_NavigationAgent2D_velocity_computed"]

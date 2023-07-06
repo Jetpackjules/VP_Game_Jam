@@ -16,7 +16,7 @@ onready var navigation = Global.Nav
 onready var agent = $NavigationAgent2D
 
 
-onready var polygon1 = $Polygon2D
+onready var polygon1 = $Polygon2D2/Polygon2D
 onready var polygon2 = $Polygon2D2
 
 var time_since_last_sight = 0.0
