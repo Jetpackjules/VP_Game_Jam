@@ -8,7 +8,7 @@ var hiding_spot = Vector2.ZERO
 var attack_distance = 400  # The distance at which the enemy will start attacking the player
 var knockback_timer = 0  # Timer to reduce knockback effect
 
-onready var raycast = $RayCast2D
+onready var raycast = $Player_Tracker
 onready var player = Global.player
 onready var tile_map = Global.Tilemap_Wall
 onready var tile_map_floor = Global.Tilemap_Floor
@@ -30,18 +30,17 @@ func _ready():
 
 func _physics_process(delta):
 	# update rotation of polygons
-	var rotation_speed = speed * delta *1 
+	var rotation_speed = speed * delta
 	polygon1.rotation += rotation_speed
 #	polygon2.rotation -= rotation_speed
 	
 	
-	raycast.cast_to = Global.player.global_position - global_position
-	raycast.force_raycast_update()
+
 	
 
 	match state:
 		State.IDLE:
-			if raycast.is_colliding() and raycast.get_collider() == player:
+			if raycast.player_visible:
 				if position.distance_to(player.position) < attack_distance:
 					state = State.ATTACKING_PLAYER
 				else:
@@ -78,7 +77,7 @@ func _physics_process(delta):
 
 			movement_module.set_velocity(direction_to_player * speed)
 
-			if not raycast.get_collider() == player:
+			if !raycast.player_visible:
 				time_since_last_sight += delta
 			else:
 				time_since_last_sight = 0.0
