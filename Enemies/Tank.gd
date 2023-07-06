@@ -4,11 +4,11 @@ extends KinematicBody2D
 onready var movement_module = $Navigation
 
 
-#func _input(event):
-#	if event is InputEventMouseButton and event.button_index == BUTTON_LEFT and event.is_pressed():
-#		var target_position = get_global_mouse_position()
-#		movement_module.set_target_location(target_position)
-#		print(target_position)
+func _input(event):
+	if event is InputEventMouseButton and event.button_index == BUTTON_LEFT and event.is_pressed():
+		var target_position = get_global_mouse_position()
+		movement_module.set_target_location(target_position)
+		print(target_position)
 
 func _physics_process(delta):
 	if not movement_module.is_navigation_finished():

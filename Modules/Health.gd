@@ -1,17 +1,20 @@
 extends Node2D
 
 export var health = 100.0  # Overall health
-export var splat_scale = 1.0
-
-var knockback_timer := 0.0  # Timer to reduce knockback effect
-var knockback = false
+export (float, 0, 2) var splat_scale = 1.0
 
 
-var dead = false  # Whether the character is dead or not
+export (float, 0, 2) var knockback_mult = 1.0
+
+
+var knockback_timer := 0.0 
+var knockback := false
+var dead := false 
+
+
 onready var timer: Timer = $Timer
-onready var parent = get_parent()
-onready var movement = parent.get_node("Navigation")
-
+onready var parent: KinematicBody2D = get_parent()
+onready var movement: NavigationAgent2D = parent.get_node("Navigation")
 
 
 func hit(damage, knockback_force, cause_velocity):
@@ -21,13 +24,15 @@ func hit(damage, knockback_force, cause_velocity):
 	if health <= 0:
 		die(knockback_force, cause_velocity)
 	else:
+#		parent.state = parent.State.KNOCKBACK
+		movement.active = false
+#		print(parent.global_position-movement.get_target_location())
 		knockback = true
 		var knockback_direction = cause_velocity.normalized()
 		
 		knockback_timer = 0.0625  # Knockback effect lasts for 0.5 seconds
 		
-		movement.velocity = knockback_direction * knockback_force  # Apply knockback by modifying parent's velocity
-#		parent.state = parent.State.KNOCKBACK
+		movement.velocity = knockback_direction * knockback_force * knockback_mult  # Apply knockback by modifying parent's velocity
 		
 
 func die(force, direction):
@@ -46,9 +51,8 @@ func _on_Timer_timeout():
 
 func _process(delta):
 	if knockback:
-#		movement.speed = 70
-
-		movement.set_target_location(global_position)
+		print()
+		
 		if knockback_timer > -0.25:
 			if knockback_timer > 0:
 				knockback_timer -= delta
@@ -59,4 +63,5 @@ func _process(delta):
 				parent.move_and_slide(movement.velocity*(1-abs(knockback_timer)/0.25))
 		else:
 #			parent.state = parent.State.ATTACKING_PLAYER
+			movement.active = true
 			knockback = false

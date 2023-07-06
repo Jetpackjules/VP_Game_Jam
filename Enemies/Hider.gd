@@ -13,7 +13,7 @@ onready var player = Global.player
 onready var tile_map = Global.Tilemap_Wall
 onready var tile_map_floor = Global.Tilemap_Floor
 onready var navigation = Global.Nav
-onready var agent = $NavigationAgent2D
+onready var movement_module = $Navigation
 
 
 onready var polygon1 = $Polygon2D2/Polygon2D
@@ -25,7 +25,7 @@ var velocity = Vector2.ZERO
 var damping = 0.68  # Adjust this value to change the damping effect
 
 func _ready():
-	agent.set_navigation(navigation)
+#	agent.set_navigation(navigation)
 	state = State.FINDING_HIDING_SPOT
 
 func _physics_process(delta):
@@ -53,30 +53,30 @@ func _physics_process(delta):
 			else:
 				state = State.ATTACKING_PLAYER
 		State.MOVING_TO_HIDING_SPOT:
-			agent.set_target_location(hiding_spot)
-			if !agent.is_target_reachable():
+			movement_module.set_target_location(hiding_spot)
+			if !movement_module.is_target_reachable():
 				print("UNREACHABLE")
 #				breakpoint # THIS SHOULD NEVER HAPPEN!
 			speed = 500
-			if agent.is_navigation_finished():
+			if movement_module.is_navigation_finished():
 				state = State.IDLE
 			else:
-				var next_location = agent.get_next_location()
+				var next_location = movement_module.get_next_location()
 				var target_direction = (next_location - global_position).normalized()
 				var target_velocity = target_direction * speed
 				velocity += (target_velocity - velocity) * damping
-				agent.set_velocity(velocity)
+				movement_module.set_velocity(velocity)
 
 		State.ATTACKING_PLAYER:
 			speed = 300
 			var direction_to_player = (player.position - position).normalized()
 			
-			agent.set_target_location(player.global_position)
-			var next_location = agent.get_next_location()
+			movement_module.set_target_location(player.global_position)
+			var next_location = movement_module.get_next_location()
 			var target_direction = (next_location - global_position).normalized()
 			var target_velocity = target_direction * speed
 
-			agent.set_velocity(direction_to_player * speed)
+			movement_module.set_velocity(direction_to_player * speed)
 
 			if not raycast.get_collider() == player:
 				time_since_last_sight += delta
@@ -134,6 +134,6 @@ func find_nearest_available_tile():
 	pred_cast.queue_free()
 	return null
 
-func _on_NavigationAgent2D_velocity_computed(safe_velocity):
-	velocity = move_and_slide(safe_velocity) 
+#func _on_NavigationAgent2D_velocity_computed(safe_velocity):
+#	velocity = move_and_slide(safe_velocity) 
 
