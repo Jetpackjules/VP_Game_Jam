@@ -38,6 +38,7 @@ func _physics_process(delta):
 	raycast.cast_to = Global.player.global_position - global_position
 	raycast.force_raycast_update()
 	
+
 	match state:
 		State.IDLE:
 			if raycast.is_colliding() and raycast.get_collider() == player:
@@ -88,22 +89,11 @@ func _physics_process(delta):
 					state = State.MOVING_TO_HIDING_SPOT
 #			elif time_since_last_sight > 1.5 and hiding_spot != null:
 #				state = State.MOVING_TO_HIDING_SPOT
-				
-
+			
 		State.KNOCKBACK:
-			speed = 70
-			agent.set_target_location(global_position)
-			if knockback_timer > -0.25:
-				if knockback_timer > 0:
-					knockback_timer -= delta
-					velocity *=  0.5
-					move_and_slide(velocity) 
-				else:
-					knockback_timer -= delta
-					move_and_slide(velocity*(1-abs(knockback_timer)/0.25))
-					pass
-			else:
-				state = State.IDLE
+			pass
+
+
 
 
 
