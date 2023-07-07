@@ -15,3 +15,14 @@ func _ready():
 func _on_Navigation_velocity_computed(safe_velocity):
 	if active:
 		velocity = parent.move_and_slide(safe_velocity)
+
+
+func move_to_target(target):
+	set_target_location(target)
+	if not is_navigation_finished():
+		var next_location = get_next_location()
+		var direction = (next_location - parent.global_position).normalized()
+		var velocity = direction * speed
+		set_velocity(velocity)
+		if parent.get("body"):
+			parent.body.look_at(next_location)

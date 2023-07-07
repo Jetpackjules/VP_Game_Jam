@@ -70,13 +70,14 @@ func _physics_process(delta):
 			speed = 300
 			var direction_to_player = (player.position - position).normalized()
 			
-			movement_module.set_target_location(player.global_position)
-			var next_location = movement_module.get_next_location()
-			var target_direction = (next_location - global_position).normalized()
-			var target_velocity = target_direction * speed
+#			movement_module.set_target_location(player.global_position)
+#			var next_location = movement_module.get_next_location()
+#			var target_direction = (next_location - global_position).normalized()
+#			var target_velocity = target_direction * speed
+#			movement_module.set_velocity(direction_to_player * speed)
 
-			movement_module.set_velocity(direction_to_player * speed)
-
+			movement_module.move_to_target(player.position)
+			
 			if !raycast.player_visible:
 				time_since_last_sight += delta
 			else:
