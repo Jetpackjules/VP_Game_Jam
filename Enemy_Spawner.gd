@@ -62,8 +62,10 @@ func get_random_spawn_position():
 	var spawn_position = Vector2.ZERO
 	var tile_type = -1
 	
-	# Find a random tile of type 1
-	while tile_type != 0:
+	var max_attempts = 1000
+	var attempts = 0
+
+	while tile_type != 0 and attempts < max_attempts:
 		var tile_position = Vector2(
 			int(rand_range(0, map_size.x)),
 			int(rand_range(0, map_size.y))
@@ -72,5 +74,11 @@ func get_random_spawn_position():
 		if tile_type == 0:
 			spawn_position = tilemap.map_to_world(tile_position) * tilemap_scale + (tile_size/2)
 			print(spawn_position)
+			return spawn_position
+		attempts += 1
+		
+	print("FAILED TO SPAWN!")
 	return spawn_position
+	
+
 

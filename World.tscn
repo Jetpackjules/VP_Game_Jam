@@ -113,6 +113,7 @@ margin_bottom = 716.5
 color = Color( 0.819608, 0.47451, 0.47451, 1 )
 
 [node name="Player" parent="." instance=ExtResource( 1 )]
+z_index = 2
 
 [node name="Gameplay_Camera" type="Camera2D" parent="Player"]
 current = true
