@@ -61,4 +61,16 @@ func hit(damage: float, knockback_location: Vector2):
 		velocity += knockback
 	
 func die():
+	Global.game_paused = true
 	print("Player died!")  # Replace with actual death logic
+
+
+#	# Make the Polygon2D flash red
+#	tween.interpolate_property(polygon2D, "modulate", polygon2D.modulate, Color.red, 0.1, Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
+#	tween.start()
+#	yield(tween, "tween_all_completed")
+#
+#	# Return the Polygon2D to its original color
+#	tween.interpolate_property(polygon2D, "modulate", polygon2D.modulate, Color.white, 0.1, Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
+#	tween.start()
+#	yield(tween, "tween_all_completed")

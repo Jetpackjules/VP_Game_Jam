@@ -1,67 +1,54 @@
 extends KinematicBody2D
 
-enum State {IDLE, AIMING, CHARGING, FIRING}
+enum State {WANDER, CHARGE, WAIT, RETURN}
 
-var state = State.IDLE
-var charge_time = 0
-var CHARGE_TIME = 1.5
-var AIM_SPEED = 2.0
-var CHARGE_SPEED = 1.0
-var AIM_ANGLE = 30.0
+onready var movement_module = $Navigation
+onready var Player_Tracker = $Player_Tracker
 
-onready var player_tracker = $Player_Tracker
-onready var laser_sight = $Laser_Sight
-onready var polygon2D = $Polygon2D  # Reference to the Polygon2D node
-onready var laser_raycast = $Polygon2D/Laser_Raycast  # Reference to the Laser_Raycast node
+var state = State.WANDER
+var start_position = Vector2()
+var wait_time = 0
+var wander_target = Vector2()
+
+const MAX_WANDER_DISTANCE = 100
+const WAIT_TIME = 3
+const TILE_TYPE_WALL = 1
+
+onready var body = $Polygon2D2
 
 func _ready():
-	laser_sight.points[1] = Vector2.ZERO  # Hide the laser sight
+	
+	start_position = global_position
 
 func _physics_process(delta):
-	var player_direction = (player_tracker.player.global_position - global_position).normalized()
-	var aim_direction = Vector2(cos(polygon2D.rotation), sin(polygon2D.rotation))
-	var angle_to_player = acos(aim_direction.dot(player_direction)) * 180 / PI
-
 	match state:
-		State.IDLE:
-			if player_tracker.player_visible:
-				state = State.AIMING
-		State.AIMING:
-			if player_tracker.player_visible:
-				rotate_polygon_towards_player(delta, AIM_SPEED)
-				if angle_to_player < AIM_ANGLE:
-					state = State.CHARGING
-					charge_time = CHARGE_TIME
-					update_laser_sight()  # Update the laser sight
+		State.WANDER:
+
+			if Player_Tracker.player_visible:
+				state = State.CHARGE
 			else:
-				state = State.IDLE
-		State.CHARGING:
-			if player_tracker.player_visible and angle_to_player < AIM_ANGLE:
-				rotate_polygon_towards_player(delta, CHARGE_SPEED)
-				charge_time -= delta
-				update_laser_sight()  # Update the laser sight
-				if charge_time <= 0:
-					state = State.FIRING
+				if position.distance_to(wander_target) < 10:
+					wander_target = start_position + Vector2(rand_range(-MAX_WANDER_DISTANCE, MAX_WANDER_DISTANCE), rand_range(-MAX_WANDER_DISTANCE, MAX_WANDER_DISTANCE))
+					if Global.Tilemap_Wall.get_cellv(Global.Tilemap_Wall.world_to_map(wander_target)) == TILE_TYPE_WALL:
+						wander_target = start_position
+				movement_module.move_to_target(wander_target)
+		State.CHARGE:
+			if Player_Tracker.player_visible:
+				movement_module.move_to_target(Player_Tracker.player.global_position)
 			else:
-				state = State.IDLE
-				laser_sight.points[1] = Vector2.ZERO  # Hide the laser sight
-		State.FIRING:
-			fire()
-			state = State.IDLE
-			laser_sight.points[1] = Vector2.ZERO  # Hide the laser sight
-
-func rotate_polygon_towards_player(delta, speed):
-	var player_direction = (player_tracker.player.global_position - global_position).normalized()
-	var target_rotation = player_direction.angle()
-	polygon2D.rotation = lerp_angle(polygon2D.rotation, target_rotation, speed * delta)
-
-func update_laser_sight():
-	laser_raycast.force_raycast_update()
-	if laser_raycast.is_colliding():
-		laser_sight.points[1] = laser_raycast.get_collision_point() - global_position
-	else:
-		laser_sight.points[1] = laser_raycast.cast_to
-
-func fire():
-	# Implement your firing logic here
-	pass
+				state = State.WAIT
+				wait_time = WAIT_TIME
+		State.WAIT:
+			wait_time -= delta
+			if wait_time <= 0:
+				state = State.RETURN
+			else:
+				movement_module.move_to_target(Player_Tracker.last_known_player_location)
+		State.RETURN:
+			if Player_Tracker.player_visible:
+				state = State.CHARGE
+			else:
+				if position.distance_to(start_position) < 10:
+					state = State.WANDER
+				else:
+					movement_module.move_to_target(start_position)

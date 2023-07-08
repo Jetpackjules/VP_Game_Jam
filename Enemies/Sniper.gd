@@ -26,7 +26,7 @@ func _physics_process(delta):
 
 	match state:
 		State.IDLE:
-			polygon2D.modulate = Color.greenyellow
+#			polygon2D.modulate = Color.greenyellow
 			if is_within_aim_angle() and player_tracker.player_visible:
 				state = State.FIRING
 				tween.interpolate_property(laser_sight, "width", laser_sight.width, 5, 0.25, Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
@@ -38,7 +38,7 @@ func _physics_process(delta):
 			rotate_polygon_towards(last_known_player_position, delta)
 
 		State.FIRING:
-			polygon2D.modulate = Color.red
+#			polygon2D.modulate = Color.red
 			if player_tracker.player_visible and is_within_aim_angle():
 				rotate_polygon_towards(player_tracker.player.global_position, delta)
 				if charge_timer.time_left == 0:
