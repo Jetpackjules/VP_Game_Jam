@@ -3,7 +3,7 @@
 [ext_resource path="res://Modules/Navigation.gd" type="Script" id=1]
 
 [node name="Navigation" type="NavigationAgent2D"]
-path_desired_distance = 15.14
+path_desired_distance = 15.0
 target_desired_distance = 6.0
 avoidance_enabled = true
 max_speed = 1000.0
