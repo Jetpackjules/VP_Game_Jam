@@ -12,7 +12,7 @@ radius = 16.8958
 radius = 20.025
 
 [node name="Player" type="KinematicBody2D"]
-modulate = Color( 1.5, 1.5, 1.5, 1 )
+z_index = 2
 collision_layer = 5
 collision_mask = 5
 script = ExtResource( 1 )
@@ -22,7 +22,6 @@ position = Vector2( -1.90735e-06, 0 )
 
 [node name="Polygon2D" type="Polygon2D" parent="."]
 light_mask = 3
-color = Color( 0.666667, 0.666667, 0.666667, 1 )
 offset = Vector2( 0.2946, 0 )
 invert_border = 0.1
 polygon = PoolVector2Array( -26, -26, 53, 0, -26, 26, -17, 0 )
@@ -42,12 +41,14 @@ shadow_item_cull_mask = 2
 [node name="Env_Light" type="Light2D" parent="."]
 scale = Vector2( 37, 22 )
 texture = ExtResource( 2 )
-color = Color( 4.05, 0, 0, 0.05 )
+color = Color( 4.05098, 0, 0, 0.0509804 )
 mode = 2
 shadow_enabled = true
 shadow_color = Color( 0, 0, 0, 0.309804 )
 
 [node name="Proximity_Death" parent="." instance=ExtResource( 4 )]
+collision_layer = 2
+collision_mask = 2
 collision_damage = 100.0
 collision_knockback = 2500.0
 

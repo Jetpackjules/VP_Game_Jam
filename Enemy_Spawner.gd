@@ -81,7 +81,7 @@ func get_random_spawn_position():
 		tile_type = tilemap.get_cellv(tile_position)
 		if tile_type == 0:
 			spawn_position = tilemap.map_to_world(tile_position) * tilemap_scale + (tile_size/2)
-			print(spawn_position)
+#			print(spawn_position)
 			return spawn_position
 		attempts += 1
 

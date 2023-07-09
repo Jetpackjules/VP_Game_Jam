@@ -48,10 +48,8 @@ func _on_Timer_timeout():
 	parent.modulate =  Color(1, 1, 1)  # Revert color to original
 
 
-
 func _process(delta):
 	if knockback:
-		print()
 		
 		if knockback_timer > -0.25:
 			if knockback_timer > 0:
@@ -62,6 +60,5 @@ func _process(delta):
 				knockback_timer -= delta
 				parent.move_and_slide(movement.velocity*(1-abs(knockback_timer)/0.25))
 		else:
-#			parent.state = parent.State.ATTACKING_PLAYER
 			movement.active = true
 			knockback = false

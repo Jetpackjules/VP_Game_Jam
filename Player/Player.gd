@@ -4,7 +4,7 @@ extends KinematicBody2D
 var speed: float= 300.0     # Constant speed
 var fire_speed: float = 1.0  # Fires every second
 var fire_amount: int = 1     # Fires 1 projectile at a time
-var health: float = 100.0    # Player's health
+var health: float = 100000.0    # Player's health
 var heal_percent: float = 0.0    # Player's health
 
 onready var sprite = $Polygon2D
@@ -53,7 +53,9 @@ func _process(delta):
 
 
 func hit(damage: float, knockback_location: Vector2):
+	Global.shake(.3)
 	health -= damage
+	print(health)
 	if health <= 0:
 		die()
 	else:
@@ -61,6 +63,7 @@ func hit(damage: float, knockback_location: Vector2):
 		velocity += knockback
 	
 func die():
+	get_parent().get_node("loser").visible = true
 	Global.game_paused = true
 	print("Player died!")  # Replace with actual death logic
 

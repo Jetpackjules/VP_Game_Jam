@@ -6,6 +6,8 @@ var state: int = State.IDLE
 var last_known_player_position: Vector2 = Vector2()
 var AIM_ANGLE: float = 45.0
 
+export var damage := 50.0
+
 onready var player_tracker: Node = $Player_Tracker
 onready var laser_sight: Node = $Laser_Sight
 onready var polygon2D: Node = $Polygon2D
@@ -66,12 +68,14 @@ func fire():
 	yield(tween, "tween_all_completed")
 	yield(get_tree().create_timer(0.15), "timeout")
 
+	laser_raycast.set_collision_mask_bit(2, true)
 	laser_raycast.force_raycast_update()
 	if laser_raycast.is_colliding():
 		var collider = laser_raycast.get_collider()
 		if collider == player_tracker.player:
-			collider.hit()
-
+			collider.hit(damage, collider.global_position-global_position)
+	laser_raycast.set_collision_mask_bit(2, false)
+	
 	tween.interpolate_property(laser_sight, "width", laser_sight.width, 5, 0.25, Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
 	tween.start()
 	yield(tween, "tween_all_completed")
