@@ -1,9 +1,10 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Player/Player.gd" type="Script" id=1]
 [ext_resource path="res://Assets/Constant_Light.tres" type="Texture" id=2]
 [ext_resource path="res://Weapons/Shotgun.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Modules/Proximity_Death.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Assets/Player Color.tres" type="Material" id=5]
 
 [sub_resource type="CircleShape2D" id=1]
 radius = 16.8958
@@ -22,11 +23,13 @@ position = Vector2( -1.90735e-06, 0 )
 
 [node name="Polygon2D" type="Polygon2D" parent="."]
 light_mask = 3
+material = ExtResource( 5 )
 offset = Vector2( 0.2946, 0 )
 invert_border = 0.1
 polygon = PoolVector2Array( -26, -26, 53, 0, -26, 26, -17, 0 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
 shape = SubResource( 1 )
 
 [node name="Enemy_Hider" type="Light2D" parent="."]
@@ -47,6 +50,7 @@ shadow_enabled = true
 shadow_color = Color( 0, 0, 0, 0.309804 )
 
 [node name="Proximity_Death" parent="." instance=ExtResource( 4 )]
+visible = false
 collision_layer = 2
 collision_mask = 2
 collision_damage = 100.0

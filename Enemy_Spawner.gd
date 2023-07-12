@@ -2,7 +2,7 @@ extends Node2D
 
 var enemy_folder_path = "res://Enemies"  # Path to the folder containing the enemy scenes
 var enemy_scenes = []  # List of enemy scenes
-var total_enemies = 10  # Total number of enemies to spawn
+export var total_enemies = 10  # Total number of enemies to spawn
 var enemies_spawned = 0  # Number of enemies spawned so far
 
 var spawn_time_range := Vector2(1.0, 3.0)  # Minimum and maximum spawn times
@@ -15,14 +15,14 @@ var min_spawn_interval := 1.0  # Don't let the interval go below 1 second
 var health_increase := 0.0  # Increase the health by 5 each time an enemy spawns
 var speed_increase := 0.0
 
-
+export var enemy_type: PackedScene
 
 func _ready():
+#	print(enemy_type.get_type())
 	add_child(spawn_timer)  # Add the timer to the scene
 	spawn_timer.connect("timeout", self, "spawn_enemy")  # Connect timer timeout signal to spawn_enemy function
 
 	spawn_timer.start(spawn_interval)  # Start the timer with initial spawn interval
-
 	# Get a list of all the enemy scenes
 	var dir = Directory.new()
 	if dir.open(enemy_folder_path) == OK:
@@ -37,8 +37,13 @@ func _ready():
 
 func spawn_enemy():
 	if enemies_spawned < total_enemies:  # Check if we've spawned all the enemies
-		var enemy_scene = enemy_scenes[randi() % enemy_scenes.size()]  # Randomly select an enemy scene
-		var enemy = enemy_scene.instance()  # Create an instance of the enemy
+		var enemy
+		if enemy_type:
+			enemy = enemy_type.instance() 
+		else:
+			var enemy_scene = enemy_scenes[randi() % enemy_scenes.size()]  # Randomly select an enemy scene
+			enemy = enemy_scene.instance()  # Create an instance of the enemy
+		
 		enemy.global_position = get_random_spawn_position()  # Set its position off-screen
 		add_child(enemy)  # Add it to the scene tree
 
