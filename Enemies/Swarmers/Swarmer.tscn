@@ -22,9 +22,11 @@ polygon = PoolVector2Array( 0, -13, 35, 0, 0, 13 )
 shape = SubResource( 1 )
 
 [node name="Navigation" parent="." instance=ExtResource( 4 )]
-radius = 11.0
+navigation_layers = 3
+radius = 50.0
 
 [node name="Health" parent="." instance=ExtResource( 3 )]
+health = 10000.0
 splat_scale = 0.35
 
 [node name="Player_Tracker" parent="." instance=ExtResource( 1 )]

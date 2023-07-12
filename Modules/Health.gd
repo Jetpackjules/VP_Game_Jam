@@ -60,5 +60,6 @@ func _process(delta):
 				knockback_timer -= delta
 				parent.move_and_slide(movement.velocity*(1-abs(knockback_timer)/0.25))
 		else:
+			
 			movement.active = true
 			knockback = false

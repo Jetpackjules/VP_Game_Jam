@@ -37,6 +37,7 @@ func _ready():
 
 func spawn_enemy():
 	if enemies_spawned < total_enemies:  # Check if we've spawned all the enemies
+		print("spawned!")
 		var enemy
 		if enemy_type:
 			enemy = enemy_type.instance() 

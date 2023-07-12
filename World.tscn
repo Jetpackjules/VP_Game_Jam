@@ -263,6 +263,7 @@ text = "Use Arrow Keys to Move!"
 
 [node name="Enemy_Spawner" type="Node2D" parent="."]
 script = ExtResource( 7 )
+total_enemies = 1
 enemy_type = ExtResource( 15 )
 
 [connection signal="pressed" from="Menu/Button" to="Menu" method="_on_Button_pressed"]

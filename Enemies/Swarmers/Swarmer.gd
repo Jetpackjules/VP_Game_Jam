@@ -11,11 +11,12 @@ var state = State.CHARGE
 
 onready var body = $Polygon2D
 
-
+func _ready():
+	print("IN")
 
 func _physics_process(delta):
 	match state:
 		State.CHARGE:
-			if Player_Tracker.player_visible:
-				movement_module.move_to_target(Player_Tracker.player.global_position)
+#			if Player_Tracker.player_visible:
+			movement_module.move_to_target(Player_Tracker.player.global_position)
 				
