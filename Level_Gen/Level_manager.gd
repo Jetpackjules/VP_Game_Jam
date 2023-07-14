@@ -1,14 +1,16 @@
 extends Node2D
 
-onready var Tilemap_Wall = $Navigation2D/TileMap_Wall
-onready var TileMap_Floor = $Navigation2D/TileMap_Floor
-
+onready var Tilemap_Wall = $TileMap_Wall
+onready var TileMap_Floor = $TileMap_Floor
+onready var TileMap_Border = $Navigation2D/TileMap_Border
 var rng = RandomNumberGenerator.new()
 var grid = {}
 var Tiles = {
 	"empty": -1,
 	"wall": 0,
-	"floor": 1
+	"floor": 1,
+	"border": 10,
+	"no_border": 11
 }
 
 var furthest_tile = Vector2.ZERO
@@ -35,16 +37,49 @@ func _create_random_path():
 		itr += 1
 
 var sum = 0
+
 func _spawn_tiles():
+	sum = 0
 	for key in grid.keys():
 		match grid[key]:
 			Tiles.floor:
 				TileMap_Floor.set_cellv(key, 0)
 				sum += 1
+				# Spawn border tiles
+				for dx in range(3):
+					for dy in range(3):
+						var border_key = key * 3 + Vector2(dx, dy)
+						TileMap_Border.set_cellv(border_key, 0)
 			Tiles.wall:
 				Tilemap_Wall.set_cellv(key, 1)  # Assuming 1 is the index of the wall tile
 				sum += 1
-	print(sum)
+			_:
+				print("ERROR TILE!")
+	remove_border_tiles()
+	print("SUM: ", sum)
+
+func remove_border_tiles():
+	# Spawn border tiles
+	for key in grid.keys():
+		if grid[key] == Tiles.floor:
+			var directions = [Vector2(-1, 0), Vector2(1, 0), Vector2(0, -1), Vector2(0, 1)]
+			for direction in directions:
+				var neighbor = key + direction
+				if grid.has(neighbor) and grid[neighbor] == Tiles.wall:
+					for dx in range(3):
+						for dy in range(3):
+							var border_key = key * 3 + Vector2(dx, dy)
+							if direction == Vector2(-1, 0) and dx == 0:  # Left
+								TileMap_Border.set_cellv(border_key, -1)
+							elif direction == Vector2(1, 0) and dx == 2:  # Right
+								TileMap_Border.set_cellv(border_key, -1)
+							elif direction == Vector2(0, -1) and dy == 0:  # Up
+								TileMap_Border.set_cellv(border_key, -1)
+							elif direction == Vector2(0, 1) and dy == 2:  # Down
+								TileMap_Border.set_cellv(border_key, -1)
+
+
+
 
 func _add_walls():
 	for key in grid.keys():
@@ -58,6 +93,7 @@ func _add_walls():
 func _clear_tilemaps():
 	Tilemap_Wall.clear()
 	TileMap_Floor.clear()
+	TileMap_Border.clear()
 	grid.clear()
 
 func new_level():

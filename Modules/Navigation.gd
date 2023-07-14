@@ -40,13 +40,6 @@ func move_to_target(target):
 		var velocity = direction * speed
 		set_velocity(velocity)
 		
-		
-#		if parent.get("body"):
-#			var target_rotation = direction.angle()
-#			var current_rotation = parent.body.rotation
-#			var smooth_rotation = lerp(current_rotation, target_rotation, 0.1) # Change 0.1 to adjust the speed of rotation
-#			parent.body.rotation = smooth_rotation
-
 
 
 func lerp_angle(from, to, weight):
