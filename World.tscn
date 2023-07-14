@@ -121,7 +121,6 @@ zoom = Vector2( 2.3, 2.3 )
 script = ExtResource( 8 )
 
 [node name="fps" type="Label" parent="Player"]
-visible = false
 margin_left = -35.2931
 margin_top = -83.0
 margin_right = 67.7069

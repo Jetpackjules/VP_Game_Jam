@@ -86,7 +86,7 @@ func find_furthest_tile():
 
 	while Global.player == null:
 		yield(get_tree().create_timer(0.0000001), "timeout")  # Wait until Global.player is not null
-	Global.player.position = TileMap_Floor.map_to_world(furthest_tile)*1.5 + TileMap_Floor.cell_size / 2  # Teleport player to furthest tile
+	Global.player.position = TileMap_Floor.map_to_world(furthest_tile) + TileMap_Floor.cell_size / 2  # Teleport player to furthest tile
 
 func _ready():
 	Global.Nav = $Navigation2D
