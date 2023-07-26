@@ -1,8 +1,8 @@
 extends Area2D
 
-export var collision_damage = 10.0
-export var collision_knockback = 1500.0
-export var collision_self_damage = 50.0
+export var collision_damage := 10.0
+export var collision_knockback := 1500.0
+export var collision_self_damage := 1
 
 
 

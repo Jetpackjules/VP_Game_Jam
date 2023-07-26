@@ -6,7 +6,7 @@ var state: int = State.IDLE
 var last_known_player_position: Vector2 = Vector2()
 var AIM_ANGLE: float = 45.0
 
-export var damage := 50.0
+export var damage := 1
 
 onready var player_tracker: Node = $Player_Tracker
 onready var laser_sight: Node = $Laser_Sight

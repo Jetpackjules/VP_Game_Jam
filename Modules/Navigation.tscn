@@ -8,5 +8,6 @@ target_desired_distance = 6.0
 avoidance_enabled = true
 max_speed = 1000.0
 script = ExtResource( 1 )
+show_path = false
 
 [connection signal="velocity_computed" from="." to="." method="_on_Navigation_velocity_computed"]

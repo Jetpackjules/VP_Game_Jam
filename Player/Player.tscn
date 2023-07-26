@@ -1,10 +1,11 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://Player/Player.gd" type="Script" id=1]
 [ext_resource path="res://Assets/Constant_Light.tres" type="Texture" id=2]
 [ext_resource path="res://Weapons/Shotgun.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Modules/Proximity_Death.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Assets/Player Color.tres" type="Material" id=5]
+[ext_resource path="res://Player/HealthBar.tscn" type="PackedScene" id=6]
 
 [sub_resource type="CircleShape2D" id=1]
 radius = 16.8958
@@ -58,3 +59,6 @@ collision_knockback = 2500.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Proximity_Death"]
 shape = SubResource( 2 )
+
+[node name="HealthBar" parent="." instance=ExtResource( 6 )]
+layer = 1

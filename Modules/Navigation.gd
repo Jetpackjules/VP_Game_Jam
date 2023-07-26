@@ -39,7 +39,7 @@ func move_to_target(target):
 		var direction = (next_location - parent.global_position).normalized()
 		var velocity = direction * speed
 		set_velocity(velocity)
-		
+
 
 
 func lerp_angle(from, to, weight):

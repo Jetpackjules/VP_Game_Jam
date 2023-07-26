@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://Player/HealthBar.gd" type="Script" id=1]
+
+[node name="HealthBar" type="CanvasLayer"]
+layer = 0
+offset = Vector2( 100, 100 )
+transform = Transform2D( 1, 0, 0, 1, 100, 100 )
+script = ExtResource( 1 )

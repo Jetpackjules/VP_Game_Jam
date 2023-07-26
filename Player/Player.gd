@@ -4,10 +4,11 @@ extends KinematicBody2D
 var speed: float= 300.0     # Constant speed
 var fire_speed: float = 1.0  # Fires every second
 var fire_amount: int = 1     # Fires 1 projectile at a time
-var health: float = 200.0    # Player's health
+export var health: int = 3    # Player's health
 var heal_percent: float = 0.0    # Player's health
 
 onready var sprite = $Polygon2D
+onready var health_counter = get_node("HealthBar")
 
 var velocity: Vector2 = Vector2()
 var fire_timer : Timer
@@ -17,6 +18,7 @@ var facing_rotation := 0.0
 
 func _ready():
 	Global.player = self
+	$HealthBar.max_health = health
 
 
 #func _input(event):
@@ -54,6 +56,7 @@ func _process(delta):
 
 func hit(damage: float, knockback_location: Vector2):
 	Global.shake(.3)
+	health_counter.take_damage(damage)
 	health -= damage
 	print(health)
 	if health <= 0:

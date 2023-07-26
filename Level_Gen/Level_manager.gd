@@ -18,6 +18,7 @@ var furthest_tile = Vector2.ZERO
 func _input(event):
 	if event.is_action_pressed("new_level"):
 		new_level()
+		Global.player.health_counter.set_max_health(Global.player.health_counter.max_health+1)
 
 func GetRandomDirection():
 	var directions = [Vector2(-1, 0), Vector2(1, 0), Vector2(0, 1), Vector2(0, -1)]
