@@ -22,6 +22,7 @@ color = Color( 0.45098, 0.45098, 0.45098, 1 )
 polygon = PoolVector2Array( -18, -32, 18, -32, 37, 0, 18, 32, -18, 32, -37, 0 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
 shape = SubResource( 1 )
 
 [node name="Health" parent="." instance=ExtResource( 1 )]
@@ -34,3 +35,4 @@ radius = 41.54
 speed = 100.0
 
 [node name="Player_Tracker" parent="." instance=ExtResource( 4 )]
+visible = false

@@ -19,6 +19,7 @@ offset = Vector2( -10, 0 )
 polygon = PoolVector2Array( 0, -13, 35, 0, 0, 13 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
 shape = SubResource( 1 )
 
 [node name="Navigation" parent="." instance=ExtResource( 4 )]
@@ -29,3 +30,4 @@ health = 10.0
 splat_scale = 0.35
 
 [node name="Player_Tracker" parent="." instance=ExtResource( 1 )]
+visible = false

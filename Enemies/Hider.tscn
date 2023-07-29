@@ -29,9 +29,11 @@ color = Color( 0.415686, 0.678431, 0.439216, 1 )
 polygon = PoolVector2Array( -26, -42, 0, -30, 0, -30, 26, -42, 28, -16, 28, -16, 48, 0, 28, 16, 28, 16, 26, 42, 0, 30, 0, 30, -26, 42, -28, 16, -28, 16, -48, 0, -28, -16, -28, -16 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
 shape = SubResource( 16 )
 
 [node name="Player_Tracker" parent="." instance=ExtResource( 4 )]
+visible = false
 
 [node name="Navigation" parent="." instance=ExtResource( 3 )]
 radius = 17.0

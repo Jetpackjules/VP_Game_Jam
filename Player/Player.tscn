@@ -51,7 +51,6 @@ shadow_enabled = true
 shadow_color = Color( 0, 0, 0, 0.309804 )
 
 [node name="Proximity_Death" parent="." instance=ExtResource( 4 )]
-visible = false
 collision_layer = 2
 collision_mask = 2
 collision_damage = 100.0
