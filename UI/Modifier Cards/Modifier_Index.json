@@ -1,0 +1,45 @@
+[
+    {
+        "title": "Double Damage",
+        "text": "Doubles your damage.",
+        "rarity": "common",
+        "type": "damage",
+        "effect": "double_damage"
+    },
+    {
+        "title": "Extra Jump",
+        "text": "Gives you an extra jump.",
+        "rarity": "rare",
+        "type": "movement",
+        "effect": "extra_jump"
+    },
+    {
+        "title": "Speed Boost",
+        "text": "Increases your speed by 50%.",
+        "rarity": "common",
+        "type": "movement",
+        "effect": "speed_boost"
+    },
+    {
+        "title": "Shield",
+        "text": "Gives you a shield that absorbs one hit.",
+        "rarity": "rare",
+        "type": "defense",
+        "effect": "shield"
+    },
+    {
+        "title": "Health Regen",
+        "text": "Regenerates your health over time.",
+        "rarity": "legendary",
+        "type": "health",
+        "effect": "health_regen"
+    },
+    {
+        "title": "Fire Bullets",
+        "text": "Your bullets now set enemies on fire.",
+        "rarity": "legendary",
+        "type": "damage",
+        "effect": "fire_bullets"
+    }
+]
+

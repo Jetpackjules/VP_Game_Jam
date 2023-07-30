@@ -27,3 +27,7 @@ func splat(location, direction, scale=1):
 	random_color.b = rand_range(0.2, 0.4)  # Random blue value
 	splat_instance.process_material.color = random_color
 
+
+# ----------------------------------------
+
+var active_modifiers := []

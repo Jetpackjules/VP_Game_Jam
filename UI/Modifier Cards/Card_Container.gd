@@ -7,9 +7,9 @@ onready var tween: Tween = get_node("Tween")
 var clicked := false
 
 
-func _ready():
-	set_rarity(3)
-	set_text("This is test text for a card, lmk how it goes!")
+#func _ready():
+#	set_rarity("rare")
+#	set_text("This is test text for a card, lmk how it goes!")
 #	self.rect_pivot_offset = self.get_rect().size / 2
 
 
@@ -56,49 +56,51 @@ func _on_Tween_tween_all_completed():
 #		self.get_parent().finished()
 		# Reset the flag
 		clicked  = false
+		queue_free()
+
+
+func apply_effect():
+	Attatched_Card.apply_effect()
 
 
 #----------------------------------------------------------------------------------------
 
-func set_rarity(rarity: int) -> void:
+var Attatched_Card: Node
+
+func set_rarity(rarity: String) -> void:
 	var color : Color
 	match rarity:
-		1: # common
+		"common": # common
 			color = Color("cea8a8a8") # light grey
-		2: # rare
+		"rare": # rare
 			color = Color("ce3d8fa7") # light blue
-		3: # legendary
+		"legendary": # legendary
 			color = Color("cee9d849") # gold
-		4: # ultra
+		"ultra": # ultra
 			color = Color("ceff3c28") # red
 		_:
 			print("Invalid rarity value")
+			breakpoint
 	
 	var style_box = get_stylebox("panel")
 	style_box.bg_color = color
 
 
 func set_text(text: String) -> void:
-	get_node("VBoxContainer/Description").bbcode_text = "[center]" + text + "[/center]"
+	var desc = get_node("VBoxContainer/VBoxContainer/Description")
+	desc.bbcode_text = "[center]" + text + "[/center]"
+	pass
 
+func set_title(title: String) -> void:
+	get_node("VBoxContainer/Title").text = title
 
+#var effect: String = "undefined"
+#var type: String = "undefined"
+func set_card(Card: Node):
+	set_rarity(Card.rarity)
+	set_text(Card.text)
+	set_title(Card.title)
+	Attatched_Card = Card
+#	type = Card.type
+	
 #-----------------------------------------------------------------------------
-
-var title = ""
-var text = ""
-var rarity = ""
-var type = ""
-var effect = ""
-
-func load_data(data):
-	title = data["title"]
-	text = data["text"]
-	rarity = data["rarity"]
-	type = data["type"]
-	effect = data["effect"]
-
-func apply_effect(player):
-	match effect:
-		"double_damage":
-			player.damage *= 2
-		// More effects...
