@@ -34,7 +34,7 @@ visible = false
 shape = SubResource( 1 )
 
 [node name="Enemy_Hider" type="Light2D" parent="."]
-scale = Vector2( 37, 22 )
+scale = Vector2( 2.3, 2.3 )
 texture = ExtResource( 2 )
 mode = 3
 range_item_cull_mask = 2
@@ -43,7 +43,7 @@ shadow_color = Color( 0.87451, 0.87451, 0.87451, 0 )
 shadow_item_cull_mask = 2
 
 [node name="Env_Light" type="Light2D" parent="."]
-scale = Vector2( 37, 22 )
+scale = Vector2( 2.3, 2.3 )
 texture = ExtResource( 2 )
 color = Color( 4.05098, 0, 0, 0.0509804 )
 mode = 2
@@ -53,11 +53,15 @@ shadow_color = Color( 0, 0, 0, 0.309804 )
 [node name="Proximity_Death" parent="." instance=ExtResource( 4 )]
 collision_layer = 2
 collision_mask = 2
-collision_damage = 100.0
-collision_knockback = 2500.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Proximity_Death"]
 shape = SubResource( 2 )
 
 [node name="HealthBar" parent="." instance=ExtResource( 6 )]
 layer = 1
+
+[node name="invincibility_timer" type="Timer" parent="."]
+process_mode = 0
+one_shot = true
+
+[connection signal="timeout" from="invincibility_timer" to="." method="_on_invincibility_timer_timeout"]

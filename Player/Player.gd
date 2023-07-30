@@ -15,6 +15,9 @@ var fire_timer : Timer
 
 var facing_rotation := 0.0
 
+var invincible: bool = false
+export var invincibility_duration: float = 1.0  # 2 seconds of invincibility
+onready var invincibility_timer = get_node("invincibility_timer")
 
 func _ready():
 	Global.player = self
@@ -55,6 +58,10 @@ func _process(delta):
 
 
 func hit(damage: float, knockback_location: Vector2):
+	print(invincible)
+	if invincible:
+		return
+	
 	Global.shake(.3)
 	health_counter.take_damage(damage)
 	health -= damage
@@ -64,6 +71,10 @@ func hit(damage: float, knockback_location: Vector2):
 	else:
 		var knockback = (global_position - knockback_location).normalized() * 200  # Modify 200 to adjust knockback strength
 		velocity += knockback
+		invincible = true
+		invincibility_timer.start(invincibility_duration)  # Start the invincibility timer
+		sprite.modulate = Color.red
+
 	
 func die():
 #	Global.game_paused = true
@@ -79,3 +90,9 @@ func die():
 #	tween.interpolate_property(polygon2D, "modulate", polygon2D.modulate, Color.white, 0.1, Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
 #	tween.start()
 #	yield(tween, "tween_all_completed")
+
+
+func _on_invincibility_timer_timeout():
+	invincible = false
+	sprite.modulate = Color.white  # Return the sprite to its normal color
+

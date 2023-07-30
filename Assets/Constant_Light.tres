@@ -2,10 +2,10 @@
 
 [sub_resource type="Gradient" id=26]
 interpolation_mode = 1
-colors = PoolColorArray( 1, 1, 1, 1, 1, 1, 1, 1 )
+offsets = PoolRealArray( 0 )
+colors = PoolColorArray( 1, 1, 1, 1 )
 
 [resource]
 gradient = SubResource( 26 )
-width = 96
-height = 96
-fill = 1
+width = 1024
+height = 600

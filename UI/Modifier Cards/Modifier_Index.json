@@ -7,13 +7,6 @@
         "effect": "double_damage"
     },
     {
-        "title": "Extra Jump",
-        "text": "Gives you an extra jump.",
-        "rarity": "rare",
-        "type": "movement",
-        "effect": "extra_jump"
-    },
-    {
         "title": "Speed Boost",
         "text": "Increases your speed by 50%.",
         "rarity": "common",
@@ -40,6 +33,34 @@
         "rarity": "legendary",
         "type": "damage",
         "effect": "fire_bullets"
+    },
+    {
+        "title": "Piercing Bullets",
+        "text": "Your bullets now pierce through enemies.",
+        "rarity": "rare",
+        "type": "damage",
+        "effect": "piercing_bullets"
+    },
+    {
+        "title": "Rapid Fire",
+        "text": "Increases your fire rate.",
+        "rarity": "common",
+        "type": "damage",
+        "effect": "rapid_fire"
+    },
+    {
+        "title": "Explosive Bullets",
+        "text": "Your bullets now explode on impact.",
+        "rarity": "legendary",
+        "type": "damage",
+        "effect": "explosive_bullets"
+    },
+    {
+        "title": "Lifesteal",
+        "text": "You regain health for each enemy you defeat.",
+        "rarity": "rare",
+        "type": "health",
+        "effect": "lifesteal"
     }
 ]
 
