@@ -1,4 +1,4 @@
-extends Panel
+extends PanelContainer
 
 var normal_scale = Vector2(1, 1)
 var hover_scale = Vector2(1.2, 1.2)
@@ -60,7 +60,8 @@ func _on_Tween_tween_all_completed():
 
 
 func apply_effect():
-	Attatched_Card.apply_effect()
+	if Attatched_Card:
+		Attatched_Card.apply_effect()
 
 
 #----------------------------------------------------------------------------------------
