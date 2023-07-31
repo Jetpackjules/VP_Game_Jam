@@ -56,6 +56,7 @@ func pick_card_random(rarity = null, type = null):
 	else:
 		return null
 
+
 func pick_rarity():
 	var rand_num = randf()
 	if rand_num < 0.10:
@@ -65,3 +66,16 @@ func pick_rarity():
 	else:
 		return "common"
 
+
+func finished(selected_linked_card):
+	for linked_card in get_children():
+		if linked_card != selected_linked_card:
+			linked_card.unravel()
+
+
+func done():
+	for linked_card in get_children():
+		linked_card.queue_free()
+	Global.resume()
+#	
+	

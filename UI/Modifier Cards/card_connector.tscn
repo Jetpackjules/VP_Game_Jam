@@ -18,12 +18,15 @@ corner_radius_bottom_right = 20
 corner_radius_bottom_left = 20
 
 [node name="Linked Cards" type="VBoxContainer"]
-margin_right = 330.0
-margin_bottom = 600.0
+anchor_right = 0.322
+anchor_bottom = 1.0
+margin_right = 0.271973
+rect_pivot_offset = Vector2( 165, 300 )
+mouse_filter = 0
 size_flags_horizontal = 6
 size_flags_vertical = 7
 custom_constants/separation = -1
-alignment = 1
+alignment = 2
 script = ExtResource( 3 )
 
 [node name="Card_Top" parent="." instance=ExtResource( 1 )]
@@ -31,6 +34,7 @@ anchor_right = 0.0
 anchor_bottom = 0.0
 margin_right = 330.0
 margin_bottom = 230.0
+mouse_filter = 2
 custom_styles/panel = SubResource( 1 )
 
 [node name="Control" type="HBoxContainer" parent="."]
@@ -39,6 +43,7 @@ margin_top = 229.0
 margin_right = 330.0
 margin_bottom = 371.0
 rect_min_size = Vector2( 330, 0 )
+mouse_filter = 2
 size_flags_horizontal = 6
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.7
@@ -49,6 +54,7 @@ alignment = 1
 modulate = Color( 1, 1, 1, 0 )
 margin_right = 23.0
 margin_bottom = 142.0
+mouse_filter = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.36
@@ -60,6 +66,7 @@ stretch_mode = 7
 margin_left = 55.0
 margin_right = 121.0
 margin_bottom = 142.0
+mouse_filter = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 texture = ExtResource( 2 )
@@ -72,6 +79,7 @@ modulate = Color( 1, 1, 1, 0 )
 margin_left = 153.0
 margin_right = 176.0
 margin_bottom = 142.0
+mouse_filter = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.36
@@ -83,6 +91,7 @@ stretch_mode = 7
 margin_left = 208.0
 margin_right = 274.0
 margin_bottom = 142.0
+mouse_filter = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 texture = ExtResource( 2 )
@@ -94,6 +103,7 @@ modulate = Color( 1, 1, 1, 0 )
 margin_left = 306.0
 margin_right = 330.0
 margin_bottom = 142.0
+mouse_filter = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.36
@@ -107,4 +117,14 @@ anchor_bottom = 0.0
 margin_top = 370.0
 margin_right = 330.0
 margin_bottom = 600.0
+mouse_filter = 2
 custom_styles/panel = SubResource( 1 )
+
+[node name="Tween" type="Tween" parent="."]
+
+[node name="Unpause_Timer" type="Timer" parent="."]
+
+[connection signal="gui_input" from="." to="." method="_on_Linked_Cards_gui_input"]
+[connection signal="mouse_entered" from="." to="." method="_on_Linked_Cards_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_Linked_Cards_mouse_exited"]
+[connection signal="tween_all_completed" from="Tween" to="." method="_on_Tween_tween_all_completed"]
