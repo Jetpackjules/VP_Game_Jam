@@ -61,6 +61,77 @@
         "rarity": "rare",
         "type": "health",
         "effect": "lifesteal"
+    },
+    {
+        "title": "Armor Piercing",
+        "text": "Your bullets ignore enemy armor.",
+        "rarity": "common",
+        "type": "damage",
+        "effect": "armor_piercing"
+    },
+    {
+        "title": "Quick Reload",
+        "text": "Decreases your reload time.",
+        "rarity": "common",
+        "type": "damage",
+        "effect": "quick_reload"
+    },
+    {
+        "title": "Extra Ammo",
+        "text": "Increases your ammo capacity.",
+        "rarity": "common",
+        "type": "damage",
+        "effect": "extra_ammo"
+    },
+    {
+        "title": "Stun Bullets",
+        "text": "Your bullets have a chance to stun enemies.",
+        "rarity": "rare",
+        "type": "damage",
+        "effect": "stun_bullets"
+    },
+    {
+        "title": "Health Boost",
+        "text": "Increases your maximum health.",
+        "rarity": "common",
+        "type": "health",
+        "effect": "health_boost"
+    },
+    {
+        "title": "Damage Resistance",
+        "text": "Reduces the damage you take.",
+        "rarity": "common",
+        "type": "defense",
+        "effect": "damage_resistance"
+    },
+    {
+        "title": "Dodge Boost",
+        "text": "Increases your dodge speed.",
+        "rarity": "rare",
+        "type": "movement",
+        "effect": "dodge_boost"
+    },
+    {
+        "title": "Slow Time",
+        "text": "Slows down time for a short period.",
+        "rarity": "rare",
+        "type": "special",
+        "effect": "slow_time"
+    },
+    {
+        "title": "Invincibility",
+        "text": "Makes you invincible for a short period.",
+        "rarity": "rare",
+        "type": "special",
+        "effect": "invincibility"
+    },
+    {
+        "title": "Berserk",
+        "text": "Increases your damage but also the damage you take.",
+        "rarity": "rare",
+        "type": "damage",
+        "effect": "berserk"
     }
 ]
+
 

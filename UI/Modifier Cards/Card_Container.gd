@@ -30,7 +30,7 @@ func _on_Card_gui_input(event):
 			if card != self and card.has_method("dissapear"):
 				card.disappear()
 		apply_effect()
-		Global.game_paused = false
+		Global.resume()
 
 func bounce():
 	var transparent = Color(self.modulate.r, self.modulate.g, self.modulate.b, 0)

@@ -1,12 +1,12 @@
 extends Control
 
 func _on_Button_pressed():
-	Global.game_paused = false
+	Global.resume()
 	visible = false
 	pass # Replace with function body.
 
 func reset():
-	Global.game_paused = true
+	Global.pause()
 	visible = true
 
 

@@ -77,7 +77,7 @@ func hit(damage: float, knockback_location: Vector2):
 
 	
 func die():
-#	Global.game_paused = true
+#	Global.pause()
 	print("Player died!")  # Replace with actual death logic
 
 

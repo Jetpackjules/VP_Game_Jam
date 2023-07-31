@@ -1,14 +1,14 @@
-[gd_scene load_steps=24 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://Player/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://UI/Modifier Selection.tscn" type="PackedScene" id=2]
+[ext_resource path="res://UI/Darkened_Background.tscn" type="PackedScene" id=3]
 [ext_resource path="res://fonts/connection_ii/ConnectionII.otf" type="DynamicFontData" id=4]
 [ext_resource path="res://Level_Gen/Level_manager.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Score.gd" type="Script" id=6]
 [ext_resource path="res://Enemy_Spawner.gd" type="Script" id=7]
 [ext_resource path="res://Gameplay_Camera.gd" type="Script" id=8]
 [ext_resource path="res://Player_HealthBar.gd" type="Script" id=9]
-[ext_resource path="res://Menu.gd" type="Script" id=10]
 [ext_resource path="res://fps.gd" type="Script" id=13]
 
 [sub_resource type="DynamicFont" id=29]
@@ -57,57 +57,9 @@ extra_spacing_bottom = 1
 extra_spacing_char = 1
 font_data = ExtResource( 4 )
 
-[sub_resource type="DynamicFont" id=18]
-size = 181
-use_filter = true
-extra_spacing_top = 1
-extra_spacing_bottom = 1
-extra_spacing_char = 1
-font_data = ExtResource( 4 )
-
-[sub_resource type="StyleBoxEmpty" id=20]
-
-[sub_resource type="DynamicFont" id=19]
-size = 214
-outline_size = 7
-outline_color = Color( 0.866667, 0.427451, 0, 1 )
-use_filter = true
-extra_spacing_top = 1
-extra_spacing_bottom = 1
-extra_spacing_char = 1
-extra_spacing_space = -28
-font_data = ExtResource( 4 )
-
-[sub_resource type="StyleBoxEmpty" id=21]
-
-[sub_resource type="DynamicFont" id=22]
-size = 55
-use_filter = true
-extra_spacing_top = 1
-extra_spacing_bottom = 1
-extra_spacing_char = 1
-extra_spacing_space = -12
-font_data = ExtResource( 4 )
-
 [node name="World" type="Node2D"]
 
 [node name="Level_Manager" parent="." instance=ExtResource( 5 )]
-
-[node name="Background" type="Node2D" parent="."]
-visible = false
-z_index = -10
-
-[node name="ColorRect" type="ColorRect" parent="Background"]
-show_behind_parent = true
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -1178.5
-margin_top = -716.5
-margin_right = 1305.5
-margin_bottom = 716.5
-color = Color( 0.819608, 0.47451, 0.47451, 1 )
 
 [node name="Player" parent="." instance=ExtResource( 1 )]
 
@@ -181,68 +133,10 @@ text = "0"
 align = 1
 script = ExtResource( 6 )
 
-[node name="Menu" type="Control" parent="."]
-visible = false
-light_mask = 0
-script = ExtResource( 10 )
-
-[node name="ColorRect" type="ColorRect" parent="Menu"]
-light_mask = 0
-margin_left = -1179.0
-margin_top = -692.0
-margin_right = 1179.0
-margin_bottom = 691.0
-mouse_filter = 2
-color = Color( 0.0941176, 0.0941176, 0.0941176, 0.921569 )
-
-[node name="Button" type="Button" parent="Menu"]
-light_mask = 0
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -236.5
-margin_top = 21.0
-margin_right = 236.5
-margin_bottom = 211.0
-custom_colors/font_color_hover = Color( 0.670588, 0.670588, 0.670588, 1 )
-custom_fonts/font = SubResource( 18 )
-custom_styles/focus = SubResource( 20 )
-text = "Start"
-flat = true
-
-[node name="Label" type="Label" parent="Menu"]
-light_mask = 0
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -817.0
-margin_top = -442.828
-margin_right = 817.0
-margin_bottom = -5.82837
-custom_fonts/font = SubResource( 19 )
-custom_styles/normal = SubResource( 21 )
-text = "Shooty Shooty 
-Bang Bang"
-align = 1
-valign = 1
-
-[node name="Label2" type="Label" parent="Menu"]
-light_mask = 0
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -352.0
-margin_top = 232.0
-margin_right = 352.0
-margin_bottom = 289.0
-custom_fonts/font = SubResource( 22 )
-custom_styles/normal = SubResource( 21 )
-text = "Use Arrow Keys to Move!"
-
 [node name="Enemy_Spawner" type="Node2D" parent="."]
 script = ExtResource( 7 )
 
-[connection signal="pressed" from="Menu/Button" to="Menu" method="_on_Button_pressed"]
+[node name="UI" type="Node" parent="."]
+
+[node name="Pause_Darkness" parent="UI" instance=ExtResource( 3 )]
+visible = false

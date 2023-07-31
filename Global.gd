@@ -31,3 +31,13 @@ func splat(location, direction, scale=1):
 # ----------------------------------------
 
 var active_modifiers := []
+
+
+var darkened_background: CanvasLayer
+func pause():
+	game_paused = true
+	darkened_background.visible = true
+
+func resume():
+	game_paused = false
+	darkened_background.visible = false

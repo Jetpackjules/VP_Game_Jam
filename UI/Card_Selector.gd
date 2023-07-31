@@ -1,37 +1,15 @@
 extends HBoxContainer
 
-var tween: Tween
 var offscreen_position := Vector2(0, -300)  # Adjust as needed
 var onscreen_position := Vector2(0, 0)
 var hidden := false
-var card_scenes_dir := "res://Cards/"  # Set your path
-var card_scenes = []
-onready var player = get_node("../Player")
-
-
-
-func _input(event):
-	if Input.is_action_just_pressed("cards_toggle"):
-		var cards = pick_two_cards_same_rarity("common")
-		if cards:
-			var card_container1 = Card_Container.instance()
-			card_container1.set_player_card(cards[0])
-			add_child(card_container1)
-
-			var card_container2 = Card_Container.instance()
-			card_container2.set_enemy_card(cards[1])
-			add_child(card_container2)
-
-			print(cards[0].title)
-			print(cards[1].title)
-
-			Global.game_paused = !Global.game_paused
-
+onready var player = Global.player
+onready var Selection_Background = get_node("../Selection_Background")
 
 var cards = []
+var offered_cards = []
 var Card = preload("res://UI/Modifier Cards/Card_Class.gd")
 var Card_Container = preload("res://UI/Modifier Cards/card_connector.tscn")
-
 
 func _ready():
 	var data = load_card_data("res://UI/Modifier Cards/Modifier_Index.json")
@@ -40,41 +18,50 @@ func _ready():
 		card.load_data(card_data)
 		cards.append(card)
 
+func _input(event):
+	if Input.is_action_just_pressed("cards_toggle"):
+		for _i in range(3):
+			var card1 = pick_card_random()
+			var card2 = pick_card_random()
+			if card1 and card2:
+				var card_container = Card_Container.instance()
+				card_container.set_player_card(card1)
+				card_container.set_enemy_card(card2)
+				add_child(card_container)
+		Global.pause()
+
+		
+		offered_cards.clear()
+
 func load_card_data(path):
 	var file = File.new()
-	var status = file.open(path, File.READ) == OK
+	file.open(path, File.READ)
 	var text = file.get_as_text()
-	var status2 = JSON.parse(text).error
 	var data = JSON.parse(text).result
 	file.close()
 	return data
 
-
-func pick_card(rarity, type):
+func pick_card_random(rarity = null, type = null):
+	if rarity == null:
+		rarity = pick_rarity()
+		
 	var possible_cards = []
 	for card in cards:
-		if card.rarity == rarity and card.type == type:
+		if not card in offered_cards and (card.rarity == rarity) and (type == null or card.type == type):
 			possible_cards.append(card)
 	if possible_cards.size() > 0:
-		return possible_cards[randi() % possible_cards.size()]
+		var chosen_card = possible_cards[randi() % possible_cards.size()]
+		offered_cards.append(chosen_card)
+		return chosen_card
 	else:
 		return null
 
-
-func pick_card_random():
-	if cards.size() > 0:
-		return cards[randi() % cards.size()]
+func pick_rarity():
+	var rand_num = randf()
+	if rand_num < 0.10:
+		return "legendary"
+	elif rand_num < 0.35:  # 0.10 (previous threshold) + 0.25 (rare odds)
+		return "rare"
 	else:
-		return null
+		return "common"
 
-func pick_two_cards_same_rarity(rarity):
-	var possible_cards = []
-	for card in cards:
-		if card.rarity == rarity:
-			possible_cards.append(card)
-	if possible_cards.size() >= 2:
-		var card1 = possible_cards.pop_at(randi() % possible_cards.size())
-		var card2 = possible_cards.pop_at(randi() % possible_cards.size())
-		return [card1, card2]
-	else:
-		return null
