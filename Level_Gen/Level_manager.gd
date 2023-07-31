@@ -2,7 +2,7 @@ extends Node2D
 
 var Exit = preload("res://Level_Gen/Exit.tscn")
 
-onready var level_assets = $Level_Assets
+onready var Level_Assets = $Level_Assets
 
 
 onready var Tilemap_Wall = $TileMap_Wall
@@ -102,7 +102,7 @@ func _clear_level():
 	TileMap_Border.clear()
 	grid.clear()
 	
-	for asset in level_assets.get_children():
+	for asset in Level_Assets.get_children():
 		asset.queue_free()
 
 func new_level():
@@ -123,7 +123,7 @@ func _spawn_player():
 func _spawn_exit(player_pos):
 	var exit_loc = TileMap_Floor.map_to_world(find_furthest_tile(player_pos)) + TileMap_Floor.cell_size / 2  # Teleport player to furthest tile
 	var exit_instance = Exit.instance()
-	level_assets.add_child(exit_instance)
+	Level_Assets.add_child(exit_instance)
 	exit_instance.position = exit_loc
 
 
@@ -150,5 +150,6 @@ func _ready():
 	Global.Nav = $Navigation2D
 	Global.Tilemap_Wall = Tilemap_Wall
 	Global.Tilemap_Floor = TileMap_Floor
+	Global.Level_Assets = Level_Assets
 	rng.randomize()
 	new_level()
