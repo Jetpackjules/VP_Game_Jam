@@ -22,7 +22,7 @@ var furthest_tile = Vector2.ZERO
 
 func _input(event):
 	if event.is_action_pressed("new_level"):
-		new_level()
+		Global.emit_signal("new_level")
 		Global.player.health_counter.set_max_health(Global.player.health_counter.max_health+1)
 
 func GetRandomDirection():
@@ -105,6 +105,7 @@ func _clear_level():
 	for asset in Level_Assets.get_children():
 		asset.queue_free()
 
+
 func new_level():
 	_clear_level()
 	_create_random_path()
@@ -151,5 +152,8 @@ func _ready():
 	Global.Tilemap_Wall = Tilemap_Wall
 	Global.Tilemap_Floor = TileMap_Floor
 	Global.Level_Assets = Level_Assets
+	Global.connect("new_level", self, "new_level")
 	rng.randomize()
-	new_level()
+	
+#	Here for now, should add to start button later:
+	Global.emit_signal("new_level", self, "new_level")

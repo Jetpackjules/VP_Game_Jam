@@ -1,6 +1,8 @@
 # Global.gd
 extends Node
 
+signal new_level
+
 var game_paused := false
 var camera: Camera2D
 var player: KinematicBody2D = null
