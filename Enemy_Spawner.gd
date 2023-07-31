@@ -93,3 +93,9 @@ func get_random_spawn_position():
 
 	print("FAILED TO SPAWN!")
 	return spawn_position
+
+func clear_enemies():
+#	Remove all enemies here so i can spawn new ones for new lvl...
+	pass
+
+

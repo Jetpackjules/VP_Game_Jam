@@ -77,5 +77,5 @@ func done():
 	for linked_card in get_children():
 		linked_card.queue_free()
 	Global.resume()
-#	
-	
+
+

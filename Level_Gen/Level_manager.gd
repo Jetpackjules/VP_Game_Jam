@@ -1,5 +1,10 @@
 extends Node2D
 
+var Exit = preload("res://Level_Gen/Exit.tscn")
+
+onready var level_assets = $Level_Assets
+
+
 onready var Tilemap_Wall = $TileMap_Wall
 onready var TileMap_Floor = $TileMap_Floor
 onready var TileMap_Border = $Navigation2D/TileMap_Border
@@ -91,23 +96,42 @@ func _add_walls():
 					if not grid.has(neighbor):
 						grid[neighbor] = Tiles.wall
 
-func _clear_tilemaps():
+func _clear_level():
 	Tilemap_Wall.clear()
 	TileMap_Floor.clear()
 	TileMap_Border.clear()
 	grid.clear()
+	
+	for asset in level_assets.get_children():
+		asset.queue_free()
 
 func new_level():
-	_clear_tilemaps()
+	_clear_level()
 	_create_random_path()
 	_add_walls()
 	_spawn_tiles()
-	find_furthest_tile()
+	_spawn_player()
 
-func find_furthest_tile():
+
+func _spawn_player():
+	var spawn_pos = TileMap_Floor.map_to_world(find_furthest_tile(Vector2.ZERO)) + TileMap_Floor.cell_size / 2  # Teleport player to furthest tile
+	while Global.player == null:
+		yield(get_tree().create_timer(0.0000001), "timeout")  # Wait until Global.player is not null
+	Global.player.position = spawn_pos
+	_spawn_exit(spawn_pos)
+
+func _spawn_exit(player_pos):
+	var exit_loc = TileMap_Floor.map_to_world(find_furthest_tile(player_pos)) + TileMap_Floor.cell_size / 2  # Teleport player to furthest tile
+	var exit_instance = Exit.instance()
+	level_assets.add_child(exit_instance)
+	exit_instance.position = exit_loc
+
+
+func find_furthest_tile(from):
+	var center = TileMap_Floor.world_to_map(from)
 	var visited = {}
 	var queue = []
-	var center = Vector2.ZERO
+	
 	queue.append(center)
 	visited[center] = true
 
@@ -120,10 +144,7 @@ func find_furthest_tile():
 					queue.append(neighbor)
 					visited[neighbor] = true
 		furthest_tile = current
-
-	while Global.player == null:
-		yield(get_tree().create_timer(0.0000001), "timeout")  # Wait until Global.player is not null
-	Global.player.position = TileMap_Floor.map_to_world(furthest_tile) + TileMap_Floor.cell_size / 2  # Teleport player to furthest tile
+	return furthest_tile
 
 func _ready():
 	Global.Nav = $Navigation2D
