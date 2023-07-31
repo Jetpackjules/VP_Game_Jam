@@ -156,4 +156,4 @@ func _ready():
 	rng.randomize()
 	
 #	Here for now, should add to start button later:
-	Global.emit_signal("new_level", self, "new_level")
+	Global.emit_signal("new_level")

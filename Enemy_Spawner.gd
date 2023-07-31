@@ -64,8 +64,8 @@ func get_random_spawn_position():
 
 	while tile_type != 0 and attempts < max_attempts:
 		var tile_position = Vector2(
-			int(rand_range(0, map_size.x)),
-			int(rand_range(0, map_size.y))
+			int(rand_range(-map_size.x, map_size.x)),
+			int(rand_range(-map_size.y, map_size.y))
 		)
 		tile_type = tilemap.get_cellv(tile_position)
 		if tile_type == 0:
