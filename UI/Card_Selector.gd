@@ -20,7 +20,7 @@ func _ready():
 
 func _input(event):
 	if Input.is_action_just_pressed("cards_toggle"):
-		for _i in range(3):
+		for _i in range(5):
 			var card1 = pick_card_random()
 			var card2 = pick_card_random()
 			if card1 and card2:

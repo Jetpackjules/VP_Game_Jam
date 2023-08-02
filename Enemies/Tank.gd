@@ -34,7 +34,7 @@ func _physics_process(delta):
 				movement_module.move_to_target(wander_target)
 		State.CHARGE:
 			if Player_Tracker.player_visible:
-				movement_module.move_to_target(Player_Tracker.player.global_position)
+				movement_module.move_to_target(Global.player.global_position)
 			else:
 				state = State.WAIT
 				wait_time = WAIT_TIME

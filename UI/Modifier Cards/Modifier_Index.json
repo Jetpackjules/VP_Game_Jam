@@ -2,136 +2,79 @@
     {
         "title": "Double Damage",
         "text": "Doubles your damage.",
-        "rarity": "common",
+        "rarity": "legendary",
         "type": "damage",
         "effect": "double_damage"
     },
     {
-        "title": "Speed Boost",
-        "text": "Increases your speed by 50%.",
+        "title":  "Cardio 1",
+        "text": "Move a little faster",
         "rarity": "common",
-        "type": "movement",
-        "effect": "speed_boost"
+        "type": "physical",
+        "effect": "speed_up_1"
     },
     {
-        "title": "Shield",
-        "text": "Gives you a shield that absorbs one hit.",
+        "title":  "Cardio 2",
+        "text": "Move faster",
         "rarity": "rare",
-        "type": "defense",
-        "effect": "shield"
+        "type": "physical",
+        "effect": "speed_up_2"
     },
     {
-        "title": "Health Regen",
-        "text": "Regenerates your health over time.",
+        "title":  "Cardio 3",
+        "text": "Move a lot faster",
         "rarity": "legendary",
-        "type": "health",
-        "effect": "health_regen"
+        "type": "physical",
+        "effect": "speed_up_3"
     },
     {
-        "title": "Fire Bullets",
-        "text": "Your bullets now set enemies on fire.",
-        "rarity": "legendary",
-        "type": "damage",
-        "effect": "fire_bullets"
-    },
-    {
-        "title": "Piercing Bullets",
-        "text": "Your bullets now pierce through enemies.",
-        "rarity": "rare",
-        "type": "damage",
-        "effect": "piercing_bullets"
-    },
-    {
-        "title": "Rapid Fire",
-        "text": "Increases your fire rate.",
-        "rarity": "common",
-        "type": "damage",
-        "effect": "rapid_fire"
-    },
-    {
-        "title": "Explosive Bullets",
-        "text": "Your bullets now explode on impact.",
+        "title":  "Shrapnel Shot",
+        "text": "Bullets shatter into fragments when fired",
         "rarity": "legendary",
         "type": "damage",
-        "effect": "explosive_bullets"
+        "effect": "shrapnel_shot"
     },
     {
-        "title": "Lifesteal",
-        "text": "You regain health for each enemy you defeat.",
-        "rarity": "rare",
-        "type": "health",
-        "effect": "lifesteal"
-    },
-    {
-        "title": "Armor Piercing",
-        "text": "Your bullets ignore enemy armor.",
-        "rarity": "common",
+        "title":  "Double Barrel",
+        "text": "DOUBLE bullets fired",
+        "rarity": "legendary",
         "type": "damage",
-        "effect": "armor_piercing"
+        "effect": "double_barrel"
     },
     {
-        "title": "Quick Reload",
-        "text": "Decreases your reload time.",
-        "rarity": "common",
-        "type": "damage",
-        "effect": "quick_reload"
-    },
-    {
-        "title": "Extra Ammo",
-        "text": "Increases your ammo capacity.",
-        "rarity": "common",
-        "type": "damage",
-        "effect": "extra_ammo"
-    },
-    {
-        "title": "Stun Bullets",
-        "text": "Your bullets have a chance to stun enemies.",
+        "title":  "Extra Payload",
+        "text": "+1 Bullet Fired",
         "rarity": "rare",
         "type": "damage",
-        "effect": "stun_bullets"
+        "effect": "plus_bullet_1"
     },
     {
-        "title": "Health Boost",
-        "text": "Increases your maximum health.",
+        "title":  "Sniper",
+        "text": "Max 1 bullet fired, Triple Damage, faster bullets",
+        "rarity": "legendary",
+        "type": "damage",
+        "effect": "sniper"
+    },
+    {
+        "title":  "Thin Bullets 1",
+        "text": "Fired bullets move faster",
         "rarity": "common",
-        "type": "health",
-        "effect": "health_boost"
+        "type": "damage",
+        "effect": "fast_shot_1"
     },
     {
-        "title": "Damage Resistance",
-        "text": "Reduces the damage you take.",
-        "rarity": "common",
-        "type": "defense",
-        "effect": "damage_resistance"
-    },
-    {
-        "title": "Dodge Boost",
-        "text": "Increases your dodge speed.",
-        "rarity": "rare",
-        "type": "movement",
-        "effect": "dodge_boost"
-    },
-    {
-        "title": "Slow Time",
-        "text": "Slows down time for a short period.",
-        "rarity": "rare",
-        "type": "special",
-        "effect": "slow_time"
-    },
-    {
-        "title": "Invincibility",
-        "text": "Makes you invincible for a short period.",
-        "rarity": "rare",
-        "type": "special",
-        "effect": "invincibility"
-    },
-    {
-        "title": "Berserk",
-        "text": "Increases your damage but also the damage you take.",
+        "title":  "Thin Bullets 2",
+        "text": "Fired bullets move much faster",
         "rarity": "rare",
         "type": "damage",
-        "effect": "berserk"
+        "effect": "fast_shot_2"
+    },
+    {
+        "title":  "Thin Bullets 3",
+        "text": "Fired bullets move a LOT faster",
+        "rarity": "legendary",
+        "type": "damage",
+        "effect": "fast_shot_3"
     }
 ]
-
 

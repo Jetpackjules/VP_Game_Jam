@@ -24,7 +24,7 @@ func _physics_process(delta):
 	update_laser_sight()
 
 	if player_tracker.player_visible:
-		last_known_player_position = player_tracker.player.global_position
+		last_known_player_position = Global.player.global_position
 
 	match state:
 		State.IDLE:
@@ -42,7 +42,7 @@ func _physics_process(delta):
 		State.FIRING:
 #			polygon2D.modulate = Color.red
 			if player_tracker.player_visible and is_within_aim_angle():
-				rotate_polygon_towards(player_tracker.player.global_position, delta)
+				rotate_polygon_towards(Global.player.global_position, delta)
 				if charge_timer.time_left == 0:
 					charge_timer.start()
 			else:
@@ -72,7 +72,7 @@ func fire():
 	laser_raycast.force_raycast_update()
 	if laser_raycast.is_colliding():
 		var collider = laser_raycast.get_collider()
-		if collider == player_tracker.player:
+		if collider == Global.player:
 			collider.hit(damage, collider.global_position-global_position)
 	laser_raycast.set_collision_mask_bit(2, false)
 	
@@ -87,7 +87,7 @@ func _on_Charge_Timer_timeout():
 		fire()
 
 func is_within_aim_angle():
-	var player_direction = (player_tracker.player.global_position - global_position).normalized()
+	var player_direction = (Global.player.global_position - global_position).normalized()
 	var aim_direction = Vector2(cos(polygon2D.rotation), sin(polygon2D.rotation))
 	var angle_to_player = acos(aim_direction.dot(player_direction)) * 180 / PI
 	return angle_to_player < AIM_ANGLE

@@ -41,5 +41,26 @@ func pause():
 	darkened_background.visible = true
 
 func resume():
+	
 	game_paused = false
 	darkened_background.visible = false
+
+var main_menu = preload("res://UI/Main Menu.tscn")
+var player_scene = preload("res://Player/Player.tscn")
+var UI: Node
+
+func return_to_menu():
+	pause()
+	var new_menu = main_menu.instance()
+	UI.add_child(new_menu)
+
+
+func reset_player():
+	
+	player.queue_free()
+	var new_player = player_scene.instance()
+	camera.set_target(new_player)
+	player = new_player
+	get_tree().get_root().add_child(new_player)
+	get_tree().paused = false
+	

@@ -18,5 +18,5 @@ func _physics_process(delta):
 	match state:
 		State.CHARGE:
 #			if Player_Tracker.player_visible:
-			movement_module.move_to_target(Player_Tracker.player.global_position)
+			movement_module.move_to_target(Global.player.global_position)
 				

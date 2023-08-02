@@ -8,6 +8,8 @@ var clicked := false
 
 
 #func _ready():
+#	set_title("Thin Bullets 1")
+#	set_text("Fired bullets move faster")
 #	set_rarity("rare")
 #	set_text("This is test text for a card, lmk how it goes!")
 #	self.rect_pivot_offset = self.get_rect().size / 2
@@ -98,10 +100,11 @@ func set_title(title: String) -> void:
 #var effect: String = "undefined"
 #var type: String = "undefined"
 func set_card(Card: Node):
-	set_rarity(Card.rarity)
-	set_text(Card.text)
-	set_title(Card.title)
 	Attatched_Card = Card
+	set_rarity(Attatched_Card.rarity)
+	set_text(Attatched_Card.text)
+	set_title(Attatched_Card.title)
+	
 #	type = Card.type
 	
 #-----------------------------------------------------------------------------

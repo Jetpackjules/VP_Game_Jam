@@ -53,8 +53,8 @@ func _physics_process(delta):
 				state = State.ATTACKING_PLAYER
 		State.MOVING_TO_HIDING_SPOT:
 			movement_module.set_target_location(hiding_spot)
-			if !movement_module.is_target_reachable():
-				print("UNREACHABLE")
+#			if !movement_module.is_target_reachable():
+#				print("UNREACHABLE")
 #				breakpoint # THIS SHOULD NEVER HAPPEN!
 			speed = 500
 			if movement_module.is_navigation_finished():

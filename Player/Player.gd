@@ -19,6 +19,8 @@ var invincible: bool = false
 export var invincibility_duration: float = 1.0  # 2 seconds of invincibility
 onready var invincibility_timer = get_node("invincibility_timer")
 
+var dead := false
+
 func _ready():
 	Global.player = self
 	$HealthBar.max_health = health
@@ -58,8 +60,7 @@ func _process(delta):
 
 
 func hit(damage: float, knockback_location: Vector2):
-	print(invincible)
-	if invincible:
+	if invincible or dead:
 		return
 	
 	Global.shake(.3)
@@ -71,12 +72,15 @@ func hit(damage: float, knockback_location: Vector2):
 	else:
 		var knockback = (global_position - knockback_location).normalized() * 200  # Modify 200 to adjust knockback strength
 		velocity += knockback
+#		get_node("Proximity_Death").monitoring = false
 		invincible = true
 		invincibility_timer.start(invincibility_duration)  # Start the invincibility timer
 		sprite.modulate = Color.red
 
 	
 func die():
+	dead = true
+#	invincibility_timer.stop()
 #	Global.pause()
 	print("Player died!")  # Replace with actual death logic
 
@@ -90,9 +94,11 @@ func die():
 #	tween.interpolate_property(polygon2D, "modulate", polygon2D.modulate, Color.white, 0.1, Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
 #	tween.start()
 #	yield(tween, "tween_all_completed")
-
+	Global.return_to_menu()
 
 func _on_invincibility_timer_timeout():
-	invincible = false
-	sprite.modulate = Color.white  # Return the sprite to its normal color
+	if !dead:
+		invincible = false
+#		get_node("Proximity_Death").monitoring = true
+		sprite.modulate = Color.white  # Return the sprite to its normal color
 

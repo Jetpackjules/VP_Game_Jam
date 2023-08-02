@@ -154,6 +154,7 @@ func _ready():
 	Global.Level_Assets = Level_Assets
 	Global.connect("new_level", self, "new_level")
 	rng.randomize()
-	
 #	Here for now, should add to start button later:
-	Global.emit_signal("new_level")
+#	Global.emit_signal("new_level")
+	
+	Global.return_to_menu()

@@ -21,7 +21,7 @@ func set_enemy_card(card: Node):
 
 
 func _on_Linked_Cards_mouse_entered():
-	print("MOUSE ENTERED!")
+#	print("MOUSE ENTERED!")
 	tween.interpolate_property(self, "rect_size:y", rect_size.y, hover_height, 0.2, Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
 	tween.start()
 
