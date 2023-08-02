@@ -7,7 +7,7 @@ var type = ""
 var effect = ""
 
 func load_data(data):
-	title = data["title"]
+	title = data["title"].to_upper()
 	text = data["text"]
 	rarity = data["rarity"]
 	type = data["type"]
