@@ -93,6 +93,7 @@ outlines = [ PoolVector2Array( 32, 32, 0, 32, 0, 0, 32, 0 ) ]
 script = ExtResource( 4 )
 
 [node name="TileMap_Wall" type="TileMap" parent="."]
+z_index = 5
 tile_set = SubResource( 25 )
 cell_size = Vector2( 96, 96 )
 cell_custom_transform = Transform2D( 96, 0, 0, 96, 0, 0 )

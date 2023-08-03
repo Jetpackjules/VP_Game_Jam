@@ -12,7 +12,8 @@ func load_data(data):
 	rarity = data["rarity"]
 	type = data["type"]
 	effect = data["effect"]
-#
+
+
 func apply_effect():
 	Global.active_modifiers.append(effect)
 	match effect:
