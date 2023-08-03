@@ -2,13 +2,13 @@ extends KinematicBody2D
 #SUIZE IS 2.3 for camera
 # Configurable variables
 var speed: float= 300.0     # Constant speed
-var fire_speed: float = 1.0  # Fires every second
-var fire_amount: int = 1     # Fires 1 projectile at a time
+
 export var health: int = 3    # Player's health
 var heal_percent: float = 0.0    # Player's health
 
 onready var sprite = $Polygon2D
 onready var health_counter = get_node("HealthBar")
+onready var weapon = get_node("Weapon")
 
 var velocity: Vector2 = Vector2()
 var fire_timer : Timer

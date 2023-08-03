@@ -2,7 +2,7 @@
 
 [ext_resource path="res://Player/Player.gd" type="Script" id=1]
 [ext_resource path="res://Assets/Constant_Light.tres" type="Texture" id=2]
-[ext_resource path="res://Weapons/Shotgun.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Weapons/Weapon.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Modules/Proximity_Death.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Assets/Player Color.tres" type="Material" id=5]
 [ext_resource path="res://Player/HealthBar.tscn" type="PackedScene" id=6]
@@ -20,7 +20,6 @@ collision_mask = 5
 script = ExtResource( 1 )
 
 [node name="Weapon" parent="." instance=ExtResource( 3 )]
-position = Vector2( -1.90735e-06, 0 )
 
 [node name="Polygon2D" type="Polygon2D" parent="."]
 light_mask = 3

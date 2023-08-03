@@ -17,18 +17,31 @@ func apply_effect():
 	Global.active_modifiers.append(effect)
 	match effect:
 		"double_damage":
-			print("DOUBLEING DAMAGE....")
-			# Apply the effect here. For example:
-			# player.damage *= 2
+			Global.player.weapon.bullet_damage *= 2
+		"speed_up_1":
+			Global.player.speed *= 1.1
+		"speed_up_2":
+			Global.player.speed *= 1.2
+		"speed_up_3":
+			Global.player.speed *= 1.3
+		"shrapnel_shot":
 			pass
-		"extra_jump":
-			# Apply the effect here. For example:
-			# player.extra_jumps += 1
-			pass
-		# Add more effects as needed...
+		"double_barrel":
+			Global.player.weapon.bullets_fired *= 2
+		"plus_bullet_1":
+			Global.player.weapon.bullets_fired += 1
+		"sniper":
+			Global.player.weapon.bullets_fired = 1
+			Global.player.weapon.bullet_damage *= 3
+			Global.player.weapon.bullet_speed *= 1.5
+		"fast_shot_1":
+			Global.player.weapon.bullet_speed *= 1.1
+		"fast_shot_2":
+			Global.player.weapon.bullet_speed *= 1.2
+		"fast_shot_3":
+			Global.player.weapon.bullet_speed *= 1.3
 		_:
 			print("UNDEFINED EFFECT!")
-#			breakpoint
 			remove_effect()
 
 func remove_effect():
@@ -36,13 +49,29 @@ func remove_effect():
 		Global.active_modifiers.erase(effect)
 		match effect:
 			"double_damage":
-				# Remove the effect here. For example:
-				# player.damage /= 2
+				Global.player.weapon.bullet_damage /= 2
+			"speed_up_1":
+				Global.player.speed /= 1.1
+			"speed_up_2":
+				Global.player.speed /= 1.2
+			"speed_up_3":
+				Global.player.speed /= 1.3
+			"shrapnel_shot":
 				pass
-			"extra_jump":
-				# Remove the effect here. For example:
-				# player.extra_jumps -= 1
-				pass			
+			"double_barrel":
+				Global.player.weapon.bullets_fired /= 2
+			"plus_bullet_1":
+				Global.player.weapon.bullets_fired -= 1
+			"sniper":
+				Global.player.weapon.bullets_fired = 1  # Assuming the default value is 1
+				Global.player.weapon.bullet_damage /= 3
+				Global.player.weapon.bullet_speed /= 1.5
+			"fast_shot_1":
+				Global.player.weapon.bullet_speed /= 1.1
+			"fast_shot_2":
+				Global.player.weapon.bullet_speed /= 1.2
+			"fast_shot_3":
+				Global.player.weapon.bullet_speed /= 1.3
 			_:
 				print("FAILED TO REMOVE EFFECT!")
 				pass
