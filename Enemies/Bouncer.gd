@@ -11,6 +11,9 @@ var velocity: Vector2 = Vector2()  # Current velocity of the bouncer
 
 func _physics_process(delta: float) -> void:
 #	speed = 3500
+	if Global.game_paused:
+		return
+	
 	var direction_to_player: Vector2 = (Global.player.global_position - global_position).normalized()
 	velocity += direction_to_player * player_trend_intensity * speed * delta
 

@@ -15,6 +15,9 @@ func _ready():
 	print("IN")
 
 func _physics_process(delta):
+	if Global.game_paused:
+		return
+	
 	match state:
 		State.CHARGE:
 #			if Player_Tracker.player_visible:

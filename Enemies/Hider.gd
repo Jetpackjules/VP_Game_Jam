@@ -34,7 +34,8 @@ func _physics_process(delta):
 	polygon1.rotation += rotation_speed
 #	polygon2.rotation -= rotation_speed
 	
-	
+	if Global.game_paused:
+		return
 
 	
 

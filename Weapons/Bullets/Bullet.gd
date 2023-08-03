@@ -6,7 +6,7 @@ var size: float = 1.0
 var direction: Vector2 = Vector2()
 var damage := 50
 var knockback_force = 1500
-var boomerang: bool = true
+var boomerang: bool = false
 var boomerang_distance: float = 500.0  # The distance at which the bullet will boomerang
 
 var bullet_owner = null
@@ -33,6 +33,7 @@ func _ready():
 		modifiers["boomerang"] = true
 
 func _process(delta):
+	# Move the bullet 
 	# Move the bullet 
 	position += velocity * delta
 	rotation = velocity.angle()

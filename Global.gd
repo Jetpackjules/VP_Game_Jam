@@ -3,6 +3,7 @@ extends Node
 
 signal new_level
 
+
 var game_paused := false
 var camera: Camera2D
 var player: KinematicBody2D = null
@@ -10,6 +11,8 @@ var Tilemap_Wall: TileMap = null
 var Tilemap_Floor: TileMap = null
 var Nav: Navigation2D = null
 var Level_Assets: Node = null
+var card_selection: HBoxContainer
+
 
 func shake(trauma_in, power = 2):
 	camera.trigger_shake(trauma_in, power)

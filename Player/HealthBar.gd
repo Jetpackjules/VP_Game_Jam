@@ -2,7 +2,7 @@ extends CanvasLayer
 
 var HealthSegment = preload("res://Player/HealthSegment.tscn")
 var health_segments = []
-var max_health = 3
+export var max_health = 3
 var current_health = 3
 var radius = 80
 
@@ -11,7 +11,7 @@ func _ready():
 
 func set_max_health(value):
 	max_health = value
-	current_health = max_health
+#	current_health = max_health
 	# Remove all existing health segments
 	for segment in health_segments:
 		segment.queue_free()

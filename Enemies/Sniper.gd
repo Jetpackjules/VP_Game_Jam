@@ -21,6 +21,9 @@ func _ready():
 	
 
 func _physics_process(delta):
+	if Global.game_paused:
+		return
+		
 	update_laser_sight()
 
 	if player_tracker.player_visible:

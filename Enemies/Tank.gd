@@ -21,6 +21,9 @@ func _ready():
 	start_position = global_position
 
 func _physics_process(delta):
+	if Global.game_paused:
+		return
+	
 	match state:
 		State.WANDER:
 

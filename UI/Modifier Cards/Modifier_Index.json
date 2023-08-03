@@ -1,80 +1,177 @@
 [
     {
-        "title": "Double Damage",
-        "text": "Doubles your damage.",
-        "rarity": "legendary",
+        "title": "Extra Barrel",
+        "text": "+1 bullets fired, more spread",
+        "rarity": "rare",
         "type": "damage",
-        "effect": "double_damage"
+        "effect": "extra_barrel"
     },
     {
-        "title":  "Cardio 1",
-        "text": "Move a little faster",
+        "title": "Shotgun",
+        "text": "More damage, bullets travel less",
         "rarity": "common",
-        "type": "physical",
-        "effect": "speed_up_1"
-    },
-    {
-        "title":  "Cardio 2",
-        "text": "Move faster",
-        "rarity": "rare",
-        "type": "physical",
-        "effect": "speed_up_2"
-    },
-    {
-        "title":  "Cardio 3",
-        "text": "Move a lot faster",
-        "rarity": "legendary",
-        "type": "physical",
-        "effect": "speed_up_3"
-    },
-    {
-        "title":  "Shrapnel Shot",
-        "text": "Bullets shatter into fragments when fired",
-        "rarity": "legendary",
         "type": "damage",
-        "effect": "shrapnel_shot"
+        "effect": "shotgun"
     },
     {
-        "title":  "Double Barrel",
-        "text": "DOUBLE bullets fired",
-        "rarity": "legendary",
+        "title": "Impact Shot",
+        "text": "More Knockback",
+        "rarity": "common",
         "type": "damage",
-        "effect": "double_barrel"
+        "effect": "impact_shot"
     },
     {
-        "title":  "Extra Payload",
-        "text": "+1 Bullet Fired",
-        "rarity": "rare",
-        "type": "damage",
-        "effect": "plus_bullet_1"
-    },
-    {
-        "title":  "Sniper",
-        "text": "Max 1 bullet fired, Triple Damage, faster bullets",
+        "title": "Sniper",
+        "text": "1 max bullet fired, 3x dmg",
         "rarity": "legendary",
         "type": "damage",
         "effect": "sniper"
     },
     {
-        "title":  "Thin Bullets 1",
-        "text": "Fired bullets move faster",
+        "title": "Tiny Bullet Wings",
+        "text": "Bullets travel further",
         "rarity": "common",
         "type": "damage",
-        "effect": "fast_shot_1"
+        "effect": "bullet_wings"
     },
     {
-        "title":  "Thin Bullets 2",
-        "text": "Fired bullets move much faster",
+    "title": "Power Shot",
+    "text": "Bigger Bullets, More damage",
+    "rarity": "legendary",
+    "type": "damage",
+    "effect": "power_shot"
+	},
+    {
+        "title": "Close one eye",
+        "text": "Less spread",
+        "rarity": "common",
+        "type": "damage",
+        "effect": "close_eye"
+    },
+    {
+        "title": "Sharp Shot",
+        "text": "Bullets penetrate 1 more thing",
         "rarity": "rare",
         "type": "damage",
-        "effect": "fast_shot_2"
+        "effect": "sharp_shot"
     },
     {
-        "title":  "Thin Bullets 3",
-        "text": "Fired bullets move a LOT faster",
+        "title": "Quick Fingers",
+        "text": "Less reload time",
+        "rarity": "rare",
+        "type": "damage",
+        "effect": "quick_fingers"
+    },
+    {
+	    "title": "Heavy Shot",
+	    "text": "Bigger, slower bullets",
+	    "rarity": "common",
+	    "type": "damage",
+	    "effect": "heavy_shot"
+    },
+    {
+        "title": "Supplements",
+        "text": "+1 max HP",
+        "rarity": "rare",
+        "type": "physical",
+        "effect": "supplements"
+    },
+    {
+        "title": "Smol Heal",
+        "text": "Heal 1 HP",
+        "rarity": "common",
+        "type": "physical",
+        "effect": "smol_heal"
+    },
+    {
+        "title": "Strong Heal",
+        "text": "Heal 2 HP",
+        "rarity": "rare",
+        "type": "physical",
+        "effect": "strong_heal"
+    },
+    {
+        "title": "Super Heal",
+        "text": "Heal 50% max HP",
         "rarity": "legendary",
         "type": "damage",
-        "effect": "fast_shot_3"
+        "effect": "super_heal"
+    },
+    {
+        "title": "Force Field",
+        "text": "Gain a 1 hp shield that recharges each floor",
+        "rarity": "legendary",
+        "type": "misc",
+        "effect": "force_field"
+    },
+    {
+        "title": "Hit Frames",
+        "text": "Longer invincibility duration after taking damage",
+        "rarity": "common",
+        "type": "physical",
+        "effect": "hit_frames"
+    },
+    {
+        "title": "Heavy Recoil",
+        "text": "Shooting knocks you back",
+        "rarity": "common",
+        "type": "physical",
+        "effect": "heavy_recoil"
+    },
+    {
+        "title": "Spiky Skin",
+        "text": "Deal more contact damage",
+        "rarity": "rare",
+        "type": "physical",
+        "effect": "spiky_skin"
+    },
+    {
+        "title": "Cardio",
+        "text": "Move faster",
+        "rarity": "rare",
+        "type": "physical",
+        "effect": "cardio"
+    },
+    {
+        "title": "Run Away!",
+        "text": "Speed boost for 3 seconds after taking damage",
+        "rarity": "rare",
+        "type": "physical",
+        "effect": "run_away"
+    },
+    {
+        "title": "Homing Shot",
+        "text": "Bullets curve towards enemies",
+        "rarity": "legendary",
+        "type": "damage",
+        "effect": "homing_shot"
+    },
+    {
+        "title": "Boomerang Shot",
+        "text": "Bullets return to the player after firing",
+        "rarity": "rare",
+        "type": "damage",
+        "effect": "boomerang_shot"
+    },
+    {
+        "title": "Strong Bullets",
+        "text": "Bullets gain damage over time, but start at 75%",
+        "rarity": "rare",
+        "type": "damage",
+        "effect": "strong_bullet"
+    },
+    {
+        "title": "Bulky Bullets",
+        "text": "Bullets lose damage over time, but start at 150% damage",
+        "rarity": "rare",
+        "type": "damage",
+        "effect": "bulky_bullet"
+    },
+    {
+        "title": "Growing Bullets",
+        "text": "Bullets grow over time",
+        "rarity": "rare",
+        "type": "damage",
+        "effect": "grow_bullets"
     }
 ]
-

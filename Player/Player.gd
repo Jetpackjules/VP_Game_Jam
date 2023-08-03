@@ -3,11 +3,11 @@ extends KinematicBody2D
 # Configurable variables
 var speed: float= 300.0     # Constant speed
 
-export var health: int = 3    # Player's health
+
 var heal_percent: float = 0.0    # Player's health
 
 onready var sprite = $Polygon2D
-onready var health_counter = get_node("HealthBar")
+onready var health_counter = get_node("Health_Counter")
 onready var weapon = get_node("Weapon")
 
 var velocity: Vector2 = Vector2()
@@ -23,7 +23,6 @@ var dead := false
 
 func _ready():
 	Global.player = self
-	$HealthBar.max_health = health
 
 
 #func _input(event):
@@ -65,9 +64,8 @@ func hit(damage: float, knockback_location: Vector2):
 	
 	Global.shake(.3)
 	health_counter.take_damage(damage)
-	health -= damage
-	print(health)
-	if health <= 0:
+
+	if health_counter.current_health <= 0:
 		die()
 	else:
 		var knockback = (global_position - knockback_location).normalized() * 200  # Modify 200 to adjust knockback strength

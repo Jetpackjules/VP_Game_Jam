@@ -11,7 +11,9 @@ var offered_cards = []
 var Card = preload("res://UI/Modifier Cards/Card_Class.gd")
 var Card_Container = preload("res://UI/Modifier Cards/card_connector.tscn")
 
+
 func _ready():
+	Global.card_selection = self
 	var data = load_card_data("res://UI/Modifier Cards/Modifier_Index.json")
 	for card_data in data:
 		var card = Card.new()
@@ -20,18 +22,20 @@ func _ready():
 
 func _input(event):
 	if Input.is_action_just_pressed("cards_toggle"):
-		for _i in range(5):
-			var card1 = pick_card_random()
-			var card2 = pick_card_random()
-			if card1 and card2:
-				var card_container = Card_Container.instance()
-				card_container.set_player_card(card1)
-				card_container.set_enemy_card(card2)
-				add_child(card_container)
-		Global.pause()
+		offer_cards()
 
-		
-		offered_cards.clear()
+func offer_cards():
+	Global.pause()
+	
+	for _i in range(3):
+		var card1 = pick_card_random()
+		var card2 = pick_card_random()
+		if card1 and card2:
+			var card_container = Card_Container.instance()
+			card_container.set_player_card(card1)
+			card_container.set_enemy_card(card2)
+			add_child(card_container)
+	offered_cards.clear()
 
 func load_card_data(path):
 	var file = File.new()
