@@ -5,11 +5,11 @@ var fire_rate: float = 0.3
 var fire_timer: float = 0.0 
 
 # Configurable variables
-var reload_time: float = 1.0
+var reload_time: float = 0.2
 var bullet_speed: float = 1600.0
 var bullet_size: float = 1.3
 var bullet_damage: float = 10.0
-var spread: float = 0.0  # Degrees
+var spread: float = 14.0  # Degrees
 var bullets_fired: int = 1
 
 # State variables
