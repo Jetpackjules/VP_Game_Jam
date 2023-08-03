@@ -38,18 +38,18 @@ func apply_effect():
 		"sharp_shot":
 			pass  # Bullet penetration not defined in provided code
 		"quick_fingers":
-			Global.player.weapon.reload_rate *= 0.8
+			Global.player.weapon.reload_time *= 0.8
 		"heavy_shot":
 			Global.player.weapon.bullet_size *= 1.2
 			Global.player.weapon.bullet_speed *= 0.8
 		"supplements":
 			Global.player.health_counter.set_max_health(Global.player.health_counter.current_health)
 		"smol_heal":
-			Global.player.health_counter.current_health = clamp(Global.player.health_counter.current_health + 1, 0 ,Global.player.health_counter.max_health)
+			Global.player.health_counter.heal_damage(1)
 		"strong_heal":
-			Global.player.health_counter.current_health = clamp(Global.player.health_counter.current_health + 2, 0 ,Global.player.health_counter.max_health)
+			Global.player.health_counter.heal_damage(2)
 		"super_heal":
-			Global.player.health_counter.current_health = clamp(Global.player.health_counter.current_health + Global.player.health_counter.current_health*0.5, 0 ,Global.player.health_counter.max_health)
+			Global.player.health_counter.heal_damage(Global.player.health_counter.current_health*0.5)
 		"force_field":
 			pass  # Shield effect not defined in provided code
 		"hit_frames":

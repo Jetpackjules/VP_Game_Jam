@@ -37,6 +37,7 @@ func take_damage(damage):
 	update_health()
 
 func heal_damage(heal):
+	heal = round(heal)
 	current_health += heal
 	if current_health > max_health:
 		current_health = max_health
