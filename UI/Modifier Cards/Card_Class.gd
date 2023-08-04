@@ -58,7 +58,7 @@ func apply_effect():
 		"heavy_recoil":
 			pass  # Recoil effect not defined in provided code
 		"spiky_skin":
-			pass  # Contact damage not defined in provided code
+			Global.player.get_node("Proximity_Death").collision_damage *= 1.3  # Contact damage not defined in provided code
 		"cardio":
 			Global.player.speed *= 1.1
 		"run_away":
