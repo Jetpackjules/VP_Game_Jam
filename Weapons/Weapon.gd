@@ -8,9 +8,11 @@ var fire_timer: float = 0.0
 var reload_time: float = 0.2
 var bullet_speed: float = 1100.0
 var bullet_size: float = 1.3
-var bullet_damage: float = 10.0
+var bullet_damage: float = 30.0
 var spread: float = 14.0  # Degrees
 var bullets_fired: int = 1
+var knockback_force: float = 1500
+var bullet_penetrations: int = 1
 
 # State variables
 var can_fire: bool = true
@@ -18,6 +20,8 @@ var reload_cooldown: float = 0.0
 
 # Bullet scene
 var Bullet = preload("res://Weapons/Bullets/Bullet.tscn")
+var modifiers: Dictionary = {"boomerang": false}
+
 
 func _physics_process(delta):
 	if Input.is_action_pressed("ui_fire") and !Global.game_paused and can_fire:
@@ -30,10 +34,13 @@ func fire():
 	for i in range(bullets_fired):
 		# Create a bullet and set its properties
 		var bullet = Bullet.instance()
+		bullet.modifiers = modifiers
 		bullet.speed = bullet_speed
 		bullet.size = bullet_size
 		bullet.damage = bullet_damage
-
+		bullet.knockback_force = knockback_force
+		bullet.penetrations = bullet_penetrations
+		
 		# Calculate the angle for this bullet with some randomness
 		var angle = spread * (randf() - 0.5)
 
@@ -43,6 +50,7 @@ func fire():
 		bullet.direction = bullet_direction
 		bullet.rotation = bullet_direction.angle()
 
+		
 		# Add the bullet to the scene
 		get_parent().get_parent().add_child(bullet)
 

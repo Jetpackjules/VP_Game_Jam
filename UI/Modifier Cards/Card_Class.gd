@@ -24,7 +24,7 @@ func apply_effect():
 			Global.player.weapon.bullet_damage *= 1.2
 			Global.player.weapon.bullet_speed *= 0.8
 		"impact_shot":
-			pass  # Knockback effect not defined in provided code
+			Global.player.weapon.knockback_force *= 1.3
 		"sniper":
 			Global.player.weapon.bullets_fired = 1
 			Global.player.weapon.bullet_damage *= 3
@@ -36,14 +36,15 @@ func apply_effect():
 		"close_eye":
 			Global.player.weapon.spread *= 0.8
 		"sharp_shot":
-			pass  # Bullet penetration not defined in provided code
+			Global.player.weapon.bullet_penetrations += 1
 		"quick_fingers":
 			Global.player.weapon.reload_time *= 0.8
 		"heavy_shot":
 			Global.player.weapon.bullet_size *= 1.2
 			Global.player.weapon.bullet_speed *= 0.8
 		"supplements":
-			Global.player.health_counter.set_max_health(Global.player.health_counter.current_health)
+			Global.player.health_counter.set_max_health(Global.player.health_counter.current_health+1)
+			Global.player.health_counter.heal_damage(1)
 		"smol_heal":
 			Global.player.health_counter.heal_damage(1)
 		"strong_heal":
@@ -65,6 +66,7 @@ func apply_effect():
 		"homing_shot":
 			pass  # Bullet curving not defined in provided code
 		"boomerang_shot":
+			Global.player.weapon.modifiers["boomerang"] = true
 			pass  # Bullet return not defined in provided code
 		"strong_bullet":
 			pass
@@ -131,7 +133,7 @@ func remove_effect():
 			"homing_shot":
 				pass
 			"boomerang_shot":
-				pass
+				Global.player.weapon.modifiers["boomerang"] = false
 			"strong_bullet":
 				Global.player.weapon.bullet_damage /= 0.75
 			"bulky_bullet":
