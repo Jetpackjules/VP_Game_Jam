@@ -11,11 +11,11 @@
 [sub_resource type="CircleShape2D" id=1]
 radius = 16.8958
 
-[sub_resource type="CircleShape2D" id=2]
-radius = 20.025
-
 [sub_resource type="OccluderPolygon2D" id=4]
 closed = false
+
+[sub_resource type="CircleShape2D" id=2]
+radius = 20.025
 
 [node name="Player" type="KinematicBody2D"]
 position = Vector2( -10, 6 )
@@ -54,6 +54,12 @@ mode = 2
 shadow_enabled = true
 shadow_color = Color( 0, 0, 0, 0.309804 )
 
+[node name="light_blocker" type="LightOccluder2D" parent="."]
+light_mask = 3
+occluder = SubResource( 4 )
+light_mask = 3
+script = ExtResource( 8 )
+
 [node name="Proximity_Death" parent="." instance=ExtResource( 4 )]
 collision_layer = 2
 collision_mask = 2
@@ -70,12 +76,6 @@ one_shot = true
 
 [node name="Speed Boost" type="Timer" parent="."]
 one_shot = true
-
-[node name="light_blocker" type="LightOccluder2D" parent="."]
-light_mask = 3
-occluder = SubResource( 4 )
-light_mask = 3
-script = ExtResource( 8 )
 
 [connection signal="timeout" from="invincibility_timer" to="." method="_on_invincibility_timer_timeout"]
 [connection signal="timeout" from="Speed Boost" to="." method="_on_Speed_Boost_timeout"]

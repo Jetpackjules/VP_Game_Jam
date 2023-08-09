@@ -34,7 +34,6 @@ script = ExtResource( 8 )
 target_path = NodePath("../Player")
 
 [node name="Player" parent="." instance=ExtResource( 1 )]
-position = Vector2( -940, -106 )
 
 [node name="fps" type="Label" parent="Player"]
 margin_left = -35.2931

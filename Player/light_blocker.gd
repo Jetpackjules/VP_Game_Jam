@@ -4,8 +4,8 @@ extends LightOccluder2D
 #var radius := 50.0
 
 
-var numSides := 1
-var radius := 50.0
+export var numSides := 1
+export var radius := 50.0
 
 
 var increment: float = 0
