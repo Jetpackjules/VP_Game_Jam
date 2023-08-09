@@ -23,7 +23,6 @@ onready var invincibility_timer = get_node("invincibility_timer")
 var modifiers: Dictionary = {"run_away": false}
 var run_away_time := 3.0
 
-
 var dead := false
 
 func _ready():
