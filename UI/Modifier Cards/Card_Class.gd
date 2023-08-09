@@ -57,6 +57,7 @@ func apply_effect():
 			Global.player.invincibility_duration *= 1.2
 		"heavy_recoil":
 			pass  # Recoil effect not defined in provided code
+#			Reckon I should remove this one... 
 		"spiky_skin":
 			Global.player.get_node("Proximity_Death").collision_damage *= 1.3  # Contact damage not defined in provided code
 		"cardio":
@@ -74,10 +75,8 @@ func apply_effect():
 		"bulky_bullet":
 			Global.player.weapon.bullet_damage_rate -= (0.60/60) # (% per second) (60 ticks per sec)
 			Global.player.weapon.bullet_damage *= 1.5
-			
 		"grow_bullets":
 			Global.player.weapon.bullet_grow_rate += 0.01
-			pass  # Bullet growth not defined in provided code
 		_:
 			print("UNDEFINED EFFECT!")
 			remove_effect()

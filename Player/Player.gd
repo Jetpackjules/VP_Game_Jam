@@ -7,6 +7,7 @@ var speed: float= 300.0     # Constant speed
 var heal_percent: float = 0.0    # Player's health
 
 onready var sprite = $Polygon2D
+onready var light_blocker = $light_blocker
 onready var health_counter = get_node("Health_Counter")
 onready var weapon = get_node("Weapon")
 
@@ -43,6 +44,7 @@ func _process(delta):
 	# Player always faces the mouse
 	facing_rotation = get_global_mouse_position().angle_to_point(global_position)
 	sprite.rotation = facing_rotation
+	light_blocker.rotation = facing_rotation + light_blocker.increment/2 # + 0.785398 # 45 degrees in radians
 
 	# Get input for movement
 	var move_dir: Vector2 = Vector2()

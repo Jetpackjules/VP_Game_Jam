@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://Player/Player.gd" type="Script" id=1]
 [ext_resource path="res://Assets/Constant_Light.tres" type="Texture" id=2]
@@ -6,6 +6,7 @@
 [ext_resource path="res://Modules/Proximity_Death.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Assets/Player Color.tres" type="Material" id=5]
 [ext_resource path="res://Player/HealthBar.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Player/light_blocker.gd" type="Script" id=8]
 
 [sub_resource type="CircleShape2D" id=1]
 radius = 16.8958
@@ -13,7 +14,11 @@ radius = 16.8958
 [sub_resource type="CircleShape2D" id=2]
 radius = 20.025
 
+[sub_resource type="OccluderPolygon2D" id=4]
+closed = false
+
 [node name="Player" type="KinematicBody2D"]
+position = Vector2( -10, 6 )
 z_index = 2
 collision_layer = 5
 collision_mask = 5
@@ -65,6 +70,12 @@ one_shot = true
 
 [node name="Speed Boost" type="Timer" parent="."]
 one_shot = true
+
+[node name="light_blocker" type="LightOccluder2D" parent="."]
+light_mask = 3
+occluder = SubResource( 4 )
+light_mask = 3
+script = ExtResource( 8 )
 
 [connection signal="timeout" from="invincibility_timer" to="." method="_on_invincibility_timer_timeout"]
 [connection signal="timeout" from="Speed Boost" to="." method="_on_Speed_Boost_timeout"]
