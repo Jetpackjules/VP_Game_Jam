@@ -63,4 +63,8 @@ layer = 1
 process_mode = 0
 one_shot = true
 
+[node name="Speed Boost" type="Timer" parent="."]
+one_shot = true
+
 [connection signal="timeout" from="invincibility_timer" to="." method="_on_invincibility_timer_timeout"]
+[connection signal="timeout" from="Speed Boost" to="." method="_on_Speed_Boost_timeout"]

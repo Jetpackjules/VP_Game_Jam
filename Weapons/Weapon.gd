@@ -13,6 +13,8 @@ var spread: float = 14.0  # Degrees
 var bullets_fired: int = 1
 var knockback_force: float = 1500
 var bullet_penetrations: int = 1
+var bullet_grow_rate: float = 1
+var bullet_damage_rate: float = 1
 
 # State variables
 var can_fire: bool = true
@@ -40,6 +42,8 @@ func fire():
 		bullet.damage = bullet_damage
 		bullet.knockback_force = knockback_force
 		bullet.penetrations = bullet_penetrations
+		bullet.grow_rate = bullet_grow_rate
+		bullet.damage_rate = bullet_damage_rate
 		
 		# Calculate the angle for this bullet with some randomness
 		var angle = spread * (randf() - 0.5)

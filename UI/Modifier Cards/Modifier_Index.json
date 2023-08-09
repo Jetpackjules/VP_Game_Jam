@@ -1,5 +1,4 @@
-[
-    {
+[{
         "title": "Extra Barrel",
         "text": "+1 bullets fired, more spread",
         "rarity": "rare",
@@ -35,12 +34,12 @@
         "effect": "bullet_wings"
     },
     {
-    "title": "Power Shot",
-    "text": "Bigger Bullets, More damage",
-    "rarity": "legendary",
-    "type": "damage",
-    "effect": "power_shot"
-	},
+        "title": "Power Shot",
+        "text": "Bigger Bullets, More damage",
+        "rarity": "legendary",
+        "type": "damage",
+        "effect": "power_shot"
+    },
     {
         "title": "Close one eye",
         "text": "Less spread",
@@ -63,11 +62,11 @@
         "effect": "quick_fingers"
     },
     {
-	    "title": "Heavy Shot",
-	    "text": "Bigger, slower bullets",
-	    "rarity": "common",
-	    "type": "damage",
-	    "effect": "heavy_shot"
+        "title": "Heavy Shot",
+        "text": "Bigger, slower bullets",
+        "rarity": "common",
+        "type": "damage",
+        "effect": "heavy_shot"
     },
     {
         "title": "Supplements",

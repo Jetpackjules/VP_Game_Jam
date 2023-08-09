@@ -19,6 +19,10 @@ var invincible: bool = false
 export var invincibility_duration: float = 1.0  # 2 seconds of invincibility
 onready var invincibility_timer = get_node("invincibility_timer")
 
+var modifiers: Dictionary = {"run_away": false}
+var run_away_time := 3.0
+
+
 var dead := false
 
 func _ready():
@@ -62,6 +66,10 @@ func hit(damage: float, knockback_location: Vector2):
 	if invincible or dead:
 		return
 	
+	if (modifiers["run_away"]):
+		speed_boost(run_away_time)
+
+
 	Global.shake(.3)
 	health_counter.take_damage(damage)
 
@@ -99,4 +107,15 @@ func _on_invincibility_timer_timeout():
 		invincible = false
 #		get_node("Proximity_Death").monitoring = true
 		sprite.modulate = Color.white  # Return the sprite to its normal color
+
+
+func speed_boost(time: float):
+	var test = get_node("Speed Boost")
+	var test2 = get_node("Speed Boost").time_left
+	if get_node("Speed Boost").time_left <= 0:
+		speed *= 1.4
+	get_node("Speed Boost").start(time)
+
+func _on_Speed_Boost_timeout():
+	speed /= 1.4
 

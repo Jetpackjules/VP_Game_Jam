@@ -62,19 +62,21 @@ func apply_effect():
 		"cardio":
 			Global.player.speed *= 1.1
 		"run_away":
-			pass  # Speed boost after damage not defined in provided code
+			Global.player.modifiers["run_away"] = true
 		"homing_shot":
 			pass  # Bullet curving not defined in provided code
 		"boomerang_shot":
 			Global.player.weapon.modifiers["boomerang"] = true
 			pass  # Bullet return not defined in provided code
 		"strong_bullet":
-			pass
-			Global.player.weapon.bullet_damage *= 0.75  # Assuming bullet damage increases over time elsewhere
+			Global.player.weapon.bullet_damage_rate += (0.60/60)  # (% per second) (60 ticks per sec)
+			Global.player.weapon.bullet_damage *= 0.75
 		"bulky_bullet":
-			pass
-			Global.player.weapon.bullet_damage *= 1.5  # Assuming bullet damage decreases over time elsewhere
+			Global.player.weapon.bullet_damage_rate -= (0.60/60) # (% per second) (60 ticks per sec)
+			Global.player.weapon.bullet_damage *= 1.5
+			
 		"grow_bullets":
+			Global.player.weapon.bullet_grow_rate += 0.01
 			pass  # Bullet growth not defined in provided code
 		_:
 			print("UNDEFINED EFFECT!")

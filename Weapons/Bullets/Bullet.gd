@@ -15,6 +15,10 @@ var bullet_owner = null
 var velocity: Vector2 = Vector2()
 
 
+# Over time mods:
+var grow_rate: float = 1
+var damage_rate: float = 1
+
 
 # Modifiers
 var modifiers: Dictionary
@@ -22,19 +26,25 @@ var penetrations: int
 
 func _ready():
 	# Set the size of the bullet
-	get_node("ColorRect").rect_scale = Vector2(size, size)
-	get_node("CollisionShape2D").scale = Vector2(size, size)
-
+	set_size(size)
 	# Set the velocity of the bullet
 	velocity = direction.normalized() * speed
 
-
+func set_size(scale):
+	get_node("ColorRect").rect_scale = Vector2(scale, scale)
+	get_node("CollisionShape2D").scale = Vector2(scale, scale)
 
 func _process(delta):
 	# Move the bullet 
 	position += velocity * delta
 	rotation = velocity.angle()
-
+	
+	# Effects over time
+	size *= grow_rate
+	set_size(size)
+	damage *= damage_rate
+	
+	print(damage, " <-- dmg")
 
 	# Apply modifiers
 	if modifiers["boomerang"]:
