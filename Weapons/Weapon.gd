@@ -12,7 +12,7 @@ var bullet_damage: float = 30.0
 var spread: float = 14.0  # Degrees
 var bullets_fired: int = 1
 var knockback_force: float = 1500
-var bullet_penetrations: int = 1
+var bullet_penetrations: int = 0
 var bullet_grow_rate: float = 1
 var bullet_damage_rate: float = 1
 
@@ -22,7 +22,7 @@ var reload_cooldown: float = 0.0
 
 # Bullet scene
 var Bullet = preload("res://Weapons/Bullets/Bullet.tscn")
-var modifiers: Dictionary = {"boomerang": false}
+var modifiers: Dictionary = {"boomerang": false, "homing": false}
 
 
 func _physics_process(delta):
@@ -31,7 +31,7 @@ func _physics_process(delta):
 
 func fire():
 	#	screenshake:
-	Global.shake(.1, 1)
+	Global.shake(.15, 1.6)
 	
 	for i in range(bullets_fired):
 		# Create a bullet and set its properties

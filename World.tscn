@@ -1,11 +1,10 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://Player/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://UI/Modifier Selection.tscn" type="PackedScene" id=2]
 [ext_resource path="res://UI/Darkened_Background.tscn" type="PackedScene" id=3]
 [ext_resource path="res://fonts/connection_ii/ConnectionII.otf" type="DynamicFontData" id=4]
 [ext_resource path="res://Level_Gen/Level_manager.tscn" type="PackedScene" id=5]
-[ext_resource path="res://Assets/circle.png" type="Texture" id=6]
 [ext_resource path="res://Enemy_Spawner.gd" type="Script" id=7]
 [ext_resource path="res://Gameplay_Camera.gd" type="Script" id=8]
 [ext_resource path="res://UI.gd" type="Script" id=10]
@@ -17,12 +16,6 @@ extra_spacing_top = 1
 extra_spacing_bottom = 1
 extra_spacing_char = 1
 font_data = ExtResource( 4 )
-
-[sub_resource type="StyleBoxFlat" id=30]
-corner_radius_top_left = 50
-corner_radius_top_right = 50
-corner_radius_bottom_right = 50
-corner_radius_bottom_left = 50
 
 [node name="World" type="Node2D"]
 
@@ -56,18 +49,3 @@ script = ExtResource( 13 )
 
 [node name="Enemy_Spawner" type="Node2D" parent="."]
 script = ExtResource( 7 )
-
-[node name="Panel" type="Panel" parent="."]
-margin_left = -712.0
-margin_top = 171.0
-margin_right = -655.0
-margin_bottom = 228.0
-custom_styles/panel = SubResource( 30 )
-
-[node name="Sprite" type="Sprite" parent="."]
-modulate = Color( 0.552941, 0.12549, 0.12549, 1 )
-light_mask = 2
-position = Vector2( -672, 226 )
-scale = Vector2( 0.313, 0.313 )
-z_index = 1752
-texture = ExtResource( 6 )

@@ -10,6 +10,14 @@ var health_increase := 0.0
 
 export var enemy_type: PackedScene
 
+var enemy_modifiers_defaults = {
+	"increase_enemy_armor": 0,
+	"increase_swarmer_speed": 1.0,
+	# ... Add other modifiers with their default values here ...
+}
+
+var active_enemy_modifiers = {}
+
 func _ready():
 	Global.connect("new_level", self, "reset_enemies")
 	# Get a list of all the enemy scenes
@@ -35,6 +43,7 @@ func spawn_enemies():
 			enemy = enemy_scene.instance()  # Create an instance of the enemy
 		
 		enemy.global_position = get_random_spawn_position()  # Set its position off-screen
+		enemy.add_to_group("enemies")
 		add_child(enemy)  # Add it to the scene tree
 
 		speed_increase += 0.3
@@ -85,3 +94,10 @@ func reset_enemies():
 	clear_enemies()
 	spawn_enemies()
 
+
+func apply_modifiers_to_enemy(enemy):
+	for modifier_name in active_enemy_modifiers.keys():
+		match modifier_name:
+			"increase_swarmer_speed":
+				if enemy.get_node("Navigation"):
+					enemy.get_node("Navigation").speed *= active_enemy_modifiers[modifier_name]

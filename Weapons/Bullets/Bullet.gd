@@ -9,6 +9,11 @@ var knockback_force: float
 
 var boomerang_distance: float = 500.0  # The distance at which the bullet will boomerang (NEED TO MAKE THIS CHANGE DEPENDING ON SPEED ETC!)
 
+var homing_strength = 0.10  # Adjust this value to change how quickly the bullet turns
+var target_enemy = null
+
+
+
 var bullet_owner = null
 
 # State variables
@@ -38,7 +43,7 @@ func _process(delta):
 	# Move the bullet 
 	position += velocity * delta
 	rotation = velocity.angle()
-	
+
 	# Effects over time
 	size *= grow_rate
 	set_size(size)
@@ -53,8 +58,13 @@ func _process(delta):
 			# Gradually turn the bullet around
 			var target_direction = (start_position - global_position).normalized()
 			velocity = velocity.linear_interpolate(target_direction * speed, 0.15)
-			if global_position.distance_to(start_position) <= 50.0:  # Bullet has returned to player
-				queue_free()
+#			if global_position.distance_to(start_position) <= 50.0:  # Bullet has returned to player
+#				queue_free()
+	if modifiers["homing"]:
+		target_enemy = get_enemy_in_cone()
+		if target_enemy:
+			var direction_to_enemy = (target_enemy.global_position - global_position).normalized()
+			velocity = velocity.linear_interpolate(direction_to_enemy * speed, homing_strength)
 
 func _on_Bullet_body_entered(body):
 	if body.has_node("Health"):
@@ -69,4 +79,12 @@ func _on_Bullet_body_entered(body):
 	elif body.is_in_group("wall"):
 		queue_free()
 
-
+func get_enemy_in_cone():
+	var enemies = get_tree().get_nodes_in_group("enemies")  # Assuming enemies are in a group named "enemies"
+	var bullet_direction = velocity.normalized()
+	for enemy in enemies:
+		var direction_to_enemy = (enemy.global_position - global_position).normalized()
+		var angle_difference = bullet_direction.angle_to(direction_to_enemy)
+		if abs(angle_difference) <= deg2rad(35):  # 15 degrees to each side, making a 30-degree cone
+			return enemy
+	return null

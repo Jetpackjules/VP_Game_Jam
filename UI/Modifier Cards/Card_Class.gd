@@ -65,10 +65,9 @@ func apply_effect():
 		"run_away":
 			Global.player.modifiers["run_away"] = true
 		"homing_shot":
-			pass  # Bullet curving not defined in provided code
+			Global.player.weapon.modifiers["homing"] = true
 		"boomerang_shot":
 			Global.player.weapon.modifiers["boomerang"] = true
-			pass  # Bullet return not defined in provided code
 		"strong_bullet":
 			Global.player.weapon.bullet_damage_rate += (0.60/60)  # (% per second) (60 ticks per sec)
 			Global.player.weapon.bullet_damage *= 0.75
