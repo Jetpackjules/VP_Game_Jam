@@ -4,6 +4,7 @@ var Exit = preload("res://Level_Gen/Exit.tscn")
 
 onready var Level_Assets = $Level_Assets
 
+var level_iterations := 300
 
 onready var Tilemap_Wall = $TileMap_Wall
 onready var TileMap_Floor = $TileMap_Floor
@@ -30,12 +31,11 @@ func GetRandomDirection():
 	return directions[rng.randi()%4]
 
 func _create_random_path():
-	var max_iterations = 300  # Limit the total amount of floor tiles
 	var itr = 0
 	
 	var walker = Vector2.ZERO
 	
-	while itr < max_iterations:
+	while itr < level_iterations:
 		# Perform random walk
 		var random_direction = GetRandomDirection()
 		walker += random_direction

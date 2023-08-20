@@ -1,24 +1,31 @@
 [
     {
+        "title": "Rapid Fire Snipers",
+        "text": "Snipers shoot 30% faster.",
+        "rarity": "uncommon",
+        "type": "fire_rate",
+        "effect": "increase_sniper_fire_rate"
+    },
+    {
+        "title": "Tanky Tanks",
+        "text": "Tanks have 20% more health.",
+        "rarity": "common",
+        "type": "health",
+        "effect": "increase_tank_health"
+    },
+    {
+        "title": "Slippery Floor",
+        "text": "The floor becomes slippery, affecting all movement.",
+        "rarity": "rare",
+        "type": "hazard",
+        "effect": "slippery_floor"
+    },    
+    {
         "title": "Speedy Swarmers",
         "text": "Swarmers move 50% faster.",
         "rarity": "uncommon",
         "type": "speed",
         "effect": "increase_swarmer_speed"
-    },
-    {
-        "title": "Stealthy Hiders",
-        "text": "Hiders remain invisible for longer durations.",
-        "rarity": "common",
-        "type": "stealth",
-        "effect": "increase_hider_invisibility_duration"
-    },
-    {
-        "title": "Smaller Levels",
-        "text": "The level size is reduced, making it more challenging to navigate.",
-        "rarity": "uncommon",
-        "type": "level",
-        "effect": "reduce_level_size"
     },
     {
         "title": "+1 Enemy per Level",
@@ -42,18 +49,11 @@
         "effect": "add_3_enemies"
     },
     {
-        "title": "Labyrinthine",
-        "text": "Levels have more complex and maze-like structures.",
+        "title": "Cramped Quarters",
+        "text": "Levels become smaller",
         "rarity": "rare",
         "type": "level",
-        "effect": "increase_maze_complexity"
-    },
-    {
-        "title": "Bouncing Tanks",
-        "text": "Tank enemies now bounce off walls, making them unpredictable.",
-        "rarity": "uncommon",
-        "type": "movement",
-        "effect": "tanks_bounce"
+        "effect": "shrink_level"
     },
     {
         "title": "Double Damage Snipers",

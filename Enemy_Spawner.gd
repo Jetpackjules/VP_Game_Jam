@@ -12,7 +12,7 @@ export var enemy_type: PackedScene
 
 # Dictionary to store active enemy modifiers
 var active_enemy_modifiers = {}
-var extra_enemies = 0  # This will store the extra enemies to be spawned due to modifiers
+
 
 func _ready():
 	Global.connect("new_level", self, "reset_enemies")
@@ -95,19 +95,22 @@ func reset_enemies():
 
 #---------------------------------------------------------------
 func apply_modifiers_to_enemy(enemy):
-	for modifier_name in active_enemy_modifiers.keys():
+	for modifier_name in active_enemy_modifiers:
 		match modifier_name:
-			"increase_enemy_armor":
-				if enemy.is_in_group("contact") or enemy.is_in_group("ranged") or enemy.is_in_group("tank"):
-					enemy.get_node("Health").armor += active_enemy_modifiers[modifier_name]
 			"increase_swarmer_speed":
 				if enemy.is_in_group("contact"):
 					enemy.get_node("Navigation").speed *= (1 + active_enemy_modifiers[modifier_name])
-			"increase_sniper_accuracy":
-				if enemy.is_in_group("ranged"):
-					enemy.accuracy *= (1 + active_enemy_modifiers[modifier_name])
+			"double_sniper_damage":
+				if enemy.is_in_group("sniper"):
+					enemy.damage *= active_enemy_modifiers[modifier_name]
+			"increase_sniper_fire_rate":
+				if enemy.is_in_group("sniper"):
+					enemy.fire_rate *= (1 - active_enemy_modifiers[modifier_name])
+			"increase_tank_health":
+				if enemy.is_in_group("tank"):
+					enemy.get_node("Health").max_health *= (1 + active_enemy_modifiers[modifier_name])
+					enemy.get_node("Health").current_health = enemy.get_node("Health").max_health
 			# ... Add other direct stat changes for different enemy types here ...
 
-# Reset the extra_enemies count after spawning
-func _on_level_end():
-	extra_enemies = 0
+
+

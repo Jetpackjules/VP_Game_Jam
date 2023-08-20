@@ -29,9 +29,6 @@ func _ready():
 	Global.player = self
 
 
-#func _input(event):
-#	if event.is_action_pressed("ui_fire") and !Global.game_paused:
-#		weapon.fire()
 
 func _process(delta):
 #	enemy_hider.rotation = -rotation
