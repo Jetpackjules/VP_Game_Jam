@@ -5,21 +5,18 @@ var enemy_scenes = []  # List of enemy scenes
 export var total_enemies = 10  # Total number of enemies to spawn
 var enemies_spawned = 0  # Number of enemies spawned so far
 
-var speed_increase := 0.0
-var health_increase := 0.0
+
 
 export var enemy_type: PackedScene
 
-var enemy_modifiers_defaults = {
-	"increase_enemy_armor": 0,
-	"increase_swarmer_speed": 1.0,
-	# ... Add other modifiers with their default values here ...
-}
 
+# Dictionary to store active enemy modifiers
 var active_enemy_modifiers = {}
+var extra_enemies = 0  # This will store the extra enemies to be spawned due to modifiers
 
 func _ready():
 	Global.connect("new_level", self, "reset_enemies")
+	Global.enemy_spawner = self
 	# Get a list of all the enemy scenes
 	var dir = Directory.new()
 	if dir.open(enemy_folder_path) == OK:
@@ -44,10 +41,11 @@ func spawn_enemies():
 		
 		enemy.global_position = get_random_spawn_position()  # Set its position off-screen
 		enemy.add_to_group("enemies")
+		apply_modifiers_to_enemy(enemy)  # Apply active modifiers to the spawned enemy
 		add_child(enemy)  # Add it to the scene tree
 
-		speed_increase += 0.3
-		health_increase += 2.5
+
+
 
 	enemies_spawned = total_enemies  # Set the number of enemies spawned to total_enemies
 
@@ -95,9 +93,21 @@ func reset_enemies():
 	spawn_enemies()
 
 
+#---------------------------------------------------------------
 func apply_modifiers_to_enemy(enemy):
 	for modifier_name in active_enemy_modifiers.keys():
 		match modifier_name:
+			"increase_enemy_armor":
+				if enemy.is_in_group("contact") or enemy.is_in_group("ranged") or enemy.is_in_group("tank"):
+					enemy.get_node("Health").armor += active_enemy_modifiers[modifier_name]
 			"increase_swarmer_speed":
-				if enemy.get_node("Navigation"):
-					enemy.get_node("Navigation").speed *= active_enemy_modifiers[modifier_name]
+				if enemy.is_in_group("contact"):
+					enemy.get_node("Navigation").speed *= (1 + active_enemy_modifiers[modifier_name])
+			"increase_sniper_accuracy":
+				if enemy.is_in_group("ranged"):
+					enemy.accuracy *= (1 + active_enemy_modifiers[modifier_name])
+			# ... Add other direct stat changes for different enemy types here ...
+
+# Reset the extra_enemies count after spawning
+func _on_level_end():
+	extra_enemies = 0

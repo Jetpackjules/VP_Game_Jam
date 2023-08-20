@@ -1,24 +1,10 @@
 [
     {
-        "title": "Armored Enemies",
-        "text": "Enemies gain additional armor, making them tougher to defeat.",
-        "rarity": "common",
-        "type": "defense",
-        "effect": "increase_enemy_armor"
-    },
-    {
         "title": "Speedy Swarmers",
         "text": "Swarmers move 50% faster.",
         "rarity": "uncommon",
         "type": "speed",
         "effect": "increase_swarmer_speed"
-    },
-    {
-        "title": "Sniper Precision",
-        "text": "Snipers have increased accuracy.",
-        "rarity": "rare",
-        "type": "accuracy",
-        "effect": "increase_sniper_accuracy"
     },
     {
         "title": "Stealthy Hiders",

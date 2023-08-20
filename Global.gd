@@ -12,7 +12,7 @@ var Tilemap_Floor: TileMap = null
 var Nav: Navigation2D = null
 var Level_Assets: Node = null
 var card_selection: HBoxContainer
-
+var enemy_spawner: Node2D
 
 func shake(trauma_in, power = 2):
 	camera.trigger_shake(trauma_in, power)
