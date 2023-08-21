@@ -20,14 +20,14 @@ func apply_effect():
 	match effect:
 		"increase_swarmer_speed":
 			if Global.Enemy_spawner.active_enemy_modifiers.has(effect):
-				Global.Enemy_spawner.active_enemy_modifiers[effect] += 0.5
+				Global.Enemy_spawner.active_enemy_modifiers[effect] += 0.35
 			else:
-				Global.Enemy_spawner.active_enemy_modifiers[effect] = 0.5
-		"double_sniper_damage":
+				Global.Enemy_spawner.active_enemy_modifiers[effect] = 0.35
+		"more_sniper_damage":
 			if Global.Enemy_spawner.active_enemy_modifiers.has(effect):
-				Global.Enemy_spawner.active_enemy_modifiers[effect] += 2.0
+				Global.Enemy_spawner.active_enemy_modifiers[effect] += 1
 			else:
-				Global.Enemy_spawner.active_enemy_modifiers[effect] = 2.0
+				Global.Enemy_spawner.active_enemy_modifiers[effect] = 1
 			if Global.Enemy_spawner.active_enemy_modifiers.has(effect):
 				Global.Enemy_spawner.active_enemy_modifiers[effect] += 0.3
 			else:

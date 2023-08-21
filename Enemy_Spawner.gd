@@ -93,17 +93,13 @@ func apply_modifiers_to_enemy(enemy):
 			"increase_swarmer_speed":
 				if enemy.is_in_group("contact"):
 					enemy.get_node("Navigation").speed *= (1 + active_enemy_modifiers[modifier_name])
-			"double_sniper_damage":
+			"more_sniper_damage":
 				if enemy.is_in_group("sniper"):
-					enemy.damage *= active_enemy_modifiers[modifier_name]
-			"increase_sniper_fire_rate":
-				if enemy.is_in_group("sniper"):
-					enemy.fire_rate *= (1 - active_enemy_modifiers[modifier_name])
+					enemy.damage += (active_enemy_modifiers[modifier_name])
 			"increase_tank_health":
 				if enemy.is_in_group("tank"):
-					enemy.get_node("Health").max_health *= (1 + active_enemy_modifiers[modifier_name])
-					enemy.get_node("Health").current_health = enemy.get_node("Health").max_health
+					enemy.get_node("Health").health *= (1 + active_enemy_modifiers[modifier_name])
 			# ... Add other direct stat changes for different enemy types here ...
-
+	pass
 
 
