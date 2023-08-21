@@ -17,7 +17,7 @@ corner_radius_bottom_right = 25
 corner_radius_bottom_left = 25
 anti_aliasing = false
 
-[node name="Bouncer" type="KinematicBody2D" groups=["Bouncer"]]
+[node name="Bouncer" type="KinematicBody2D" groups=["bouncer"]]
 light_mask = 2
 collision_layer = 0
 collision_mask = 3

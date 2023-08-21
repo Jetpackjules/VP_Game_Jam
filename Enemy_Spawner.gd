@@ -16,7 +16,7 @@ var active_enemy_modifiers = {}
 
 func _ready():
 	Global.connect("new_level", self, "reset_enemies")
-	Global.enemy_spawner = self
+	Global.Enemy_spawner = self
 	# Get a list of all the enemy scenes
 	var dir = Directory.new()
 	if dir.open(enemy_folder_path) == OK:
@@ -49,13 +49,6 @@ func spawn_enemies():
 
 	enemies_spawned = total_enemies  # Set the number of enemies spawned to total_enemies
 
-
-#func _process(delta):
-#	# pause or resume the spawn timer based on the game state
-#	if Global.game_paused and spawn_timer.is_stopped() == false:
-#		spawn_timer.stop()
-#	elif not Global.game_paused and spawn_timer.is_stopped() == true:
-#		spawn_timer.start(spawn_interval)  # Restart the timer with new interval
 
 func get_random_spawn_position():
 	var tilemap = Global.Tilemap_Floor

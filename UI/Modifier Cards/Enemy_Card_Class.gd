@@ -16,6 +16,7 @@ func load_data(data):
 
 func apply_effect():
 	# Handle enemy effects
+	var test = Global.Enemy_spawner.active_enemy_modifiers
 	match effect:
 		"increase_swarmer_speed":
 			if Global.Enemy_spawner.active_enemy_modifiers.has(effect):
@@ -47,9 +48,7 @@ func apply_effect():
 		"add_3_enemies":
 			Global.Enemy_spawner.total_enemies += 3
 		"shrink_level":
-			Global.LevelGenerator.level_iterations *= 0.8
-		"slippery_floor":
-			Global.LevelGenerator.make_floor_slippery()
+			Global.Level_Manager.level_iterations *= 0.8
 		# ... Add other level effects here ...
 
 

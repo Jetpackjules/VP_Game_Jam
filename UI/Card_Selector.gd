@@ -24,7 +24,7 @@ func _ready():
 		player_cards.append(card)
 	
 	for card_data in enemy_data:
-		var enemy_card = Card.new()
+		var enemy_card = Enemy_Card.new()
 		enemy_card.load_data(card_data)
 		enemy_cards.append(enemy_card)
 

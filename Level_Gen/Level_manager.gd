@@ -148,6 +148,7 @@ func find_furthest_tile(from):
 	return furthest_tile
 
 func _ready():
+	Global.Level_Manager = self
 	Global.Nav = $Navigation2D
 	Global.Tilemap_Wall = Tilemap_Wall
 	Global.Tilemap_Floor = TileMap_Floor

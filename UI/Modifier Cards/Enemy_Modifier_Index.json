@@ -12,13 +12,6 @@
         "rarity": "common",
         "type": "health",
         "effect": "increase_tank_health"
-    },
-    {
-        "title": "Slippery Floor",
-        "text": "The floor becomes slippery, affecting all movement.",
-        "rarity": "rare",
-        "type": "hazard",
-        "effect": "slippery_floor"
     },    
     {
         "title": "Speedy Swarmers",
