@@ -54,12 +54,5 @@
         "rarity": "rare",
         "type": "damage",
         "effect": "double_sniper_damage"
-    },
-    {
-        "title": "Toxic Trail",
-        "text": "Enemies leave a toxic trail behind, damaging the player on contact.",
-        "rarity": "rare",
-        "type": "hazard",
-        "effect": "enemies_leave_toxic_trail"
     }
 ]

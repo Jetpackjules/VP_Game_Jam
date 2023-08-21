@@ -29,7 +29,30 @@ var damage_rate: float = 1
 var modifiers: Dictionary
 var penetrations: int
 
+onready var sprite = $ColorRect
+
+func apply_visual_effects():
+	# If homing, make the bullet more purply
+	if modifiers["homing"]:
+		sprite.modulate = Color(1, 0.5, 1)  # Purple color
+
+	# If boomerang, add a trail effect (you can expand on this)
+	if modifiers["boomerang"]:
+		# Assuming you have a Trail node or scene
+		pass
+
+	# For damage_rate, adjust the bullet's color intensity
+	var damage_intensity = map_value(damage, 0, 1, 1, 0.5)
+	sprite.modulate = sprite.modulate.linear_interpolate(Color(1, 0, 0), damage_intensity)  # Red color for damage
+
+
+# Utility function to map a value from one range to another
+func map_value(value, in_min, in_max, out_min, out_max):
+	return (value - in_min) * (out_max - out_min) / (in_max - in_min) + out_min
+
+
 func _ready():
+	apply_visual_effects()
 	# Set the size of the bullet
 	set_size(size)
 	# Set the velocity of the bullet
